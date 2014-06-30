@@ -24,4 +24,9 @@ class Room
 		@items.delete(item.to_sym)
 	end
 
+	def look
+		puts @name.cyan
+		puts @description
+	end
+
 end

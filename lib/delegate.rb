@@ -9,26 +9,26 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:castle_entrance].enter
+		@current_room = @rooms[:castle_courtyard].enter
 	end
 
 	def parse(input)
 		case input
-		when /^?<(direction>(north|east|south|west|n|e|s|w))$/
+		when /^(?<direction>(north|east|south|west|n|e|s|w))$/
 			direction = $~[:direction]
 			walk(direction)
-		
 		when /^(go|walk) (?<direction>(north|east|south|west|to mordor))$/
 			direction = $~[:direction]
 			walk(direction)
-
 		when /^(get|take|pickup|pick up) (?<item>[a-z ]+)$/
 			item = $~[:item]
 			pickup(item)
-
+		when "look"
+			look
 		when /^(i|inv|inventory)$/
 			inventory
-
+		when /^(quit|exit)$/
+			quit
 		else
 			puts "What?"
 		end
@@ -53,6 +53,14 @@ class Delegate
 
 	def inventory
 		@player.inventory
+	end
+
+	def look
+		@current_room.look
+	end
+
+	def quit
+		exit
 	end
 
 	#     _   __                   
@@ -111,7 +119,7 @@ class Delegate
 
 	/^And if you ask me how I(')?m feeling[\.,]?$/i,
 	/^Don(')?t tell me you(')?re too blind to see[\.,]?$/i,
-
+	# 👻
 	/^Never gonna give you up[\.,]?$/i,
 	/^Never gonna let you down[\.,]?$/i,
 	/^Never gonna run around and desert you[\.,]?$/i,
