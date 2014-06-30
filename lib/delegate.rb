@@ -114,7 +114,7 @@ class Delegate
 	/^We(')?ve known each other for so long[\.,]?$/i,
 	/^Your heart(')?s been aching, but[\.,]?$/i,
 	/^You(')?re too shy to say it[\.,]?$/i,
-	/^Inside, we both know what(')?s been going on[\.,]?$/i,
+	/^Inside,? we both know what(')?s been going on[\.,]?$/i,
 	/^We know the game and we(')?re gonna play it[\.,]?$/i,
 
 	/^And if you ask me how I(')?m feeling[\.,]?$/i,
@@ -136,15 +136,15 @@ class Delegate
 
 	/^Ooh, give you up[\.,]?$/i,
 	/^Ooh, give you up[\.,]?$/i,
-	/^Never gonna give, never gonna give[\.,]?$/i,
+	/^Never gonna give,? never gonna give[\.,]?$/i,
 	/^Give you up[\.,]?$/i,
-	/^Never gonna give, never gonna give[\.,]?$/i,
+	/^Never gonna give,? never gonna give[\.,]?$/i,
 	/^Give you up[\.,]?$/i,
 
 	/^We(')?ve known each other for so long[\.,]?$/i,
 	/^Your heart(')?s been aching, but[\.,]?$/i,
 	/^You(')?re too shy to say it[\.,]?$/i,
-	/^Inside, we both know what(')?s been going on[\.,]?$/i,
+	/^Inside,? we both know what(')?s been going on[\.,]?$/i,
 	/^We know the game and we(')?re gonna play it[\.,]?$/i,
 
 	/^I just wanna tell you how I(')?m feeling[\.,]?$/i,
