@@ -2,6 +2,12 @@
   but replace _ with a space
 - Use spaces not tabs for this file because of different tab widths
 
+######### Key: #########
+#                      #
+#  @ = you start here  #
+#                      #
+########################
+
 Map Starts Here:
 
 
@@ -12,8 +18,15 @@ Map Starts Here:
                                 |
                              castle
                                 |
+                                @
                             courtyard
                                 |
                              forest
                              	|
                            more forest -- banyan tree
+                                |
+                          forest shade
+                                |
+                         even more forest
+                                |
+                        too much forest -- path to village -- village
