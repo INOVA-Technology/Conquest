@@ -15,10 +15,10 @@
 #                    {\__--_/}    / \\_>- )<__\      \
 #                    /'   (_/  _-~  | |__>--<__|      | 
 #                   |0  0 _/) )-~     | |__>--<__|      |
-#                   / /~ ,_/       / /__>---<__/      |  
+#                   / /~ ,_/       / /__>---<__/      |
 #                  o o _//        /-~_>---<__-~      /
-#                  (^(~          /~_>---<__-      _-~              
-#                 ,/|           /__>--<__/     _-~                 
+#                  (^(~          /~_>---<__-      _-~
+#                 ,/|           /__>--<__/     _-~
 #              ,//('(          |__>--<__|     /                  .----_ 
 #             ( ( '))          |__>--<__|    |                 /' _---_~\
 #          `-)) )) (           |__>--<__|    |               /'  /     ~\`\
@@ -28,7 +28,7 @@
 #   ._-~//( )/ )) `                    ~~-'_/_/ /~~~~~~~__--~ 
 #    ;'( ')/ ,)(                              ~~~~~~~~~~ 
 #   ' ') '( (/
-#     '   '  `   
+#     '   '  `
 
 
 # fun game: find all the 👻's in the source code
@@ -36,12 +36,16 @@
 # If you add a ghost please hide it well
 # And don't use cmd+f/ctrl+f to find them, thats lame 👎
 
-# TODO: (* == important)
-# 	make better names && descriptions for rooms
-# *	have the room descriptions tell where you can go
-# 	make function that replaces stuff like east with e
-# 	add some kind of plot
-# 	add a readme
+# TODO: (* = important/fix soon, - = a must have for release)
+#
+# 	*	have the room descriptions tell where you can go
+# 	-	make better names && descriptions for rooms
+# 	-	make function that replaces stuff like east with e
+# 	-	have at least 50 different rooms
+# 	-	make current_room a propert of player, not delegate
+# 	-	add ability so save game
+# 		add some kind of plot
+# 		add a readme
 
 # AND DON'T YOU DARE USE SPACES FOR TABS IN MY CODE
 # http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
@@ -52,6 +56,11 @@ def prompt(_prompt = "")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
+require_relative 'lib/colors'
+require_relative 'lib/item'
+require_relative 'lib/room'
+require_relative 'lib/room_list'
+require_relative 'lib/player'
 require_relative 'lib/delegate'
 
 delegate = Delegate.new

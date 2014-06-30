@@ -1,9 +1,3 @@
-require_relative 'colors'
-require_relative 'item'
-require_relative 'room'
-require_relative 'room_list'
-require_relative 'player'
-
 class Delegate
 
 	def initialize

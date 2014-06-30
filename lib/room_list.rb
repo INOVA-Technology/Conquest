@@ -20,7 +20,7 @@ module RoomList
 		hallway:
 			Room.new("Hallway", "This castle has a long hallway",
 				paths: { s: :castle, w: :dinning_hall }
-				)
+				),
 		dinning_hall:
 			Room.new("Dinning hall", "The dinning hall",
 				paths: { e: :hallway }
