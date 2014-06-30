@@ -1,16 +1,19 @@
-Use the ROOMS keys in lib/room_list.rb for names on map,
-but replace _ with a space
+- Use the ROOMS keys in lib/room_list.rb for names on map,
+  but replace _ with a space
+- Use spaces not tabs for this file because of different tab widths
+
+Map Starts Here:
 
 
 
 
 
-
-
-			 dinning room -- hallway
-								|
-							 castle
-								|
-							courtyard
-								|
-							 forest
+             dinning room -- hallway
+                                |
+                             castle
+                                |
+                            courtyard
+                                |
+                             forest
+                             	|
+                           more forest -- banyan tree

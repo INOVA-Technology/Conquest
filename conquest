@@ -44,6 +44,7 @@
 # 	-	have at least 50 different rooms
 # 	-	make current_room a propert of player, not delegate
 # 	-	add ability so save game
+# 	- 	add tests
 # 		add some kind of plot
 # 		add a readme
 
@@ -66,7 +67,8 @@ require_relative 'lib/delegate'
 delegate = Delegate.new
 
 chance = 1000 
-puts "Theres a 1 in #{chance} that this will be printed." if rand(1..chance) == 1
+puts "Theres a 1 in #{chance} that this will be printed." \
+	if rand(1..chance) == 1
 
 loop do
 	💬 = prompt("> ")

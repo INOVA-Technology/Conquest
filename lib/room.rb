@@ -34,13 +34,16 @@ class Room
 	end
 
 	def list_items
-		@items.values.map { |item|
-			unless item.hidden
-				a_or_an = %w[a e i o u].include?(item.name[0]) \
-					? "an" : "a"
-				puts "#{a_or_an} #{item.name.downcase}"
+		unless @items.empty?
+			puts "Items that are here:"
+			@items.values.map do |item|
+				unless item.hidden
+					a_or_an = %w[a e i o u].include?(item.name[0]) \
+						? "an" : "a"
+					puts "#{a_or_an} #{item.name.downcase}"
+				end
 			end
-		}
+		end
 	end
 
 end
