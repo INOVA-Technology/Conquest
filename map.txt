@@ -18,15 +18,14 @@ Map Starts Here:
                                 |
                              castle
                                 |
-                                @
-                            courtyard
+                            @courtyard
                                 |
                              forest
-                             	|
-                           more forest -- banyan tree
+                               	|
+                            forest_1 -- banyan tree
                                 |
-                          forest shade
+                            forest_2
                                 |
-                         even more forest
+              more_trees -- forest_3
                                 |
-                        too much forest -- path to village -- village
+                            forest_4 -- path to village -- village
