@@ -14,23 +14,27 @@
 # If you add a ghost please hide it well
 # And don't use cmd+f/ctrl+f to find them, thats lame 👎
 
-# TODO:
+# TODO: (* == important)
 # 	make better names && descriptions for rooms
+# *	have the room descriptions tell where you can go
 # 	make function that replaces stuff like east with e
-# 	stop wasting time
+# 	add some kind of plot
 
 # AND DON'T YOU DARE USE SPACES FOR TABS IN MY CODE
 # http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
 require "readline"
 
-def prompt(_prompt="")
+def prompt(_prompt = "")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
 require_relative 'lib/delegate'
 
 delegate = Delegate.new
+
+chance = 1000 
+puts "Theres a 1 in #{chance} that this will be printed." if rand(1..chance) == 1
 
 loop do
 	💬 = prompt("> ")

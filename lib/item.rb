@@ -10,6 +10,9 @@ class Item
 
 end
 
+
+# SUBCLASSES BELOW: (only subclass when you have a good reason)
+
 # can be eaten,
 # use item.is_a? Food
 class Food < Item
