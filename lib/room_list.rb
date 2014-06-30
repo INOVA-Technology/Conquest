@@ -1,7 +1,7 @@
 module RoomList
 
 	ROOMS = {
-		castle_courtyard:
+		courtyard:
 			Room.new("Castle Courtyard", "You are at the castle courtyard",
 				paths: { n: :castle },
 				items: {
@@ -11,9 +11,12 @@ module RoomList
 					}),
 		castle:
 			Room.new("Castle", "You are at the castle",
-				paths: { s: :castle_courtyard }
+				paths: { s: :courtyard, n: :hallway }
+				),
+		hallway:
+			Room.new("Hallway", "This castle has a long hallway",
+				paths: { s: :castle }
 				)
-
 	}
 
 	def self.room_list

@@ -15,8 +15,11 @@ class Room
 
 	def enter
 		puts @name.cyan
-		puts @description unless @visited
-		@visited = true
+		unless @visited
+			puts @description
+			list_items
+		end
+		@visited = true # can't hurt to set it every time, right?
 		self
 	end
 
@@ -27,6 +30,17 @@ class Room
 	def look
 		puts @name.cyan
 		puts @description
+		list_items
+	end
+
+	def list_items
+		@items.values.map { |item|
+			unless item.hidden
+				a_or_an = %w[a e i o u].include?(item.name[0]) \
+					? "an" : "a"
+				puts "#{a_or_an} #{item.name.downcase}"
+			end
+		}
 	end
 
 end

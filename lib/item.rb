@@ -1,10 +1,11 @@
 class Item
 
-	attr_reader :name
+	attr_reader :name, :hidden
 
-	def initialize(name, description)
+	def initialize(name, description, options = {})
 		@name = name
 		@description = description
+		@hidden = options[:hidden] || false
 	end
 
 end
