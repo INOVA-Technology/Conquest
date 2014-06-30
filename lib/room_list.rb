@@ -45,8 +45,12 @@ module RoomList
 		banyan_tree:
 			# http://en.wikipedia.org/wiki/Banyan
 			Room.new("Large banyan tree", "There is a large banyan tree, with many twists and roots going up the tree. You can go west.",
-				paths: { w: :more_forest }
-				)
+				paths: { w: :more_forest },
+				items: {
+					# 
+					tree: Tree.new("Banyan", "You climb up the top of the tree, and see lots of trees, and a castle around north. Some where south there is a small village. You climb back down.", {
+						can_climb: true
+					})})
 	}
 
 	def self.room_list

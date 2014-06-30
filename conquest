@@ -44,7 +44,8 @@
 # 	-	have at least 50 different rooms
 # 	-	make current_room a propert of player, not delegate
 # 	-	add ability so save game
-# 	- 	add tests
+# 	-	fix the format of long room descriptions
+# 	 	add tests
 # 		add some kind of plot
 # 		add a readme
 

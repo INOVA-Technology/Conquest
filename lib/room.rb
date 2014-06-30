@@ -1,5 +1,7 @@
 class Room
 
+	attr_reader :items
+
 	def initialize(name, description, options = {})
 		@name = name
 		@description = description
@@ -34,14 +36,14 @@ class Room
 	end
 
 	def list_items
-		unless @items.empty?
+		visible_items = @items.values.select { |i| (!i.hidden) && i.can_pickup }
+		unless visible_items.empty?
+
 			puts "Items that are here:"
-			@items.values.map do |item|
-				unless item.hidden
-					a_or_an = %w[a e i o u].include?(item.name[0]) \
-						? "an" : "a"
-					puts "#{a_or_an} #{item.name.downcase}"
-				end
+			visible_items.map do |item|
+				a_or_an = %w[a e i o u].include?(item.name[0]) \
+					? "an" : "a"
+				puts "#{a_or_an} #{item.name.downcase}"
 			end
 		end
 	end

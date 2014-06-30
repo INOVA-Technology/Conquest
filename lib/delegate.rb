@@ -7,6 +7,7 @@ class Delegate
 	end
 
 	def parse(input)
+		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(north|east|south|west|n|e|s|w))$/
 			direction = $~[:direction]
@@ -21,6 +22,9 @@ class Delegate
 			look
 		when /^(i|inv|inventory)$/
 			inventory
+		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
+			🌳 = $~[:tree_name]
+			climb(🌳)
 		when /^(quit|exit)$/
 			quit
 		else
@@ -51,6 +55,19 @@ class Delegate
 
 	def look
 		@current_room.look
+	end
+
+	def climb(tree_name)
+		if 🌳 = @current_room.items[:tree]
+			name = 🌳.name.downcase
+			if tree_name.nil? || tree_name == "tree" || tree_name == name
+				🌳.climb
+			else
+				puts "You can't climb that."
+			end
+		else
+			puts "You can't climb that."
+		end
 	end
 
 	def quit
