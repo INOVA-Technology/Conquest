@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# theres needs to be a dragon in the game
+#        .==.        .==.       
+#       //`^\\      //^`\\      
+#      // ^ ^\(\__/)/^ ^^\\     
+#     //^ ^^ ^/6  6\ ^^ ^ \\    
+#    //^ ^^ ^/( .. )\^ ^ ^ \\   
+#   // ^^ ^/\| v""v |/\^ ^ ^\\  
+#  // ^^/\/ /  `~~`  \ \/\^ ^\\ 
+
+# TODO:
+# 	make better names && descriptions for rooms
+#   make function that replaces stuff like east with e
+
+require_relative 'lib/delegate'
+
+delegate = Delegate.new
+
+delegate.parse("get peach")
+delegate.parse("i")
