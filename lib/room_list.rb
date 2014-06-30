@@ -8,6 +8,7 @@ module RoomList
 	# like if it gets spit up in a terminal width of 75
 
 	# And keep it oganized in a way
+	# Right now, the indention follows the map directions in a way
 
 
 	############################################
@@ -75,9 +76,13 @@ module RoomList
 					),
 				village:
 					# add an item or 2 here
-					Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nYou can go back west into the forest.",
-						paths: { w: :path_to_village }
+					Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
+						paths: { w: :path_to_village, s: :forest_by_village }
 						),
+				forest_by_village:
+					Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
+						paths: { n: :village }
+						)
 	}
 
 	def self.room_list

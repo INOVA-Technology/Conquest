@@ -38,17 +38,15 @@
 
 # TODO: (* = important/fix soon, - = a must have for release)
 #
-# 	*	have the room descriptions tell where you can go
 # 	* 	add tests
+# 	*	add more items that are useful
 # 	-	add ability to "inspect/look item"
 # 	-	make better names && descriptions for rooms
 # 	-	make function that replaces stuff like east with e
 # 	-	have at least 50 different rooms
-# 	-	add more items that are useful
 # 	-	make the forest more maze like
 # 	-	make current_room a propert of player, not delegate
 # 	-	add ability so save game
-# 	-	fix the format of long room descriptions
 # 		add some kind of plot
 # 		add a readme
 

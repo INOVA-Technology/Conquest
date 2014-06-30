@@ -1,12 +1,12 @@
-- Use the ROOMS keys in lib/room_list.rb for names on map,
-  but replace _ with a space
+- Use the keys in the ROOMS hash in lib/room_list.rb for names on map
 - Use spaces not tabs for this file because of different tab widths
 
-######### Key: #########
-#                      #
-#  @ = you start here  #
-#                      #
-########################
+######### Key: ##################
+#                               #
+#  @ = you start here           #
+#  ! = not in room_list.rb yet  #
+#                               #
+#################################
 
 Map Starts Here:
 
@@ -14,18 +14,21 @@ Map Starts Here:
 
 
 
-             dinning room -- hallway
-                                |
-                             castle
-                                |
-                            @courtyard
-                                |
-                             forest
-                               	|
-                            forest_1 -- banyan tree
-                                |
-                            forest_2
-                                |
-              more_trees -- forest_3
-                                |
-                            forest_4 -- path to village -- village
+     dinning_room -- hallway
+                        |
+                     castle
+                        |
+                    @courtyard
+                        |
+                     forest
+                       	|
+                    forest_1 -- banyan tree                                !mountian_top
+                        |                                                       | 
+                    forest_2                                                !mountian_2
+                        |                                                       |
+      more_trees -- forest_3                                                !mountian_1
+                        |                                                       |
+                    forest_4 -- path_to_village -- village                  !mountian
+                                                      |                         |
+                                            forest_by_village -- !valley -- !mountians
+
