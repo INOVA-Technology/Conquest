@@ -3,7 +3,7 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:mountains].enter
+		@current_room = @rooms[:courtyard].enter
 	end
 
 	def parse(input)

@@ -44,11 +44,25 @@ module RoomList
 					peach: Food.new("Peach", "A delicious peach")
 					}),
 		forest:
-			Room.new("Large forest", "This forest is very dense. There is a nice courtyard north.\nThe forest continues south.",
-				paths: { n: :courtyard, s: :forest_1 }
+			Room.new("Large forest", "This forest is very dense. There is a nice courtyard north.\nThe forest continues west and south.",
+				paths: { n: :courtyard, s: :forest_1, w: :forest__1 }
 				),
+	forest__1:
+		Room.new("Large forest", "This forest is very nice. You can go north, east and west into\nsome more forest.", 
+			paths: { n: :forest__2, e: :forest, w: :sticks }
+			),
+sticks:
+	Room.new("Large forest", "This forest is getting boring, but hey, who knows what you'll find here!\nYou can go east.",
+		paths: { e: :forest__1 },
+		items: {
+			sticks: Item.new("Sticks", "Just a couple of sticks.")
+			}),
+	forest__2:
+		Room.new("Large forest",  "You are in a large forest. There looks like theres a grand building over\neast, but you can't quite get to it from here. You can go south.",
+			paths: { s: :forest__1 }
+			),
 		forest_1:
-			Room.new("Large forest", "There is a large, magnificent tree east. The forest continues\nnorth and south",
+			Room.new("Large forest", "There is a large, magnificent tree east. The forest continues\nnorth and south.",
 				paths: { n: :forest, e: :banyan_tree, s: :forest_2 }
 				),
 			banyan_tree:
@@ -58,7 +72,7 @@ module RoomList
 					items: {
 						tree: Tree.new("Banyan", "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.", { # 👻
 							can_climb: true
-						})}),
+							})}),
 		forest_2:
 			Room.new("Large forest", "Just some more forest. The forest continues north and south.",
 				paths: { n: :forest_1, s: :forest_3 }
@@ -110,7 +124,7 @@ more_trees_3:
 								paths: { d: :mountains }
 								),
 		forest_4:
-			Room.new("Large forest", "There is a lot of trees here. It's very shade in this area.\nThe forest continues north.", 
+			Room.new("Large forest", "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
 				paths: { n: :forest_3 }
 				)
 	}

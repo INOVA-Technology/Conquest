@@ -18,9 +18,9 @@ Map Starts Here:
                                 |
                                castle
                                 |
-                              @courtyard
-                                |
-                               forest
+                forest__2   @courtyard
+                     |          |
+       sticks -- forest__1 -- forest
                                	|
                               forest_1 -- banyan tree          !mountian_top
                                 |                                   | 
@@ -30,6 +30,6 @@ more_trees_1 -- more_trees -- forest_3                         !mountian_2
       |                         |                                   |
 more_trees_2                  forest_4                         !mountian_1
       |                                                             |
-more_trees_3 -- path_to_village -- village                      !mountian  
+more_trees_3 -- path_to_village -- village                      mountian  
                                       |                             |
-                               forest_by_village -- valley -- !mountians
+                                forest_by_village -- valley --  mountians

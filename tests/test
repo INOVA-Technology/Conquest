@@ -13,7 +13,6 @@ end
 describe RoomList do
 	describe "rooms have correct paths" do
 		it "must work" do
-		
 			rooms = RoomList.room_list
 			rooms.each do |key, room|
 				room.paths.each do |dir, place|
@@ -22,7 +21,6 @@ describe RoomList do
 					assert_equal new_room, key
 				end
 			end
-
 		end
 	end
 end

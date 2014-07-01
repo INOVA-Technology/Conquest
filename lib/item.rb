@@ -26,6 +26,9 @@ end
 # sends you to a new room, usally something that
 # has more functionality than just a room
 class Transporter < Prop
+
+	attr_accessor :goto
+
 	def add_info
 		@hidden = true
 		@can_pickup = false
