@@ -1,9 +1,11 @@
 class Delegate
 
+	attr_accessor :current_room
+
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:courtyard].enter
+		@current_room = @rooms[:courtyard]
 	end
 
 	def parse(input)
