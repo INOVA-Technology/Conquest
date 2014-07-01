@@ -22,10 +22,13 @@ module RoomList
 	############################################
 
 	ROOMS = {
-
+		castle_main:
+			Room.new("Main room", "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south.", 
+				paths: { s: :hallway}
+				),
 		hallway:
-			Room.new("Hallway", "This castle has a long hallway. There is a door to the west.",
-				paths: { s: :castle, w: :dinning_hall }
+			Room.new("Hallway", "This castle has a long hallway. There is a door to the west and\na large room north.",
+				paths: { n: :castle_main, s: :castle, w: :dinning_hall }
 				),
 			dinning_hall:
 				Room.new("Dinning hall", "The dinning hall. There is a door to the east.",

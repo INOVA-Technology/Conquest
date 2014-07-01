@@ -1,11 +1,13 @@
 class Player
 
+	attr_accessor :items
+
 	def initialize
 		@items = {}	
 	end
 
-	def pickup(item)
-		@items[item.name.to_sym] = item
+	def pickup(key, item)
+		@items[key.to_sym] = item
 	end
 
 	def inventory

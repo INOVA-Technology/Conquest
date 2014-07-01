@@ -39,20 +39,28 @@
 # TODO: (* = important/fix soon, - = a must have for release)
 #
 # 	*	add more items that are useful
-# 	-	add ability to "inspect/look item"
 # 	-	make better names && descriptions for rooms
 # 	-	make function that replaces stuff like east with e
 # 	-	have at least 50 different rooms
 # 	-	make the forest more maze like
 # 	-	make current_room a propert of player, not delegate
 # 	-	add ability so save game
-# 	 	add tests
+# 		add rick astley easter egg
+# 	 	add more tests
 # 		make the current tests check the description for directions
 # 		add some kind of plot
 # 		add a readme
 
-# AND DON'T YOU DARE USE SPACES FOR TABS IN MY CODE
+
+# When contributing, please create a new branch for your commits
+
+# And if you are even thinking about using spaces in here,
+# then please read this article below. It's for your own good.
 # http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
+
+chance = 1000 # increase this number if more people start using this
+puts "Theres a 1 in #{chance} that this will be printed." \
+	if rand(1..chance) == 1
 
 require "readline"
 
@@ -68,10 +76,6 @@ require_relative 'lib/player'
 require_relative 'lib/delegate'
 
 delegate = Delegate.new
-
-chance = 1000 
-puts "Theres a 1 in #{chance} that this will be printed." \
-	if rand(1..chance) == 1
 
 loop do
 	💬 = prompt("> ")

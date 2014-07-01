@@ -18,11 +18,16 @@ class Delegate
 		when /^(get|take|pickup|pick up) (?<item>[a-z ]+)$/
 			item = $~[:item]
 			pickup(item)
-		when "look"
-			look
+		when /^look( (?<item>[a-z]+))?$/
+			item = $~[:item]
+			item.nil? ? look : inspect(item)
+		when /^inspect (?<item>[a-z]+)$/
+			item = $~[:item]
+			inspect(item)
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
+			# this regex needs to be cleaned up, just the tree part really
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
@@ -50,7 +55,7 @@ class Delegate
 		if _item = @current_room.items[item.to_sym]
 			if _item.can_pickup
 				_item = @current_room.remove_item(item)
-				@player.pickup(_item)
+				@player.pickup(item, _item)
 			else
 				puts "You can't pick that up."
 			end
@@ -65,6 +70,18 @@ class Delegate
 
 	def look
 		@current_room.look
+	end
+
+	def inspect(item)
+		# this could be refactored
+		if the_item = @player.items[item.to_sym]
+			puts the_item.description
+		elsif the_item = @current_room.items[item.to_sym]
+			puts the_item.description
+		else
+			p @player.items
+			puts "This item is not here or your inventory."
+		end
 	end
 
 	def climb(thing_name)
