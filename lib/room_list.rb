@@ -2,8 +2,9 @@ module RoomList
 
 	# Please update map.txt after adding any rooms. Thank you.
 	
-	# Also, please order paths by: N, E, S, W, NE, SE, SW, NW, its clockwise
-	
+	# Also, please order paths by: U, D, N, E, S, W, NE, SE, SW, NW, its clockwise
+	# U = up, D = down
+
 	# Add a \n if the description gets too long,
 	# like if it gets spit up in a terminal width of 75
 

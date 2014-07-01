@@ -9,10 +9,10 @@ class Delegate
 	def parse(input)
 		# input will always be converted to lower case before getting here
 		case input
-		when /^(?<direction>(north|east|south|west|n|e|s|w))$/
+		when /^(?<direction>(up|down|north|east|south|west|u|d|n|e|s|w))$/
 			direction = $~[:direction]
 			walk(direction)
-		when /^(go|walk) (?<direction>(north|east|south|west|to mordor))$/
+		when /^(go|walk) (?<direction>(up|down|north|east|south|west|to mordor))$/
 			direction = $~[:direction]
 			walk(direction)
 		when /^(get|take|pickup|pick up) (?<item>[a-z ]+)$/
