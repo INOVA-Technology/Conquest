@@ -17,7 +17,7 @@ describe RoomList do
 			rooms = RoomList.room_list
 			rooms.each do |key, room|
 				room.paths.each do |dir, place|
-					other_dir = { n: :s, e: :w, s: :n, w: :e }[dir]
+					other_dir = { n: :s, e: :w, s: :n, w: :e, u: :d, d: :u }[dir]
 					new_room = rooms[place][other_dir]
 					assert_equal new_room, key
 				end

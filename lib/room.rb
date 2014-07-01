@@ -1,13 +1,13 @@
 class Room
 
-	attr_reader :items
+	attr_reader :items, :options
 
 	def initialize(name, description, options = {})
 		@name = name
 		@description = description
 		@paths = options[:paths] || {}
 		@items = options[:items] || {}
-
+		@options = options
 		@visited = false
 	end
 

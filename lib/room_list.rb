@@ -97,9 +97,18 @@ more_trees_3:
 					paths: { n: :village, e: :valley }
 					),
 				valley:
-					Room.new("Valley", "It's a beautiful valley, with some giganic mountians east, with some\nsnow of the tops. There is a forest to the west",
-						paths: { w: :forest_by_village }
+					Room.new("Valley", "It's a beautiful valley, with some giganic mountains east, with some\nsnow of the tops. There is a forest to the west",
+						paths: { e: :mountains, w: :forest_by_village }
 						),
+					mountains:
+						Room.new("Mountains", "There are many tall mountains with snow on the tops. You can go back west.",
+							paths: { u: :mountain, w: :valley },
+							has_mountain: true
+							),
+						mountain:
+							Room.new("Tall mountain", "This mountain is very steep. You can continue climbing or go back down",
+								paths: { d: :mountains }
+								),
 		forest_4:
 			Room.new("Large forest", "There is a lot of trees here. It's very shade in this area.\nThe forest continues north.", 
 				paths: { n: :forest_3 }

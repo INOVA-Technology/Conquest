@@ -16,6 +16,22 @@ class Item
 
 end
 
+class Prop < Item
+	def add_info
+		@hidden = true
+		@can_pickup = false
+	end
+end
+
+# sends you to a new room, usally something that
+# has more functionality than just a room
+class Transporter < Prop
+	def add_info
+		@hidden = true
+		@can_pickup = false
+		@goto = options[:goto]
+	end
+end
 
 # SUBCLASSES BELOW: (only subclass when you have a good reason)
 
@@ -24,11 +40,7 @@ end
 class Food < Item
 end
 
-class Tree < Item
-	def add_info
-		@hidden = true
-		@can_pickup = false
-	end
+class Tree < Prop
 
 	def climb
 		if @options[:can_climb]

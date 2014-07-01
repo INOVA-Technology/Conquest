@@ -3,7 +3,7 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:courtyard].enter
+		@current_room = @rooms[:mountains].enter
 	end
 
 	def parse(input)
@@ -12,7 +12,7 @@ class Delegate
 		when /^(?<direction>(up|down|north|east|south|west|u|d|n|e|s|w))$/
 			direction = $~[:direction]
 			walk(direction)
-		when /^(go|walk) (?<direction>(up|down|north|east|south|west|to mordor))$/
+		when /^(go|walk) (?<direction>(up|down|north|east|south|west|u|d|n|e|s|w|to mordor))$/
 			direction = $~[:direction]
 			walk(direction)
 		when /^(get|take|pickup|pick up) (?<item>[a-z ]+)$/
@@ -25,6 +25,7 @@ class Delegate
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
 			🌳 = $~[:tree_name]
 			climb(🌳)
+			# doesn't have to be a tree...
 		when /^(quit|exit)$/
 			quit
 		when /^\s?$/
@@ -46,8 +47,16 @@ class Delegate
 	end
 
 	def pickup(item)
-		le_item = @current_room.remove_item(item)
-		@player.pickup(le_item)
+		if _item = @current_room.items[item.to_sym]
+			if _item.can_pickup
+				_item = @current_room.remove_item(item)
+				@player.pickup(_item)
+			else
+				puts "You can't pick that up."
+			end
+		else
+			puts "That item isn't in here"
+		end
 	end
 
 	def inventory
@@ -58,13 +67,19 @@ class Delegate
 		@current_room.look
 	end
 
-	def climb(tree_name)
+	def climb(thing_name)
 		if 🌳 = @current_room.items[:tree]
 			name = 🌳.name.downcase
-			if tree_name.nil? || tree_name == "tree" || tree_name == name
+			if thing_name.nil? || thing_name == "tree" || thing_name == name
 				🌳.climb
 			else
 				puts "You can't climb that."
+			end
+
+		# I don't like how this works :(
+		elsif @current_room.options[:has_mountain]
+			if ["up", "mountain", nil].include? thing_name
+				walk("u")
 			end
 		else
 			puts "You can't climb that."
