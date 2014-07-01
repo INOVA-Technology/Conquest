@@ -27,6 +27,7 @@ class Delegate
 			climb(🌳)
 		when /^(quit|exit)$/
 			quit
+		when /^\s?$/
 		else
 			puts "What?"
 		end

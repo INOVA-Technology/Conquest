@@ -59,30 +59,50 @@ module RoomList
 							can_climb: true
 						})}),
 		forest_2:
-			Room.new("Large forest", "Just some more forest. The forest continues north and south",
+			Room.new("Large forest", "Just some more forest. The forest continues north and south.",
 				paths: { n: :forest_1, s: :forest_3 }
 				),
 		forest_3:
-			Room.new("Large forest", "Dang, how many trees are in this forest? You can go north and south",
-				paths: { n: :forest_2, s: :forest_4 }
+			Room.new("Large forest", "Dang, how many trees are in this forest? You can go north, south, and west.",
+				paths: { n: :forest_2, s: :forest_4, w: :more_trees }
 				),
-		forest_4:
-			Room.new("Large forest", "There is a lot of trees here. It's very shade in this area.\nThe forest continues north and east.", 
-				paths: { n: :forest_3, e: :path_to_village }
+	more_trees:
+		Room.new("Large forest", "You can go east and west.",
+			paths: { e: :forest_3, w: :more_trees_1 }
+			),
+more_trees_1:
+	Room.new("Large forest", "You can go east and south.", 
+		paths: { e: :more_trees, s: :more_trees_2 }
+		),
+more_trees_2:
+	Room.new("Large forest", "You can go north and south.",
+		paths: { n: :more_trees_1, s: :more_trees_3 }
+		),
+more_trees_3:
+	Room.new("Large forest", "You can go north and east",
+		paths: { n: :more_trees_2, e: :path_to_village }
+		),
+		path_to_village:
+			Room.new("Large forest", "Its hard to see because of all these trees, but you think you see a small\nhut to the east. You can also go back west",
+				paths: { e: :village, w: :more_trees_3 }
 				),
-			path_to_village:
-				Room.new("Large forest", "Its hard to see because of all these trees, but you think you see a small\nhut to the east. You can also go back west",
-					paths: { e: :village, w: :forest_4 }
+			village:
+				# add an item or 2 here
+				Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
+					paths: { w: :path_to_village, s: :forest_by_village }
 					),
-				village:
-					# add an item or 2 here
-					Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
-						paths: { w: :path_to_village, s: :forest_by_village }
+			forest_by_village:
+				Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
+					paths: { n: :village, e: :valley }
+					),
+				valley:
+					Room.new("Valley", "It's a beautiful valley, with some giganic mountians east, with some\nsnow of the tops. There is a forest to the west",
+						paths: { w: :forest_by_village }
 						),
-				forest_by_village:
-					Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
-						paths: { n: :village }
-						)
+		forest_4:
+			Room.new("Large forest", "There is a lot of trees here. It's very shade in this area.\nThe forest continues north.", 
+				paths: { n: :forest_3 }
+				)
 	}
 
 	def self.room_list

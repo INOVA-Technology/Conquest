@@ -38,7 +38,6 @@
 
 # TODO: (* = important/fix soon, - = a must have for release)
 #
-# 	* 	add tests
 # 	*	add more items that are useful
 # 	-	add ability to "inspect/look item"
 # 	-	make better names && descriptions for rooms
@@ -47,6 +46,8 @@
 # 	-	make the forest more maze like
 # 	-	make current_room a propert of player, not delegate
 # 	-	add ability so save game
+# 	 	add tests
+# 		make the current tests check the description for directions
 # 		add some kind of plot
 # 		add a readme
 
