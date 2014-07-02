@@ -27,7 +27,7 @@ class Delegate
 			if item
 				pickup(item)
 			else
-				puts "Please supply a object to #{input}."
+				puts "Please supply an object to #{input}."
 			end
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
@@ -37,8 +37,10 @@ class Delegate
 			if item
 				inspect(item)
 			else
-				puts "Please supply an item to inspect."
+				puts "Please supply an object to inspect."
 			end
+		when /^rub sticks( together)?$/
+			rub_sticks
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -95,6 +97,13 @@ class Delegate
 			puts the_item.description
 		else
 			puts "This item is not here or your inventory."
+		end
+	end
+
+	def rub_sticks
+		if @player.items[:sticks]
+			# do something involving fire
+			puts "I need to implement this."
 		end
 	end
 
