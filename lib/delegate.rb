@@ -9,23 +9,36 @@ class Delegate
 	end
 
 	def parse(input)
+		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 		# input will always be converted to lower case before getting here
 		case input
-		when /^(?<direction>(up|down|north|east|south|west|u|d|n|e|s|w))$/
+		when /^(?<direction>(#{directions}))$/
 			direction = $~[:direction]
 			walk(direction)
-		when /^(go|walk) (?<direction>(up|down|north|east|south|west|u|d|n|e|s|w|to mordor))$/
+		when /^(go|walk)( (?<direction>#{directions}|to mordor))?$/
 			direction = $~[:direction]
-			walk(direction)
-		when /^(get|take|pickup|pick up) (?<item>[a-z ]+)$/
+			if direction
+				walk(direction)
+			else
+				puts "#{input.capitalize} where?"
+			end
+		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
 			item = $~[:item]
-			pickup(item)
+			if item
+				pickup(item)
+			else
+				puts "Please supply a object to #{input}."
+			end
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
-		when /^inspect (?<item>[a-z]+)$/
+		when /^inspect( (?<item>[a-z]+))?$/
 			item = $~[:item]
-			inspect(item)
+			if item
+				inspect(item)
+			else
+				puts "Please supply an item to inspect."
+			end
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -62,7 +75,7 @@ class Delegate
 				puts "You can't pick that up."
 			end
 		else
-			puts "That item isn't in here"
+			puts "That item isn't in here."
 		end
 	end
 
@@ -81,7 +94,6 @@ class Delegate
 		elsif the_item = @current_room.items[item.to_sym]
 			puts the_item.description
 		else
-			p @player.items
 			puts "This item is not here or your inventory."
 		end
 	end

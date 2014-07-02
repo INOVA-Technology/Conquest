@@ -58,7 +58,7 @@ sticks:
 	Room.new("Large forest", "This forest is getting boring, but hey, who knows what you'll find here!\nYou can go east.",
 		paths: { e: :forest__1 },
 		items: {
-			sticks: Item.new("Sticks", "Just a couple of sticks.")
+			sticks: Item.new("Sticks", "Just a couple of sticks. They like they are cedar wood.")
 			}),
 	forest__2:
 		Room.new("Large forest",  "You are in a large forest. There looks like theres a grand building over\neast, but you can't quite get to it from here. You can go south.",
