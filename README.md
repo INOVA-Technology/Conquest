@@ -23,4 +23,3 @@ Are contributions are appreciated, but please create a new branch before you do 
 *   add more tests
 *   make the current tests check the description for directions
 *   add some kind of plot
-*   add a readme

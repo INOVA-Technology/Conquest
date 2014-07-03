@@ -50,7 +50,7 @@ class Delegate
 			climb(🌳)
 			# doesn't have to be a tree...
 		when /^(help|h)$/
-			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].each
+			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].to_enum
 			begin
 				puts @smart_aleck.next
 			rescue StopIteration
