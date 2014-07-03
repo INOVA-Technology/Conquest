@@ -6,6 +6,7 @@ class Delegate
 		@rooms = RoomList.room_list
 		@player = Player.new
 		@current_room = @rooms[:courtyard]
+		@help = 0
 	end
 
 	def parse(input)
@@ -48,11 +49,20 @@ class Delegate
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
+		when /^(help|h)$/
+			smart_aleck = ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"]
+			puts smart_aleck[@help]
+			@help = @help + 1
+			if @help > smart_aleck.length
+				@help = 0
+			end
+
 		when /^(quit|exit)$/
 			quit
 		when /^\s?$/
 		else
-			puts "What?"
+			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
+			puts 😱.sample
 		end
 	end
 

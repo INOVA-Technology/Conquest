@@ -39,7 +39,7 @@ module RoomList
 				paths: { n: :hallway, s: :courtyard }
 				),
 		courtyard:
-			Room.new("Castle courtyard", "You are at the castle courtyard. There's a nice fountian in the center.\nThe castle entrance is north. There is a forest south.",
+			Room.new("Castle courtyard", "You are at the castle courtyard. There's a nice fountain in the center.\nThe castle entrance is north. There is a forest south.",
 				paths: { n: :castle, s: :forest },
 				items: {
 					# this peach is useless, it'll confuse people 
