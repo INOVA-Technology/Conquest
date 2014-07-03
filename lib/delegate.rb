@@ -50,13 +50,13 @@ class Delegate
 			climb(🌳)
 			# doesn't have to be a tree...
 		when /^(help|h)$/
-			smart_aleck = ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"]
-			puts smart_aleck[@help]
-			@help = @help + 1
-			if @help > smart_aleck.length
-				@help = 0
+			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].each
+			begin
+				puts @smart_aleck.next
+			rescue StopIteration
+				@smart_aleck.rewind
+				puts @smart_aleck.next
 			end
-
 		when /^(quit|exit)$/
 			quit
 		when /^\s?$/
