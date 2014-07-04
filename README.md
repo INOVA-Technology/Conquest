@@ -17,7 +17,7 @@ Are contributions are appreciated, but please create a new branch before you do 
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
 * - make the forest more maze like
-* - make current_room a propert of player, not delegate
+* - make current_room a property of player, not delegate
 * - add ability so save game
 *   add rick astley easter egg
 *   add more tests
