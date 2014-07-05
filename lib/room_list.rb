@@ -21,6 +21,7 @@ module RoomList
 	#                                          #
 	############################################
 
+	# this shouldn't be in 1TBS, it's a weird variant of banner style
 	ROOMS = {
 		castle_main:
 			Room.new("Main room", "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south.", 
@@ -107,8 +108,10 @@ more_trees_3:
 			village:
 				# add an item or 2 here
 				Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
-					paths: { w: :path_to_village, s: :forest_by_village }
-					),
+					paths: { w: :path_to_village, s: :forest_by_village },
+					items: { 
+						pickaxe: Item.new("Pickaxe", "Be careful, it looks sharp.")
+						}),
 			forest_by_village:
 				Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
 					paths: { n: :village, e: :valley }

@@ -46,6 +46,7 @@ class Delegate
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
 			# this regex needs to be cleaned up, just the tree part really
+			# nvm, the whole regex sucks
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
