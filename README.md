@@ -7,7 +7,7 @@ To play, download the source and run `./conquest`
 
 It's still in progress so it's lacking in many ways, but free to try it out and give feedback.
 
-Are contributions are appreciated, but please create a new branch before you do so.
+Contributions are appreciated, but please create a new branch before you do so. And please add your code in [1TBS (1 True Block Style)](http://en.wikipedia.org/wiki/1TBS#Variant:_1TBS)
 
 ### TODO: 
 (* = important/fix soon, - = a must have for release)
