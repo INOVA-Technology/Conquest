@@ -18,12 +18,11 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
 * - make the forest more maze like
-* - make current_room a property of player, not delegate
-* - add ability so save game
 * - add zsd style combat
-* - add signal trapping
-* 	have an all around refactortion session thing idk, just refactor some stuff
-*   add rick astley easter egg
-*   add more tests
-*   make the current tests check the description for directions
-*   add some kind of plot
+*	add signal trapping
+*	add option to save game somewhere else
+*	have an all around refactortion session thing idk, just refactor some stuff
+*	add rick astley easter egg
+*	add more tests
+*	make the current tests check the description for directions
+*	add some kind of plot
