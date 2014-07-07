@@ -107,7 +107,7 @@ more_trees_3:
 				),
 			village:
 				# add an item or 2 here
-				Room.new("Abandon village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
+				Room.new("Abandoned village", "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
 					paths: { w: :path_to_village, s: :forest_by_village },
 					items: { 
 						pickaxe: Item.new("Pickaxe", "Be careful, it looks sharp.")
@@ -117,7 +117,7 @@ more_trees_3:
 					paths: { n: :village, e: :valley }
 					),
 				valley:
-					Room.new("Valley", "It's a beautiful valley, with some giganic mountains east, with some\nsnow of the tops. There is a forest to the west",
+					Room.new("Valley", "It's a beautiful valley, with some gigantic mountains east, with some\nsnow of the tops. There is a forest to the west",
 						paths: { e: :mountains, w: :forest_by_village }
 						),
 					mountains:
