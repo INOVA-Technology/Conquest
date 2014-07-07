@@ -1,22 +1,16 @@
-require "yaml"
-
 class Player
 
 	attr_accessor :items
 
 	def initialize
-		@items = {}	
+		@items = {}
+		@quests = QuestList.quests
 	end
 
 	def pickup(key, item)
 		@items[key.to_sym] = item
 		if key == "scroll"
-
-			@quests = YAML.load_file("./yaml/quests.yml")
-			@quests[:mordor] = true
-			puts "#{'Quest started!'.cyan} - Onward to Mordor"
-			
-
+			@quests[:mordor].start
 		end
 	end
 
