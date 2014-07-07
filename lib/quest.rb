@@ -1,7 +1,6 @@
 class Quest
 
-	attr_accessor :steps
-	attr_reader :name, :started
+	attr_accessor :name, :started, :steps
 
 	def initialize(name, steps, options = {})
 		@name = name

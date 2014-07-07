@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items
+	attr_accessor :items, :current_room
 
 	def initialize
 		@items = {}

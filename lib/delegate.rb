@@ -1,12 +1,10 @@
 class Delegate
 
-	attr_accessor :current_room
+	attr_accessor :current_room, :player
 
 	def initialize
-		@rooms = RoomList.room_list
-		@quests = QuestList.quests
-		@player = Player.new
-		@current_room = @rooms[:courtyard] # if modified, REMEMBER TO CHANGE BACK
+		@save_file = "#{Dir.home}/.conquest_save"
+		load_game(@save_file)
 		@help = 0
 	end
 
@@ -76,6 +74,8 @@ class Delegate
 			end
 		when /^(quit|exit)$/
 			quit
+		when /^save( game)?$/
+			save
 		when /^\s?$/
 		else
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
@@ -85,8 +85,8 @@ class Delegate
 
 	def walk(direction)
 		if direction != "to mordor"
-			if new_room = @rooms[@current_room[direction]]
-				@current_room = new_room.enter
+			if new_room = @rooms[player.current_room[direction]]
+				player.current_room = new_room.enter
 			else
 				puts "You can't go that way."
 			end
@@ -97,9 +97,9 @@ class Delegate
 	end
 
 	def pickup(item)
-		if _item = @current_room.items[item.to_sym]
+		if _item = player.current_room.items[item.to_sym]
 			if _item.can_pickup
-				_item = @current_room.remove_item(item)
+				_item = player.current_room.remove_item(item)
 				@player.pickup(item, _item)
 			else
 				puts "You can't pick that up."
@@ -117,10 +117,10 @@ class Delegate
 		# Do I have this item?
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist?
-			if @current_room.people[guy.to_sym]
+			if player.current_room.people[guy.to_sym]
 				# awesome, we r not crazy... But does guy want this item?
-				if @current_room.people[guy.to_sym].item_wanted == item
-					puts @current_room.people[guy.to_sym].action
+				if player.current_room.people[guy.to_sym].item_wanted == item
+					puts player.current_room.people[guy.to_sym].action
 				else
 					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
 				end
@@ -134,14 +134,14 @@ class Delegate
 	end
 
 	def look
-		@current_room.look
+		player.current_room.look
 	end
 
 	def inspect(item)
 		# this could be refactored
 		if the_item = @player.items[item.to_sym]
 			puts the_item.description
-		elsif the_item = @current_room.items[item.to_sym]
+		elsif the_item = player.current_room.items[item.to_sym]
 			puts the_item.description
 		else
 			puts "This item is not here or your inventory."
@@ -149,8 +149,8 @@ class Delegate
 	end
 
 	def talk(guy)
-		if @current_room.people[guy.to_sym]
-			puts puts @current_room.people[guy.to_sym].talk.cyan
+		if player.current_room.people[guy.to_sym]
+			puts puts player.current_room.people[guy.to_sym].talk.cyan
 		else
 			puts "#{guy} isn't in this room.".cyan
 		end
@@ -164,7 +164,7 @@ class Delegate
 	end
 
 	def climb(thing_name)
-		if 🌳 = @current_room.items[:tree]
+		if 🌳 = player.current_room.items[:tree]
 			name = 🌳.name.downcase
 			if thing_name.nil? || thing_name == "tree" || thing_name == name
 				🌳.climb
@@ -173,7 +173,7 @@ class Delegate
 			end
 
 		# I don't like how this works :(
-		elsif @current_room.options[:has_mountain]
+		elsif player.current_room.options[:has_mountain]
 			if ["up", "mountain", nil].include? thing_name
 				walk("u")
 			end
@@ -182,7 +182,33 @@ class Delegate
 		end
 	end
 
+	def load_game(file)
+		begin
+			data = nil
+			File.open(file, 'r') do |file|
+				data = Marshal.load(file)
+			end
+			@rooms  = RoomList.room_list.merge(data[:rooms])
+			@quests = QuestList.quests.merge(data[:quests])
+			@player = data[:player]
+		rescue TypeError, Errno::ENOENT
+			@rooms  = RoomList.room_list
+			@quests = QuestList.quests
+			@player = Player.new
+			@player.current_room = @rooms[:courtyard]
+		end
+	end
+
+	def save
+		File.open(@save_file, 'w') do |file|
+			data = { rooms: @rooms, player: @player, quests: @quests }
+			file.puts(Marshal.dump(data))
+		end
+	end
+
 	def quit
+		save
+		puts "Come back when you can't stay so long!"
 		exit
 	end
 

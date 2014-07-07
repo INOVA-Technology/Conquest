@@ -21,6 +21,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - make current_room a property of player, not delegate
 * - add ability so save game
 * - add zsd style combat
+* - add signal trapping
 * 	have an all around refactortion session thing idk, just refactor some stuff
 *   add rick astley easter egg
 *   add more tests
