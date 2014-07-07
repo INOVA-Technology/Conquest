@@ -54,9 +54,6 @@ class Room
 
 			puts "People that are here:".magenta
 			visible_people.map do |people|
-				a_or_an = %w[a e i o u].include?(people.name[0]) \
-					? "an " : "a "
-				
 				puts "#{people.name}"
 			end
 		end
