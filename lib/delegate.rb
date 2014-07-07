@@ -5,7 +5,7 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:courtyard]
+		@current_room = @rooms[:mountain]
 		@help = 0
 	end
 
@@ -33,6 +33,9 @@ class Delegate
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
+		when /^talk to( (?<guy>[a-z]+))?$/
+			guy = $~[:guy]
+			talk(guy)
 		when /^give( (?<item>[a-z]+)) to( (?<guy>[a-z]+))?$/
 			item = $~[:item]
 			guy = $~[:guy]
@@ -138,6 +141,14 @@ class Delegate
 			puts the_item.description
 		else
 			puts "This item is not here or your inventory."
+		end
+	end
+
+	def talk(guy)
+		if @current_room.people[guy.to_sym]
+			puts puts @current_room.people[guy.to_sym].talk.cyan
+		else
+			puts "#{guy} isn't in this room.".cyan
 		end
 	end
 
