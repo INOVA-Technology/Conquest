@@ -135,7 +135,8 @@ more_trees_3:
 								people: {
 									# Randy will read elvish in the future
 									randy: Person.new("Randy", "He's just an elf",
-										race: "Elf"
+										race: "Elf",
+										talk: "I can read elvish. Go figure."
 										)}),
 						mountain_1:
 							Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down",

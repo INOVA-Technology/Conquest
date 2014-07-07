@@ -1,12 +1,13 @@
 class Room
 
-	attr_reader :items, :options
+	attr_reader :items, :options, :people
 
 	def initialize(name, description, options = {})
 		@name = name
 		@description = description
 		@paths = options[:paths] || {}
 		@items = options[:items] || {}
+		@people = options[:people] || {}
 		@options = options
 		@visited = false
 	end
@@ -39,7 +40,7 @@ class Room
 		visible_items = @items.values.select { |i| (!i.hidden) && i.can_pickup }
 		unless visible_items.empty?
 
-			puts "Items that are here:"
+			puts "Items that are here:".magenta
 			visible_items.map do |item|
 				a_or_an = %w[a e i o u].include?(item.name[0]) \
 					? "an " : "a "
@@ -47,6 +48,19 @@ class Room
 				puts "#{a_or_an}#{item.name.downcase}"
 			end
 		end
+
+		visible_people = @people.values.select { |i| (!i.hidden) && i.can_pickup }
+		unless visible_people.empty?
+
+			puts "People that are here:".magenta
+			visible_people.map do |people|
+				a_or_an = %w[a e i o u].include?(people.name[0]) \
+					? "an " : "a "
+				
+				puts "#{people.name}"
+			end
+		end
+
 	end
 
 end
