@@ -9,13 +9,12 @@ class Player
 	end
 
 	def pickup(key, item)
-
 		@items[key.to_sym] = item
 		if key == "scroll"
 
 			@quests = YAML.load_file("./yaml/quests.yml")
 			@quests[:mordor] = true
-			puts "Quest started!".cyan + " - Onward to Mordor"
+			puts "#{'Quest started!'.cyan} - Onward to Mordor"
 			
 
 		end
