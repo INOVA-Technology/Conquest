@@ -51,9 +51,6 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^quests?$/
-			# this is probably going to be a for statement.  You understand thos more than i do so have at it.
-			# this should loop through the list of quests in quests.yml and return the ones that are true
-			#puts @quests
 			started_quests = @quests.values.select { |i| (i.started) }
 			unless started_quests.empty?
 				puts "Started Quests:".magenta
@@ -61,7 +58,6 @@ class Delegate
 					puts "#{quest.name}"
 				end
 			end
-			# correction: it should call .each, for statments are bad practice in ruby
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
