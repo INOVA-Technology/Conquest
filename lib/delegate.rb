@@ -4,8 +4,9 @@ class Delegate
 
 	def initialize
 		@rooms = RoomList.room_list
+		@quests = QuestList.quests
 		@player = Player.new
-		@current_room = @rooms[:mountain]
+		@current_room = @rooms[:courtyard]
 		@help = 0
 	end
 
@@ -52,7 +53,19 @@ class Delegate
 		when /^quests?$/
 			# this is probably going to be a for statement.  You understand thos more than i do so have at it.
 			# this should loop through the list of quests in quests.yml and return the ones that are true
-
+			#puts @quests
+			started_quests = @quests.values.select { |i| (i.started) }
+			unless started_quests.empty?
+				puts "Started Quests:".magenta
+				started_quests.map do |quest|
+					puts "#{quest.name}"
+				end
+			end
+			#@quests.each {|x, y, z, a| 
+				#if x.started = true
+			#		puts @quests[x].name
+				#end
+			#}
 			# correction: it should call .each, for statments are bad practice in ruby
 		when /^(i|inv|inventory)$/
 			inventory
@@ -114,7 +127,7 @@ class Delegate
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist?
 			if @current_room.people[guy.to_sym]
-				# awesome, we r not crazy
+				# awesome, we r not crazy... But does guy want this item?
 				if @current_room.people[guy.to_sym].item_wanted == item
 					puts @current_room.people[guy.to_sym].action
 				else
