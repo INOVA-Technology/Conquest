@@ -2,7 +2,7 @@ module QuestList
 
 	QUESTS = {
 		# this need a better name ⬇️ 
-		main:   Quest.new("The main mission", []),
+		main:   Quest.new("Questalicious", []),
 		mordor: Quest.new("Onward to Mordor", [])
 	}
 

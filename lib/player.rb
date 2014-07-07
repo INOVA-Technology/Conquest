@@ -14,6 +14,16 @@ class Player
 		end
 	end
 
+	def give(item)
+		puts item
+		puts @items
+		if @items.has_key?(item)
+			return true
+		else
+			return false
+		end
+	end
+
 	def inventory
 		@items.values.each { |item|
 			a_or_an = %w[a e i o u].include?(item.name[0]) \

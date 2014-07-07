@@ -17,7 +17,7 @@ class Quest
 
 	def start
 		@started = true
-		puts "#{'Quest started!'.cyan} - #{name}"
+		puts "#{'Quest started!'.cyan} - #{@name}"
 	end
 
 end

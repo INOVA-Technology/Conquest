@@ -33,6 +33,10 @@ class Delegate
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
+		when /^give( (?<item>[a-z]+)) to( (?<guy>[a-z]+))?$/
+			item = $~[:item]
+			guy = $~[:guy]
+			give(item, guy)
 		when /^inspect( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			if item
@@ -100,6 +104,26 @@ class Delegate
 
 	def inventory
 		@player.inventory
+	end
+
+	def give(item, guy)
+		# Do I have this item?
+		if the_item = @player.items[item.to_sym]
+			# Does this guy even exist?
+			if @current_room.people[guy.to_sym]
+				# awesome, we r not crazy
+				if @current_room.people[guy.to_sym].item_wanted == item
+					puts @current_room.people[guy.to_sym].action
+				else
+					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
+				end
+			else
+				puts "Ummmm... That person doesn't seem to be here."
+			end
+		else
+			puts "Ummmm... You don't have that item..."
+		end
+
 	end
 
 	def look
