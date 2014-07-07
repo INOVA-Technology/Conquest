@@ -13,6 +13,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 (* = important/fix soon, - = a must have for release)
 
 * * add more items that are useful
+* - add more quests that do stuff
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms

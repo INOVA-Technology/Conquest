@@ -5,7 +5,7 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:mountain] #@rooms[:courtyard]
+		@current_room = @rooms[:courtyard]
 		@help = 0
 	end
 
