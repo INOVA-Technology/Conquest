@@ -43,8 +43,10 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^quests?$/
-			#this is probably going to be a for statement.  You understand thos more than i do so have at it.
-			#this should loops through the list of quests in quests.yml and return the ones that are true
+			# this is probably going to be a for statement.  You understand thos more than i do so have at it.
+			# this should loop through the list of quests in quests.yml and return the ones that are true
+
+			# correction: it should call .each, for statments are bad practice in ruby
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/

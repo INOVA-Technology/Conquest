@@ -1,5 +1,3 @@
-require "yaml"
-
 module RoomList
 
 	# Please update map.txt after adding any rooms. Thank you.
@@ -129,15 +127,20 @@ more_trees_3:
 							),
 						mountain:
 							Room.new("Tall mountain", "This mountain is very steep. You can continue climbing or go back down",
-								paths: { d: :mountains },
+								paths: { d: :mountains, u: :mountain_1 },
+
+								# the scroll and Randy should be moved to mountain_3 once it exists
 								items: {
-									scroll: Item.new("Scroll", "Its some kind of elvish... You can't read it.")
-								},
+									scroll: Item.new("Scroll", "Its some kind of elvish... You can't read it.") },
 								people: {
 									# Randy will read elvish in the future
 									randy: Person.new("Randy", "He's just an elf",
 										race: "Elf"
 										)}),
+						mountain_1:
+							Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down",
+								paths: { d: :mountain }
+								),
 		forest_4:
 			Room.new("Large forest", "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
 				paths: { n: :forest_3 }

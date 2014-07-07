@@ -3,6 +3,7 @@
 require 'minitest/autorun'
 
 require_relative '../lib/item'
+require_relative '../lib/person'
 require_relative '../lib/room'
 require_relative '../lib/room_list'
 
