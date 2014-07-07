@@ -5,7 +5,6 @@ class Delegate
 	def initialize
 		@save_file = "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
-		@help = 0
 	end
 
 	def parse(input)
