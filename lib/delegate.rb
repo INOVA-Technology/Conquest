@@ -5,7 +5,7 @@ class Delegate
 	def initialize
 		@rooms = RoomList.room_list
 		@player = Player.new
-		@current_room = @rooms[:courtyard]
+		@current_room = @rooms[:mountain] #@rooms[:courtyard]
 		@help = 0
 	end
 
@@ -42,6 +42,9 @@ class Delegate
 			end
 		when /^rub sticks( together)?$/
 			rub_sticks
+		when /^quests?$/
+			#this is probably going to be a for statement.  You understand thos more than i do so have at it.
+			#this should loops through the list of quests in quests.yml and return the ones that are true
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -75,7 +78,8 @@ class Delegate
 				puts "You can't go that way."
 			end
 		else
-			puts "One does not simply walk to Mordor."
+			#TODO: add quest system.  We should have a main quest and other side quests like going to mordor.
+			puts "One does not simply walk to Mordor... You need to find the eagles. They will take you to Mordor."
 		end
 	end
 
