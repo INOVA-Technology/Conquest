@@ -61,11 +61,6 @@ class Delegate
 					puts "#{quest.name}"
 				end
 			end
-			#@quests.each {|x, y, z, a| 
-				#if x.started = true
-			#		puts @quests[x].name
-				#end
-			#}
 			# correction: it should call .each, for statments are bad practice in ruby
 		when /^(i|inv|inventory)$/
 			inventory
