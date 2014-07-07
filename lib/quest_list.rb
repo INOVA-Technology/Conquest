@@ -2,8 +2,8 @@ module QuestList
 
 	QUESTS = {
 		# this need a better name ⬇️ 
-		main:   Quest.new("Questalicious", []),
-		mordor: Quest.new("Onward to Mordor", [])
+		main:   Quest.new("Questalicious", [], started: true),
+		mordor: Quest.new("Onward to Mordor", [], started: false)
 	}
 
 	def self.quests

@@ -12,7 +12,7 @@ class Quest
 		# then @step will be this:
 		# { found_ring: false, melted_ring: false }
 		
-		@started = false
+		@started = options[:started]
 		@options = options
 	end
 

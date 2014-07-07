@@ -6,7 +6,7 @@ class Delegate
 		@rooms = RoomList.room_list
 		@quests = QuestList.quests
 		@player = Player.new
-		@current_room = @rooms[:courtyard]
+		@current_room = @rooms[:mountain]
 		@help = 0
 	end
 
