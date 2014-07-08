@@ -2,7 +2,8 @@ class Delegate
 
 	attr_accessor :current_room, :player
 
-	def initialize
+	def initialize(options = {})
+		@options = options
 		@save_file = "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
 	end
@@ -183,10 +184,9 @@ class Delegate
 
 	def load_game(file)
 		begin
+			raise TypeError if @options[:reset] # this is bad, I know :(
 			data = nil
-			File.open(file, 'r') do |file|
-				data = Marshal.load(file)
-			end
+			File.open(file, 'r') { |file| data = Marshal.load(file) }
 			@rooms  = RoomList.room_list.merge(data[:rooms])
 			@quests = QuestList.quests.merge(data[:quests])
 			@player = data[:player]
@@ -206,7 +206,7 @@ class Delegate
 	end
 
 	def quit
-		save
+		save unless @options[:no_save]
 		puts "Come back when you can't stay so long!"
 		exit
 	end

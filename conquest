@@ -46,6 +46,20 @@ chance = 1000 # increase this number if more people start using this
 puts "Theres a 1 in #{chance} that this will be printed." \
 	if rand(1..chance) == 1
 
+options = {}
+
+until ARGV.empty?
+	case ARGV.shift
+	when "--no-save"
+		options[:no_save] = true
+	when "--reset", "-r"
+		options[:reset] = true
+	when "-R"
+		options[:no_save] = true
+		options[:reset] = true
+	end
+end
+
 require "readline"
 
 def prompt(_prompt = "")
@@ -62,7 +76,7 @@ require_relative 'lib/room_list'
 require_relative 'lib/player'
 require_relative 'lib/delegate'
 
-delegate = Delegate.new
+delegate = Delegate.new(options)
 
 if __FILE__ == $0
 	delegate.player.current_room.enter
