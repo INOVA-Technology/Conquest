@@ -69,6 +69,8 @@ end
 require_relative 'lib/colors'
 require_relative 'lib/quest'
 require_relative 'lib/quest_list'
+require_relative 'lib/achievement'
+require_relative 'lib/achievement_list'
 require_relative 'lib/person'
 require_relative 'lib/item'
 require_relative 'lib/room'
