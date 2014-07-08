@@ -1,7 +1,7 @@
 module QuestList
 
 	QUESTS = {
-		main:   Quest.new("Questalicious", [], started: true),
+		main:   Quest.new("Questalicious", [[:climb_tree, "Banyan"]], started: true),
 		mordor: Quest.new("Onward to Mordor", [], started: false)
 	}
 

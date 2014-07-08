@@ -75,7 +75,8 @@ sticks:
 					paths: { w: :forest_1 },
 					items: {
 						tree: Tree.new("Banyan", "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.", { # 👻
-							can_climb: true
+							can_climb: true,
+							task: { quest: :main, task: :climb_tree}
 							})}),
 		forest_2:
 			Room.new("Large forest", "Just some more forest. The forest continues north and south.",

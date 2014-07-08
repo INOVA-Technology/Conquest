@@ -8,6 +8,7 @@ class Item
 		@options = options
 		@hidden = options[:hidden] || false
 		@can_pickup = options[:hidden] || true
+		@task = options[:task]
 		add_info
 	end
 
@@ -38,14 +39,18 @@ end
 
 # SUBCLASSES BELOW: (only subclass when you have a good reason)
 
-# can be eaten,
-# use item.is_a? Food
+# will add an eat method to this
 class Food < Item
 end
 
 class Tree < Prop
 
 	def climb
+		if @task
+			puts "I'll add this feature (task completion)"
+			# $quests[@task[:quest]][@task[:task]].complete
+			# add once quests becomes $quests
+		end
 		if @options[:can_climb]
 			puts @description
 		else

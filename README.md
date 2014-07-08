@@ -13,17 +13,20 @@ Contributions are appreciated, but please create a new branch before you do so. 
 (* = important/fix soon, - = a must have for release)
 
 * * add more items that are useful
+* * the 'quests' command should list the next step/task to do for each quest
+* * make rooms, and quests lists globals, not parts of a module (may affect saving)
+* - make food edible
 * - add more quests that do stuff
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
 * - make the forest more maze like
 * - add zsd style combat
-*	add directions like nw
-*	add signal trapping
-*	add option to save game somewhere else
-*	have an all around refactortion session thing idk, just refactor some stuff
-*	add rick astley easter egg
-*	add more tests
-*	make the current tests check the description for directions
-*	add some kind of plot
+* -	add directions like nw
+*   add signal trapping
+*   add option to save game somewhere else
+*   have an all around refactortion session thing idk, just refactor some stuff
+*   add rick astley easter egg
+*   add more tests
+*   make the current tests check the description for directions
+*   add some kind of plot
