@@ -24,6 +24,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add zsd style combat
 * -	add directions like nw
 * -	add health and xp
+*   add some ? method aliases
 *   add signal trapping
 *   add option to save game somewhere else
 *   have an all around refactortion session thing idk, just refactor some stuff

@@ -6,6 +6,7 @@ class Delegate
 		@options = options
 		@save_file = "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
+		$quests[:main].start(false)
 	end
 
 	def parse(input)
@@ -16,8 +17,7 @@ class Delegate
 			direction = $~[:direction]
 			walk(direction)
 		when /^(go|walk)( (?<direction>#{directions}|to mordor))?$/
-			direction = $~[:direction]
-			if direction
+			if direction = $~[:direction]
 				walk(direction)
 			else
 				puts "#{input.capitalize} where?"
@@ -50,13 +50,7 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^quests?$/
-			started_quests = $quests.values.select { |i| (i.started) }
-			unless started_quests.empty?
-				puts "Started Quests:".magenta
-				started_quests.map do |quest|
-					puts "#{quest.name}"
-				end
-			end
+			list_quests
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -112,6 +106,19 @@ class Delegate
 
 	def inventory
 		@player.inventory
+	end
+
+	def list_quests
+		started_quests = $quests.values.select { |i| (i.started) }
+		unless started_quests.empty?
+			puts "Started Quests:".magenta
+			started_quests.map do |quest|
+				done = quest.completed
+				puts "#{quest.name}#{' - Completed!' if done}"
+				puts "  Current Task: #{quest.current_task[:description]}" \
+					unless done
+			end
+		end
 	end
 
 	def give(item, guy)
