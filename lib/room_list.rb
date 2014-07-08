@@ -162,5 +162,35 @@ Room.new("Large forest", "You can go north and east",
 	forest_4:
 		Room.new("Large forest", "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
 			paths: { n: :forest_3 }
-			)
+			),
+	abyss1:
+		Room.new("41 62 79 73 73 20 31", "59 6f 75 20 63 61 6e 20 67 6f 20 73 6f 75 74 68 20 61 6e 64 20 65 61 73 74",
+			paths: { s: :merge_conflictia },
+			items: {
+				iphone: Item.new("69 70 68 6f 6e 65", "54 68 65 20 70 65 72 66 65 63 74 20 73 6d 61 72 74 20 70 68 6f 6e 65")
+			}
+		),
+	# eventually there will be a hex translator
+	merge_conflictia:
+		Room.new("Merge Conflictia", "Welcome to Merge Conflictia, the never ending abyss of raw anger. Beyond this \npoint, all descriptions will be in hexadecimal.  There is a road to the north.",
+			paths: { n: :abyss1 },
+			items: {
+				staff: Item.new("Staff", "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.")
+			},
+			people: {
+				hex: Person.new("Hex", "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
+					race: "Hex-Man",
+					talk: "59 6f 75 20 73 68 6f 75 6c 64 20 65 73 63 61 70 65 2e 2e 2e 20 6e 6f 77",
+					item_wanted: "iphone",
+					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... 47 72 65 61 74 20 4d 65 72 67 65 20 43 6f 6e 66 6c 69 63 74\n"
+				)
+			}
+		)
+
+
+
+
+
+
+
 }

@@ -15,7 +15,7 @@ class Delegate
 		when /^(?<direction>(#{directions}))$/
 			direction = $~[:direction]
 			walk(direction)
-		when /^(go|walk)( (?<direction>#{directions}|to mordor))?$/
+		when /^(go|walk)( (?<direction>#{directions}|to mordor|to merge conflictia))?$/
 			direction = $~[:direction]
 			if direction
 				walk(direction)
@@ -85,15 +85,16 @@ class Delegate
 	end
 
 	def walk(direction)
-		if direction != "to mordor"
+		if direction != "to mordor" && direction != "to merge conflictia"
 			if new_room = $rooms[player.current_room[direction]]
 				player.current_room = new_room.enter
 			else
 				puts "You can't go that way."
 			end
-		else
-			#TODO: add quest system.  We should have a main quest and other side quests like going to mordor.
-			puts "One does not simply walk to Mordor... You need to find the eagles. They will take you to Mordor."
+		elsif direction == "to mordor"
+			puts "One does not simply walk to Mordor... You need to find the eagles. They will \ntake you to Mordor."
+		elsif direction == "to merge conflictia"
+			player.current_room = $rooms[:merge_conflictia].enter
 		end
 	end
 
