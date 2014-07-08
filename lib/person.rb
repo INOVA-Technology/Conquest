@@ -11,7 +11,7 @@ class Person
 			@options = options
 			@hidden = options[:hidden] || false
 			@race = options[:race]
-			@talk = options[:talk]
+			@talk = options[:talk].yellow
 			@action = options[:action]
 			@item_wanted = options[:item_wanted]
 			# This was left in because some characters will be able to be picked up

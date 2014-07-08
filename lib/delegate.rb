@@ -23,8 +23,7 @@ class Delegate
 				puts "#{input.capitalize} where?"
 			end
 		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
-			item = $~[:item]
-			if item
+			if item = $~[:item]
 				pickup(item)
 			else
 				puts "Please supply an object to #{input}."
@@ -33,15 +32,17 @@ class Delegate
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
 		when /^talk to( (?<guy>[a-z]+))?$/
-			guy = $~[:guy]
-			talk(guy)
+			if guy = $~[:guy]
+				talk(guy)
+			else
+				puts "Who?"
+			end
 		when /^give( (?<item>[a-z]+)) to( (?<guy>[a-z]+))?$/
 			item = $~[:item]
 			guy = $~[:guy]
 			give(item, guy)
 		when /^inspect( (?<item>[a-z]+))?$/
-			item = $~[:item]
-			if item
+			if item = $~[:item]
 				inspect(item)
 			else
 				puts "Please supply an object to inspect."
