@@ -4,16 +4,15 @@ class Player
 
 	def initialize
 		@items = {}
-		@quests = QuestList.quests
-		@achievements = AchievementList.achievements
 	end
 
 	def pickup(key, item)
 		@items[key.to_sym] = item
-		if key == "scroll"
-			@quests[:mordor].start
-		elsif key == "peach"
-			@achievements[:peach].unlock
+		case key
+		when "scroll"
+			$quests[:mordor].start
+		when "peach"
+			$achievements[:peach].unlock
 		end
 	end
 

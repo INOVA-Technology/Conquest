@@ -50,7 +50,7 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^quests?$/
-			started_quests = @quests.values.select { |i| (i.started) }
+			started_quests = $quests.values.select { |i| (i.started) }
 			unless started_quests.empty?
 				puts "Started Quests:".magenta
 				started_quests.map do |quest|
@@ -86,7 +86,7 @@ class Delegate
 
 	def walk(direction)
 		if direction != "to mordor"
-			if new_room = @rooms[player.current_room[direction]]
+			if new_room = $rooms[player.current_room[direction]]
 				player.current_room = new_room.enter
 			else
 				puts "You can't go that way."
@@ -191,20 +191,18 @@ class Delegate
 			raise TypeError if @options[:reset] # this is bad, I know :(
 			data = nil
 			File.open(file, 'r') { |file| data = Marshal.load(file) }
-			@rooms  = RoomList.room_list.merge(data[:rooms])
-			@quests = QuestList.quests.merge(data[:quests])
+			$rooms  = $rooms.merge(data[:rooms])
+			$quests = $quests.merge(data[:quests])
 			@player = data[:player]
 		rescue TypeError, Errno::ENOENT
-			@rooms  = RoomList.room_list
-			@quests = QuestList.quests
 			@player = Player.new
-			@player.current_room = @rooms[:courtyard]
+			@player.current_room = $rooms[:courtyard]
 		end
 	end
 
 	def save
 		File.open(@save_file, 'w') do |file|
-			data = { rooms: @rooms, player: @player, quests: @quests }
+			data = { rooms: $rooms, player: @player, quests: $quests }
 			file.puts(Marshal.dump(data))
 		end
 	end

@@ -46,11 +46,7 @@ end
 class Tree < Prop
 
 	def climb
-		if @task
-			puts "I'll add this feature (task completion)"
-			# $quests[@task[:quest]][@task[:task]].complete
-			# add once quests becomes $quests
-		end
+		$quests[@task[:quest]].complete(@task[:task]) if @task
 		if @options[:can_climb]
 			puts @description
 		else

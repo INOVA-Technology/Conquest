@@ -25,7 +25,7 @@ class Quest
 	def complete(task)
 		the_task = tasks[task]
 		the_task[:completed] = true
-		puts "Task '#{the_task[:name]}' completed!".cyan
+		puts "Task '#{the_task[:description]}' completed!".cyan
 	end
 
 	def [](task)
