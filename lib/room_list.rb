@@ -119,6 +119,7 @@ more_trees_3:
 							talk: "People tell me I look like Morgan Freeman.",
 							#item_wanted: "",
 							#action: ""
+							bad_guy: false
 							)}),
 			forest_by_village:
 				Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
@@ -126,8 +127,16 @@ more_trees_3:
 					),
 				valley:
 					Room.new("Valley", "It's a beautiful valley, with some gigantic mountains east, with some\nsnow of the tops. There is a forest to the west",
-						paths: { e: :mountains, w: :forest_by_village }
-						),
+						paths: { e: :mountains, w: :forest_by_village },
+						people: {
+							orc: Person.new("Orc", "Hmmm... You are no genius, but you think he wants to kill you.",
+								race: "Orc",
+								talk: "Give me your milk money.",
+								bad_guy: true,
+								damage: rand(1..3),
+								health: 10
+
+						)}),
 					mountains:
 						Room.new("Mountains", "There are many tall mountains with snow on the tops. You can go back west.",
 							paths: { u: :mountain, w: :valley },
@@ -145,7 +154,8 @@ more_trees_3:
 										race: "Elf",
 										talk: "I can read elvish. Go figure.",
 										item_wanted: "scroll",
-										action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
+										action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}",
+										bad_guy: false
 										)}),
 						mountain_1:
 							Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down",

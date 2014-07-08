@@ -49,12 +49,17 @@ class Room
 			end
 		end
 
-		visible_people = @people.values.select { |i| (!i.hidden) && i.can_pickup }
+		visible_people = @people.values.select { |i| (!i.hidden)}
 		unless visible_people.empty?
 
 			puts "People that are here:".magenta
 			visible_people.map do |people|
-				puts "#{people.name}"
+				#puts people.bad_guy
+				if people.bad_guy == true
+					puts "#{people.name.red}"
+				else
+					puts "#{people.name}"
+				end
 			end
 		end
 
