@@ -23,6 +23,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - make the forest more maze like
 * - add zsd style combat
 * -	add directions like nw
+* -	add health and xp
 *   add signal trapping
 *   add option to save game somewhere else
 *   have an all around refactortion session thing idk, just refactor some stuff
