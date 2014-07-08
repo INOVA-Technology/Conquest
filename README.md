@@ -22,8 +22,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - have at least 50 different rooms
 * - make the forest more maze like
 * - add zsd style combat
-* -	add directions like nw
-* -	add health and xp
+* - add directions like nw
+* - add health and xp
 * - add support for multi word items
 *   add signal trapping
 *   add option to save game somewhere else
@@ -32,3 +32,4 @@ Contributions are appreciated, but please create a new branch before you do so. 
 *   add more tests
 *   make the current tests check the description for directions
 *   add some kind of plot
+*   add some ? method aliases

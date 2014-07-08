@@ -16,8 +16,7 @@ class Delegate
 			direction = $~[:direction]
 			walk(direction)
 		when /^(go|walk)( (?<direction>#{directions}|to mordor|to merge conflictia))?$/
-			direction = $~[:direction]
-			if direction
+			if direction = $~[:direction]
 				walk(direction)
 			else
 				puts "#{input.capitalize} where?"
