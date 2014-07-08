@@ -139,7 +139,7 @@ more_trees_3:
 										race: "Elf",
 										talk: "I can read elvish. Go figure.",
 										item_wanted: "scroll",
-										action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forrest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
+										action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
 										)}),
 						mountain_1:
 							Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down",
