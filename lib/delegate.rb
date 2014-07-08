@@ -143,6 +143,9 @@ class Delegate
 			puts the_item.description
 		elsif the_item = player.current_room.items[item.to_sym]
 			puts the_item.description
+		elsif the_item = player.current_room.people[item.to_sym]
+			puts the_item.description
+			puts "Race: #{the_item.race}"
 		else
 			puts "This item is not here or your inventory."
 		end

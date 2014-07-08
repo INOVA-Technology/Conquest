@@ -112,7 +112,14 @@ more_trees_3:
 					paths: { w: :path_to_village, s: :forest_by_village },
 					items: { 
 						pickaxe: Item.new("Pickaxe", "Be careful, it looks sharp.")
-						}),
+						},
+					people: {
+						gus: Person.new("gus", "He's a poor villager about the age of 56",
+							race: "Human",
+							talk: "People tell me I look like Morgan Freeman.",
+							#item_wanted: "",
+							#action: ""
+							)}),
 			forest_by_village:
 				Room.new("Large forest", "Geez more forest. The village is north, and there is a valley east",
 					paths: { n: :village, e: :valley }
@@ -134,7 +141,6 @@ more_trees_3:
 								items: {
 									scroll: Item.new("Scroll", "Its some kind of elvish... You can't read it.")},
 								people: {
-									# Randy will read elvish in the future
 									randy: Person.new("Randy", "He's just an elf",
 										race: "Elf",
 										talk: "I can read elvish. Go figure.",
