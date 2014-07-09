@@ -11,6 +11,7 @@ class Player
 		case key
 		when "scroll"
 			$quests[:mordor].start
+			$achievements[:mordor].unlock
 		when "peach"
 			$achievements[:peach].unlock
 		end

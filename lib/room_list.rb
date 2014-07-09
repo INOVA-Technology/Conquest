@@ -194,7 +194,7 @@ Room.new("Large forest", "You can go north and east",
 			people: {
 				hex: Person.new("Hex", "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
 					race: "Hex-Man",
-					talk: hex_to_str("You should escape... now"),
+					talk: str_to_hex("You should escape... now"),
 					item_wanted: "iphone",
 					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}"
 				)

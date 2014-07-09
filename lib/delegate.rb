@@ -103,6 +103,7 @@ class Delegate
 		elsif direction == "to mordor"
 			puts "One does not simply walk to Mordor... You need to find the eagles. They will \ntake you to Mordor."
 		elsif direction == "to merge conflictia"
+			$achievements[:hex].unlock
 			player.current_room = $rooms[:merge_conflictia].enter
 		end
 	end
