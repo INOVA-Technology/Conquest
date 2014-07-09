@@ -19,6 +19,15 @@
 #                                          #
 ############################################
 
+# helps with the merge conflictia area
+def str_to_hex(str)
+	str.chars.map { |c| c.ord.to_s(16) } * " "
+end
+
+def hex_to_str(hex)
+	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
+end
+
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 $rooms = {
 	castle_main:
@@ -166,21 +175,13 @@ Room.new("Large forest", "You can go north and east",
 
 
 
-	# hidden passages
-	# these may help in irb:
+	# hidden passages below:
 
-	# def str_to_hex(str)
-	# 	str.chars.map { |c| c.ord.to_s(16) } * " "
-	# end
-
-	# def hex_to_str(hex)
-	# 	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
-	# end
 	abyss1:
-		Room.new("41 62 79 73 73", "59 6f 75 20 63 61 6e 20 67 6f 20 73 6f 75 74 68 20 61 6e 64 20 65 61 73 74",
+		Room.new(str_to_hex("Abyss"), str_to_hex("You can go south and east"),
 			paths: { s: :merge_conflictia },
 			items: {
-				iphone: Item.new("69 70 68 6f 6e 65", "54 68 65 20 70 65 72 66 65 63 74 20 73 6d 61 72 74 20 70 68 6f 6e 65")
+				iphone: Item.new(str_to_hex("iphone"), str_to_hex("The perfect smart phone"))
 			}
 		),
 	# eventually there will be a hex translator.
@@ -193,17 +194,15 @@ Room.new("Large forest", "You can go north and east",
 			people: {
 				hex: Person.new("Hex", "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
 					race: "Hex-Man",
-					talk: "59 6f 75 20 73 68 6f 75 6c 64 20 65 73 63 61 70 65 2e 2e 2e 20 6e 6f 77",
+					talk: hex_to_str("You should escape... now"),
 					item_wanted: "iphone",
-					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... 47 72 65 61 74 20 4d 65 72 67 65 20 43 6f 6e 66 6c 69 63 74\n"
+					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}"
 				)
 			}
 		)
-
-
-
-
-
-
-
 }
+
+
+
+
+
