@@ -35,6 +35,7 @@ class Enemy < Person
 	def add_info
 		@health = @options[:health]
 		@damage = @options[:damage]
+		@name = @name.red
 	end
 
 	def is_alive
