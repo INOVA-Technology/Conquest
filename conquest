@@ -62,7 +62,7 @@ end
 
 require "readline"
 
-def prompt(_prompt = "")
+def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
@@ -83,7 +83,7 @@ delegate = Delegate.new(options)
 if __FILE__ == $0
 	delegate.player.current_room.enter
 	loop do
-		💬 = prompt("> ")
+		💬 = prompt
 		delegate.parse(💬)
 	end
 end

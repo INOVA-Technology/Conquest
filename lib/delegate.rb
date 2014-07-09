@@ -64,6 +64,16 @@ class Delegate
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
+		when /^(fight|attack)( (?<enemy>[a-z]+)?)?$/
+			if enemy = $~[:enemy]
+				if enemy.is_a?(Enemy)
+					player.fight(enemy)
+				else
+					puts "Why would you want to hurt #{enemy}?"
+				end
+			else
+				puts "Who?"
+			end
 		when /^(help|h)$/
 			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].to_enum
 			begin

@@ -10,6 +10,11 @@ class Room
 		@people = options[:people] || {}
 		@options = options
 		@visited = false
+		add_info
+	end
+
+	def add_info
+
 	end
 
 	def [](direction)
@@ -63,6 +68,23 @@ class Room
 			end
 		end
 
+	end
+
+end
+
+class FightScene < Room
+	# all people in a fight scene are assumed to be enemies
+	# but it would make sence for there to be a separate FightScene
+	# for each enemy.
+
+	def add_info
+		@enemy = options[:enemy]
+	end
+
+	def fight_loop
+		while @enemy.is_alive
+			input = prompt
+		end
 	end
 
 end

@@ -25,4 +25,13 @@ class Player
 		}
 	end
 
+	def fight(enemy)
+		# old_room = @current_room.idk
+		fight_scene = FightScene.new("")
+		@current_room = fight_scene
+
+		# @current_room = old_room
+
+	end
+
 end
