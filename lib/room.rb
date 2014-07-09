@@ -60,7 +60,7 @@ class Room
 			puts "People that are here:".magenta
 			visible_people.map do |people|
 				#puts people.bad_guy
-				if people.bad_guy == true
+				if people.is_a?(Enemy) # this doesn't work but it will
 					puts "#{people.name.red}"
 				else
 					puts "#{people.name}"
