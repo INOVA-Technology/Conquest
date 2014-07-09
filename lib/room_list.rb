@@ -163,6 +163,19 @@ Room.new("Large forest", "You can go north and east",
 		Room.new("Large forest", "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
 			paths: { n: :forest_3 }
 			),
+
+
+
+	# hidden passages
+	# these may help in irb:
+
+	# def str_to_hex(str)
+	# 	str.chars.map { |c| c.ord.to_s(16) } * ""
+	# end
+
+	# def hex_to_str(hex)
+	# 	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
+	# end
 	abyss1:
 		Room.new("41 62 79 73 73 20 31", "59 6f 75 20 63 61 6e 20 67 6f 20 73 6f 75 74 68 20 61 6e 64 20 65 61 73 74",
 			paths: { s: :merge_conflictia },
@@ -170,9 +183,9 @@ Room.new("Large forest", "You can go north and east",
 				iphone: Item.new("69 70 68 6f 6e 65", "54 68 65 20 70 65 72 66 65 63 74 20 73 6d 61 72 74 20 70 68 6f 6e 65")
 			}
 		),
-	# eventually there will be a hex translator
+	# eventually there will be a hex translator.
 	merge_conflictia:
-		Room.new("Merge Conflictia", "Welcome to Merge Conflictia, the never ending abyss of raw anger. Beyond this \npoint, all descriptions will be in hexadecimal.  There is a road to the north.",
+		Room.new("Merge Conflictia", "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
 			paths: { n: :abyss1 },
 			items: {
 				staff: Item.new("Staff", "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.")
