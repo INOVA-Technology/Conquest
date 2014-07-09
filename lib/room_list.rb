@@ -170,14 +170,14 @@ Room.new("Large forest", "You can go north and east",
 	# these may help in irb:
 
 	# def str_to_hex(str)
-	# 	str.chars.map { |c| c.ord.to_s(16) } * ""
+	# 	str.chars.map { |c| c.ord.to_s(16) } * " "
 	# end
 
 	# def hex_to_str(hex)
 	# 	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
 	# end
 	abyss1:
-		Room.new("41 62 79 73 73 20 31", "59 6f 75 20 63 61 6e 20 67 6f 20 73 6f 75 74 68 20 61 6e 64 20 65 61 73 74",
+		Room.new("41 62 79 73 73", "59 6f 75 20 63 61 6e 20 67 6f 20 73 6f 75 74 68 20 61 6e 64 20 65 61 73 74",
 			paths: { s: :merge_conflictia },
 			items: {
 				iphone: Item.new("69 70 68 6f 6e 65", "54 68 65 20 70 65 72 66 65 63 74 20 73 6d 61 72 74 20 70 68 6f 6e 65")
