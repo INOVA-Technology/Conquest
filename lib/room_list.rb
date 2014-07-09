@@ -142,12 +142,12 @@ Room.new("Large forest", "You can go north and east",
 							health: 10
 					)}),
 				mountains:
-					Room.new("Mountains", "There are many tall mountains with snow on the tops. You can go back west.",
+					Room.new("Mountains", "There are many tall mountains with snow on the tops. You can go back west. You hear something in the distance.",
 						paths: { u: :mountain, w: :valley },
 						has_mountain: true
 						),
 					mountain:
-						Room.new("Tall mountain", "This mountain is very steep. You can continue climbing or go back down",
+						Room.new("Tall mountain", "This mountain is very steep. You can continue climbing or go back down. The sound has gotten louder.",
 							paths: { d: :mountains, u: :mountain_1 },
 
 							# the scroll and Randy should be moved to mountain_3 once it exists
@@ -161,8 +161,14 @@ Room.new("Large forest", "You can go north and east",
 									action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
 									)}),
 					mountain_1:
-						Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down",
-							paths: { d: :mountain }
+						Room.new("Tall mountain", "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
+							paths: { d: :mountain },
+							people: {
+								rick: Person.new("Rick", "Oh... Oh no... Its Rick Astley",
+									hidden: true,
+									race: "Gosh, who knows.",
+									talk: "\nWe're no strangers to love\n\nYou know the rules and so do I\n\nA full commitment'?s what I'?m thinking of\n\nYou wouldn'?t get this from any other guy\n\nI just wanna tell you how I'?m feeling\n\nGotta make you understand\n\nNever gonna give you up\n\nNever gonna let you down\n\nNever gonna run around and desert you\n\nNever gonna make you cry\n\nNever gonna say goodbye\n\nNever gonna tell a lie and hurt you\n\nWe'?ve known each other for so long\n\nYour heart'?s been aching, but\n\nYou'?re too shy to say it\n\nInside,? we both know what'?s been going on\n\nWe know the game and we'?re gonna play it\n\nAnd if you ask me how I'?m feeling\nDon'?t tell me you'?re too blind to see\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n\nOoh, give you up\nOoh, give you up\nNever gonna give,? never gonna give\nGive you up\nNever gonna give,? never gonna give\nGive you up\n\nWe'?ve known each other for so long\nYour heart'?s been aching, but\nYou'?re too shy to say it\nInside,? we both know what'?s been going on\nWe know the game and we'?re gonna play it\n\nI just wanna tell you how I'?m feeling\nGotta make you understand\n\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n"
+									)}
 							),
 	forest_4:
 		Room.new("Large forest", "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
@@ -200,5 +206,5 @@ Room.new("Large forest", "You can go north and east",
 
 
 
-
+	
 
