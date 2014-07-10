@@ -66,10 +66,15 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^(fight|attack)( (?<enemy>[a-z]+)?)?$/
 			if enemy = $~[:enemy]
-				if enemy.is_a?(Enemy)
-					player.fight(enemy)
+				if e = @player.current_room.people[enemy.to_sym]
+					if e.is_a?(Enemy)
+						player.fight(e)
+					else
+						# we'll change this part eventualy
+						puts "Why would you want to hurt #{enemy}?"
+					end
 				else
-					puts "Why would you want to hurt #{enemy}?"
+					puts "Person isn't here"
 				end
 			else
 				puts "Who?"
@@ -95,8 +100,9 @@ class Delegate
 
 	def walk(direction)
 		if direction != "to mordor" && direction != "to merge conflictia"
-			if new_room = $rooms[player.current_room[direction]]
-				player.current_room = new_room.enter
+			key = player.current_room[direction]
+			if new_room = $rooms[key]
+				player.current_room = new_room.enter, key
 			else
 				puts "You can't go that way."
 			end

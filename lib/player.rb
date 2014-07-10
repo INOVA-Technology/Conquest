@@ -1,9 +1,15 @@
 class Player
 
-	attr_accessor :items, :current_room
+	attr_accessor :items
+	attr_reader :current_room
 
 	def initialize
 		@items = {}
+	end
+
+	def current_room=(new_room, key)
+		@current_room = new_room
+		@room_key = key
 	end
 
 	def pickup(key, item)
@@ -27,8 +33,8 @@ class Player
 	end
 
 	def fight(enemy)
-		# old_room = @current_room.idk
-		fight_scene = FightScene.new("")
+		old_room_key = @room_key
+		fight_scene = FightScene.new("", "")
 		@current_room = fight_scene
 
 		# @current_room = old_room
