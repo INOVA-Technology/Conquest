@@ -30,7 +30,7 @@ class Delegate
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
-		when /^talk to( (?<guy>[a-z]+))?$/
+		when /^(talk|speak) to( (?<guy>[a-z]+))?$/
 			if guy = $~[:guy]
 				talk(guy)
 			else

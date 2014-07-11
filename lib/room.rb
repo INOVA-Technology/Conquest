@@ -84,6 +84,7 @@ class FightScene < Room
 	end
 
 	def fight_loop
+		# this needs to check if the player dies
 		while @enemy.is_alive
 			process(prompt)
 		end
@@ -92,7 +93,9 @@ class FightScene < Room
 	def process(input)
 		case input
 		when /^smack$/
-			@enemy.health -= $player
+			@enemy.health -= $player.smack
+			# its gotta say something
+			# should give xp
 		when /^\s*$/
 		else
 			puts "Who?"
