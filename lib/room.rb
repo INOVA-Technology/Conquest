@@ -76,9 +76,28 @@ class FightScene < Room
 		@enemy = options[:enemy]
 	end
 
+	def enter
+		puts @name.cyan
+		puts @description
+		# we should help them out with knowing commands to fight,
+		# such as smack or flee and stuff
+		list_items
+		fight_loop
+	end
+
 	def fight_loop
 		while @enemy.is_alive
-			input = prompt
+			process(prompt)
+		end
+	end
+
+	def process(input)
+		case input
+		when /^smack$/
+			# do something
+		when /^$/
+		else
+			puts "Who?"
 		end
 	end
 

@@ -20,18 +20,19 @@ class Player
 	def inventory
 		@items.values.each { |item|
 			a_or_an = %w[a e i o u].include?(item.name[0]) \
-				? "an " : "a " 
+				? "an " : "a "
 			a_or_an = "" if item.name[-1] == "s"
 			puts "#{a_or_an}#{item.name.downcase}"
 		}
 	end
 
 	def fight(enemy)
-		old_room_key = @room_key
-		fight_scene = FightScene.new("", "")
-		@current_room = fight_scene
+		old_room_key = $rooms.key(@current_room)
 
-		# @current_room = old_room
+		fight_scene = FightScene.new("", "", {enemy: enemy})
+		@current_room = fight_scene.enter
+
+		@current_room = $rooms[old_room_key]
 
 	end
 
