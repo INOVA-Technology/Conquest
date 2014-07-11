@@ -81,7 +81,7 @@ require_relative 'lib/delegate'
 delegate = Delegate.new(options)
 
 if __FILE__ == $0
-	delegate.player.current_room.enter
+	$player.current_room.enter
 	loop do
 		💬 = prompt
 		delegate.parse(💬)

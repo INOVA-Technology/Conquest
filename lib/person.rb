@@ -41,4 +41,20 @@ class Enemy < Person
 	def is_alive
 		health > 0
 	end
+
+	def health=(new_health)
+		@health = new_health
+		check_dead
+	end
+
+	def check_dead
+		if @health <= 0
+			die
+		end
+	end
+
+	def die
+		puts "You have slain the #{name}"
+	end
+
 end

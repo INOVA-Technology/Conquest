@@ -69,8 +69,6 @@ end
 
 class FightScene < Room
 	# all people in a fight scene are assumed to be enemies
-	# but it would make sence for there to be a separate FightScene
-	# for each enemy.
 
 	def add_info
 		@enemy = options[:enemy]
@@ -94,8 +92,8 @@ class FightScene < Room
 	def process(input)
 		case input
 		when /^smack$/
-			# do something
-		when /^$/
+			@enemy.health -= $player
+		when /^\s*$/
 		else
 			puts "Who?"
 		end

@@ -49,13 +49,7 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^quests?$/
-			started_quests = $quests.values.select { |i| (i.started) }
-			unless started_quests.empty?
-				puts "Started Quests:".magenta
-				started_quests.map do |quest|
-					puts "#{quest.name}"
-				end
-			end
+			list_quests
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -66,9 +60,9 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^(fight|attack)( (?<enemy>[a-z]+)?)?$/
 			if enemy = $~[:enemy]
-				if e = @player.current_room.people[enemy.to_sym]
+				if e = $player.current_room.people[enemy.to_sym]
 					if e.is_a?(Enemy)
-						player.fight(e)
+						$player.fight(e)
 					else
 						# we'll change this part eventualy
 						puts "Why would you want to hurt #{enemy}?"
@@ -98,11 +92,24 @@ class Delegate
 		end
 	end
 
+	def list_quests
+		started_quests = $quests.values.select { |i| (i.started) }
+		unless started_quests.empty?
+			puts "Started Quests:".magenta
+			started_quests.map do |quest|
+				done = quest.completed
+				puts "#{quest.name}#{' - Completed!' if done}"
+				puts "  Current Task: #{quest.current_task[:description]}" \
+					unless done
+			end
+		end
+	end
+
 	def walk(direction)
 		if direction != "to mordor" && direction != "to merge conflictia"
-			key = @player.current_room[direction]
+			key = $player.current_room[direction]
 			if new_room = $rooms[key]
-				@player.current_room = new_room.enter
+				$player.current_room = new_room.enter
 			else
 				puts "You can't go that way."
 			end
@@ -110,15 +117,15 @@ class Delegate
 			puts "One does not simply walk to Mordor... You need to find the eagles. They will \ntake you to Mordor."
 		elsif direction == "to merge conflictia"
 			$achievements[:hex].unlock
-			player.current_room = $rooms[:merge_conflictia].enter
+			$player.current_room = $rooms[:merge_conflictia].enter
 		end
 	end
 
 	def pickup(item)
-		if _item = player.current_room.items[item.to_sym]
+		if _item = $player.current_room.items[item.to_sym]
 			if _item.can_pickup
-				_item = player.current_room.remove_item(item)
-				@player.pickup(item, _item)
+				_item = $player.current_room.remove_item(item)
+				$player.pickup(item, _item)
 			else
 				puts "You can't pick that up."
 			end
@@ -128,17 +135,17 @@ class Delegate
 	end
 
 	def inventory
-		@player.inventory
+		$player.inventory
 	end
 
 	def give(item, guy)
 		# Do I have this item?
-		if the_item = @player.items[item.to_sym]
+		if the_item = $player.items[item.to_sym]
 			# Does this guy even exist?
-			if player.current_room.people[guy.to_sym]
+			if $player.current_room.people[guy.to_sym]
 				# awesome, we r not crazy... But does guy want this item?
-				if player.current_room.people[guy.to_sym].item_wanted == item
-					puts player.current_room.people[guy.to_sym].action
+				if $player.current_room.people[guy.to_sym].item_wanted == item
+					puts $player.current_room.people[guy.to_sym].action
 				else
 					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
 				end
@@ -152,16 +159,16 @@ class Delegate
 	end
 
 	def look
-		player.current_room.look
+		$player.current_room.look
 	end
 
 	def inspect(item)
 		# this could be refactored
-		if the_item = @player.items[item.to_sym]
+		if the_item = $player.items[item.to_sym]
 			puts the_item.description
-		elsif the_item = player.current_room.items[item.to_sym]
+		elsif the_item = $player.current_room.items[item.to_sym]
 			puts the_item.description
-		elsif the_item = player.current_room.people[item.to_sym]
+		elsif the_item = $player.current_room.people[item.to_sym]
 			puts the_item.description
 			puts "Race: #{the_item.race}"
 		else
@@ -170,22 +177,22 @@ class Delegate
 	end
 
 	def talk(guy)
-		if player.current_room.people[guy.to_sym]
-			puts puts player.current_room.people[guy.to_sym].talk.cyan
+		if $player.current_room.people[guy.to_sym]
+			puts puts $player.current_room.people[guy.to_sym].talk.cyan
 		else
 			puts "#{guy} isn't in this room.".cyan
 		end
 	end
 
 	def rub_sticks
-		if @player.items[:sticks]
+		if $player.items[:sticks]
 			# do something involving fire
 			puts "I need to implement this."
 		end
 	end
 
 	def climb(thing_name)
-		if 🌳 = player.current_room.items[:tree]
+		if 🌳 = $player.current_room.items[:tree]
 			name = 🌳.name.downcase
 			if thing_name.nil? || thing_name == "tree" || thing_name == name
 				🌳.climb
@@ -194,7 +201,7 @@ class Delegate
 			end
 
 		# I don't like how this works :(
-		elsif player.current_room.options[:has_mountain]
+		elsif $player.current_room.options[:has_mountain]
 			if ["up", "mountain", nil].include? thing_name
 				walk("u")
 			end
@@ -210,17 +217,18 @@ class Delegate
 			File.open(file, 'r') { |file| data = Marshal.load(file) }
 			$rooms  = $rooms.merge(data[:rooms])
 			$quests = $quests.merge(data[:quests])
-			@player = data[:player]
+			$player = data[:player]
 		rescue TypeError, Errno::ENOENT
 			room = :courtyard
-			@player = Player.new
-			@player.current_room = $rooms[room]
+			$player = Player.new
+			$player.current_room = $rooms[room]
+			$quests[:main].start(false)
 		end
 	end
 
 	def save
 		File.open(@save_file, 'w') do |file|
-			data = { rooms: $rooms, player: @player, quests: $quests }
+			data = { rooms: $rooms, player: $player, quests: $quests }
 			file.puts(Marshal.dump(data))
 		end
 	end
