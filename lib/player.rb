@@ -1,15 +1,9 @@
 class Player
 
-	attr_accessor :items
-	attr_reader :current_room
+	attr_accessor :items, :current_room
 
 	def initialize
 		@items = {}
-	end
-
-	def current_room=(new_room, key)
-		@current_room = new_room
-		@room_key = key
 	end
 
 	def pickup(key, item)

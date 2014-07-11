@@ -100,9 +100,9 @@ class Delegate
 
 	def walk(direction)
 		if direction != "to mordor" && direction != "to merge conflictia"
-			key = player.current_room[direction]
+			key = @player.current_room[direction]
 			if new_room = $rooms[key]
-				player.current_room = new_room.enter, key
+				@player.current_room = new_room.enter
 			else
 				puts "You can't go that way."
 			end
@@ -212,8 +212,9 @@ class Delegate
 			$quests = $quests.merge(data[:quests])
 			@player = data[:player]
 		rescue TypeError, Errno::ENOENT
+			room = :courtyard
 			@player = Player.new
-			@player.current_room = $rooms[:courtyard]
+			@player.current_room = $rooms[room]
 		end
 	end
 
