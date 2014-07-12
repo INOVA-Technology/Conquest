@@ -1,15 +1,15 @@
-class Room
+class Room < ConquestClass
 
 	attr_reader :items, :options, :people
 
 	def initialize(name, description, options = {})
-		@name = name
-		@description = description
-		@paths = options[:paths] || {}
-		@items = options[:items] || {}
-		@people = options[:people] || {}
-		@options = options
-		@visited = false
+		@name ||= name
+		@description ||= description
+		@paths ||= (options[:paths] || {})
+		@items ||= (options[:items] || {})
+		@people ||= (options[:people] || {})
+		@options ||= options
+		@visited ||= false
 		add_info
 	end
 

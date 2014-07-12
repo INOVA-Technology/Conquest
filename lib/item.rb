@@ -1,14 +1,14 @@
-class Item
+class Item < ConquestClass
 
 	attr_reader :name, :description, :hidden, :can_pickup
 
-	def initialize(name, description, options = {})
-		@name = name
-		@description = description
-		@options = options
-		@hidden = options[:hidden] || false
-		@can_pickup = options[:hidden] || true
-		@task = options[:task]
+	def setup(name, description, options = {})
+		@name ||= name
+		@description ||= description
+		@options ||= options
+		@hidden ||= (options[:hidden] || false)
+		@can_pickup ||= (!options[:hidden] || true)
+		@task ||= options[:task]
 		add_info
 	end
 
@@ -21,19 +21,6 @@ class Prop < Item
 	def add_info
 		@hidden = true
 		@can_pickup = false
-	end
-end
-
-# sends you to a new room, usally something that
-# has more functionality than just a room
-class Transporter < Prop
-
-	attr_accessor :goto
-
-	def add_info
-		@hidden = true
-		@can_pickup = false
-		@goto = options[:goto]
 	end
 end
 

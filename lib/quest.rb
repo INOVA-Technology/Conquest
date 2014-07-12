@@ -1,13 +1,13 @@
-class Quest
+class Quest < ConquestClass
 
 	attr_accessor :name, :started, :tasks
 
-	def initialize(name, tasks, options = {})
-		@name = name
+	def setup(name, tasks, options = {})
+		@name ||= name
 		
 		# tasks (the argument) should be a hash like this:
 		# [[:find_ring, "My Precious"], [:melt_ring, "Idk"]]
-		@tasks = tasks.inject({}) do |hash, task|
+		@tasks ||= tasks.inject({}) do |hash, task|
 			hash[task[0]] = { description: task[1], completed: false}; hash
 		end
 		# then @tasks will be this:
@@ -15,8 +15,8 @@ class Quest
 		# find_ring: {description: "My Precious", completed: false},
 		# melt_ring: {description: "Idk", completed: false}
 		# }
-		@started = false
-		@options = options
+		@started ||= false
+		@options ||= options
 	end
 
 	def start(message = true)

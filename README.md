@@ -14,7 +14,6 @@ Contributions are appreciated, but please create a new branch before you do so. 
 
 * * add more items that are useful
 * * add more to the main quest
-* * remove need for "conquest -r" when the Player/Room/Quest/Achievement class is updated
 * - save achievements
 * - make food edible
 * - make better names && descriptions for rooms

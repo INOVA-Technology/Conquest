@@ -216,7 +216,7 @@ class Delegate
 			File.open(file, 'r') { |file| data = Marshal.load(file) }
 			$rooms  = $rooms.merge(data[:rooms])
 			$quests = $quests.merge(data[:quests])
-			$player = data[:player]
+			$player = data[:player].setup
 		rescue TypeError, Errno::ENOENT
 			room = :courtyard
 			$player = Player.new
