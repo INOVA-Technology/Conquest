@@ -139,7 +139,8 @@ Room.new("Large forest", "You can go north and east",
 							race: "Orc",
 							talk: "Give me your milk money.",
 							damage: rand(1..3),
-							health: 10
+							health: 10,
+							xp: 3
 					)}),
 				mountains:
 					Room.new("Mountains", "There are many tall mountains with snow on the tops. You can go back west. You hear something in the distance.",

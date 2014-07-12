@@ -54,7 +54,7 @@ class Room
 			end
 		end
 
-		visible_people = @people.values.select { |i| (!i.hidden)}
+		visible_people = @people.values.select { |i| !i.hidden && i.is_alive }
 		unless visible_people.empty?
 
 			puts "People that are here:".magenta
@@ -87,15 +87,16 @@ class FightScene < Room
 		# this needs to check if the player dies
 		while @enemy.is_alive
 			process(prompt)
+			# then @enemy attacks the $player 
 		end
 	end
 
 	def process(input)
 		case input
 		when /^smack$/
-			@enemy.health -= $player.smack
-			# its gotta say something
-			# should give xp
+			damage = $player.smack
+			puts "You smacked the #{@enemy.name} -#{damage}"
+			@enemy.health -= damage
 		when /^\s*$/
 		else
 			puts "Who?"

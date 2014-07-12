@@ -1,10 +1,17 @@
 class Player
 
-	attr_accessor :items, :current_room, :xp
+	attr_accessor :items, :current_room
+	attr_reader :xp
 
 	def initialize
 		@items = {}
 		@xp = 10
+	end
+
+	def xp=(new_xp)
+		diff = new_xp - @xp
+		@xp = new_xp
+		puts "+#{diff}xp!" if diff > 0
 	end
 
 	def pickup(key, item)
