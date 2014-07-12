@@ -1,6 +1,6 @@
 class Delegate
 
-	attr_accessor :current_room, :player
+	attr_accessor :current_room
 
 	def initialize(options = {})
 		@options = options

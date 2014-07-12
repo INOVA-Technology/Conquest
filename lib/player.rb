@@ -1,9 +1,10 @@
 class Player
 
-	attr_accessor :items, :current_room
+	attr_accessor :items, :current_room, :xp
 
 	def initialize
 		@items = {}
+		@xp = 10
 	end
 
 	def pickup(key, item)
