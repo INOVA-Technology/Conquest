@@ -26,8 +26,12 @@ class Room
 		unless @visited
 			puts @description
 			list_items
+			quest = options[:starts_quest]
+			$quests[quest].start if quest
+			achievement = options[:unlocks]
+			$achievements[achievement].unlock if achievement
+			@visited = true
 		end
-		@visited = true # can't hurt to set it every time, right?
 		self
 	end
 

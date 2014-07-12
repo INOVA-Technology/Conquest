@@ -201,7 +201,9 @@ Room.new("Large forest", "You can go north and east",
 					item_wanted: "iphone",
 					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}"
 				)
-			}
+			},
+			starts_quest: :hex,
+			unlocks: :hex
 		)
 }
 

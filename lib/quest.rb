@@ -20,8 +20,10 @@ class Quest
 	end
 
 	def start(message = true)
-		@started = true
-		puts "#{'Quest started!'.cyan} - #{@name}" if message
+		unless @started
+			puts "#{'Quest started!'.cyan} - #{@name}" if message
+			@started = true
+		end
 	end
 
 	def complete(task)

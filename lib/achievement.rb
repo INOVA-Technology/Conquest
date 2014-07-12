@@ -10,8 +10,10 @@ class Achievement
 	end
 
 	def unlock
-		@unlocked = true
-		puts "#{'Achievement Unlocked!'.cyan} - #{@name}"
+		unless @unlocked
+			@unlocked = true
+			puts "#{'Achievement Unlocked!'.cyan} - #{@name}"
+		end
 	end
 
 end
