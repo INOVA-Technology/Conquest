@@ -5,7 +5,7 @@ Conquest is a text adventure game. Once it's done, it'll be the best text game y
 
 To play, download the source and run `./conquest`
 
-It's still in progress so it's lacking in many ways, but free to try it out and give feedback.
+It's still in progress, but free to try it out and give feedback.
 
 Contributions are appreciated, but please create a new branch before you do so. And please add your code in [1TBS (1 True Block Style)](http://en.wikipedia.org/wiki/1TBS#Variant:_1TBS)
 
@@ -29,6 +29,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add add a ?/help command that tells about essential commands like quests,
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
+* - add an updater
+*   add an ocean that goes to an island
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
