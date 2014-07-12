@@ -24,6 +24,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add support for multi word items
 * - add a way to view your xp/health/other stuff
 * - add some kind of plot
+* - add add a ?/help command that tells about essential commands like quests,
+achievements, and info. Not too many commands though, maybe just those idk
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
