@@ -33,13 +33,12 @@ class Player < ConquestClass
 			a_or_an = "" if item.name[-1] == "s"
 			puts "#{a_or_an}#{item.name.downcase}"
 		end
-		puts @name
 	end
 
 	def fight(enemy)
 		old_room_key = $rooms.key(@current_room)
 
-		fight_scene = FightScene.new("(get player name at begining of game and put it here) vs #{enemy.name}", "idk", {enemy: enemy})
+		fight_scene = FightScene.new(name: "(get player name at begining of game and put it here) vs #{enemy.name}", desc: "idk yet", enemy: enemy)
 		@current_room = fight_scene.enter
 
 		@current_room = $rooms[old_room_key]

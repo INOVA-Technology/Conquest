@@ -210,8 +210,8 @@ class Delegate
 	end
 
 	def load_game(file)
+		File.delete(@save_file) if @options[:reset] && File.file?(@save_file)
 		begin
-			raise TypeError if @options[:reset] # this is bad, I know :(
 			data = nil
 			File.open(file, 'r') { |file| data = Marshal.load(file) }
 			$rooms  = $rooms.merge(data[:rooms])

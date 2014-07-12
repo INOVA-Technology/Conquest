@@ -5,10 +5,10 @@ class Person < ConquestClass
 
 	attr_reader :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health
 
-		def setup(name, description, options = {})
+		def setup(options = {})
 			# this seems to be getting cluttered
-			@name ||= name
-			@description ||= description
+			@name ||= options[:name]
+			@description ||= options[:desc]
 			@options ||= options
 			@hidden ||= (options[:hidden] || false)
 			@race ||= options[:race]

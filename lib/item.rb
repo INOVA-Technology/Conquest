@@ -2,9 +2,9 @@ class Item < ConquestClass
 
 	attr_reader :name, :description, :hidden, :can_pickup
 
-	def setup(name, description, options = {})
-		@name ||= name
-		@description ||= description
+	def setup(options = {})
+		@name ||= options[:name]
+		@description ||= options[:desc]
 		@options ||= options
 		@hidden ||= (options[:hidden] || false)
 		@can_pickup ||= (!options[:hidden] || true)

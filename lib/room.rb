@@ -2,9 +2,9 @@ class Room < ConquestClass
 
 	attr_reader :items, :options, :people
 
-	def initialize(name, description, options = {})
-		@name ||= name
-		@description ||= description
+	def setup(options = {})
+		@name ||= options[:name]
+		@description ||= options[:desc]
 		@paths ||= (options[:paths] || {})
 		@items ||= (options[:items] || {})
 		@people ||= (options[:people] || {})
