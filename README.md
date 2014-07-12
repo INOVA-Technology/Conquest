@@ -14,6 +14,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 
 * * add more items that are useful
 * * add more to the main quest
+* * remove need for "conquest -r" when the Player/Room/Quest/Achievement class is updated
+* - save achievements
 * - make food edible
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
@@ -26,6 +28,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add some kind of plot
 * - add add a ?/help command that tells about essential commands like quests,
 achievements, and info. Not too many commands though, maybe just those idk
+* - add installer
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
