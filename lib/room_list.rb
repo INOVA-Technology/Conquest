@@ -138,7 +138,7 @@ Room.new(name: "Large forest", desc: "You can go north and east",
 						orc: Enemy.new(name: "Orc", desc: "Hmmm... You are no genius, but you think he wants to kill you.",
 							race: "Orc",
 							talk: "Give me your milk money.",
-							damage: rand(1..3),
+							damage: 3..7,
 							health: 10,
 							xp: 3
 					)}),

@@ -1,11 +1,12 @@
 class Player < ConquestClass
 
 	attr_accessor :items, :current_room
-	attr_reader :xp
+	attr_reader :xp, :health
 
 	def setup
 		@items ||= {}
 		@xp ||= 10
+		@health ||= 45
 		self
 	end
 
@@ -13,6 +14,20 @@ class Player < ConquestClass
 		diff = new_xp - @xp
 		@xp = new_xp
 		puts "+#{diff}xp!" if diff > 0
+	end
+
+	def die
+		puts "haha sucker" # this message needs to change
+		exit
+	end
+
+	def is_alive
+		@health > 0
+	end
+
+	def health=(new_health)
+		@health = new_health
+		die unless is_alive
 	end
 
 	def pickup(key, item)

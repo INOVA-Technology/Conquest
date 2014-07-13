@@ -41,23 +41,27 @@ class Enemy < Person
 	
 	def add_info
 		@health = @options[:health]
-		@damage = @options[:damage]
+		@damage = @options[:damage] # should be a range
 		@xp = @options[:xp] || 0
 		@name = @name.red
 	end
 
 	def health=(new_health)
 		@health = new_health
-		check_dead
+		die unless is_alive
 	end
 
-	def check_dead
-		die if @health <= 0
+	def is_alive
+		@health > 0
 	end
 
 	def die
 		puts "You have slain the #{name}!"
 		$player.xp += @xp
+	end
+
+	def attack
+		rand(damage)
 	end
 
 end

@@ -95,12 +95,19 @@ class FightScene < Room
 		end
 	end
 
+	def attack_player
+		damage = @enemy.attack
+		$player.health -= damage
+		puts "The #{@enemy.name} attacked you! -#{damage}"
+	end
+
 	def process(input)
 		case input
 		when /^smack$/
 			damage = $player.smack
 			puts "You smacked the #{@enemy.name} -#{damage}"
 			@enemy.health -= damage
+			attack_player if @enemy.is_alive
 		when /^\s*$/
 		else
 			puts "Who?"
