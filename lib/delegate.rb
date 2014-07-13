@@ -227,7 +227,8 @@ class Delegate
 
 	def save
 		File.open(@save_file, 'w') do |file|
-			data = { rooms: $rooms, player: $player, quests: $quests }
+			data = { rooms: $rooms, player: $player, quests: $quests,
+				achievements: $achievements }
 			file.puts(Marshal.dump(data))
 		end
 	end

@@ -26,6 +26,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add support for multi word items
 * - add a way to view your xp/health/other stuff
 * - add some kind of plot
+* - add more ways to fight, like swords, guns, and stuff
 * - add add a ?/help command that tells about essential commands like quests,
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
