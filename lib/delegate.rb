@@ -59,13 +59,18 @@ class Delegate
 			climb(🌳)
 			# doesn't have to be a tree...
 		when /^(fight|attack)( (?<enemy>[a-z]+)?)?$/
+			# this needs factoring
 			if enemy = $~[:enemy]
 				if e = $player.current_room.people[enemy.to_sym]
-					if e.is_a?(Enemy)
-						$player.fight(e)
+					if e.is_alive
+						if e.is_a?(Enemy)
+							$player.fight(e)
+						else
+							# we'll change this part eventualy
+							puts "Why would you want to hurt #{enemy}?"
+						end
 					else
-						# we'll change this part eventualy
-						puts "Why would you want to hurt #{enemy}?"
+						puts "Person isn't here"
 					end
 				else
 					puts "Person isn't here"

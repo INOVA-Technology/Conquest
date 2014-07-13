@@ -15,14 +15,12 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * * add more items that are useful
 * * add more to the main quest
 * * add way to add tasks in quests without -r
-* - save achievements
 * - make food edible
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
 * - make the forest more maze like
 * - add directions like nw
-* - add health
 * - add support for multi word items
 * - add a way to view your xp/health/other stuff
 * - add some kind of plot
