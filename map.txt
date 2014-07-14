@@ -5,6 +5,8 @@
 #                               #
 #  @ = you start here           #
 #  ! = not in room_list.rb yet  #
+#  ^ = up                       #
+#  , = down                     #
 #                               #
 #################################
 
@@ -16,24 +18,24 @@ Map Starts Here:
 
 
 
-                            castle_main
-                                |
-              dinning_room -- hallway
-                                |
-                               castle
-                                |
-                forest__2   @courtyard
-                     |          |
-       sticks -- forest__1 -- forest
-                               	|
-                              forest_1 -- banyan tree         !mountian_top
-                                |                                   | 
-                              forest_2 -- forest_again         !mountian_3
-                                |                                   |
-more_trees_1 -- more_trees -- forest_3                         !mountian_2
-      |                         |                                   |
-more_trees_2                  forest_4                          mountian_1
-      |                                                             |
-more_trees_3 -- path_to_village -- village                      mountian  
-                                      |                             |
-                                forest_by_village -- valley --  mountians
+                                                                castle_main
+                                                                    |
+                                                  dinning_room -- hallway
+                                                                    |
+                                                                   castle
+                                                                    |
+                                                    forest__2   @courtyard
+                                                         |          |
+                                           sticks -- forest__1 -- forest
+                                                                   	|
+                                                                  forest_1 -- banyan tree         !mountian_top
+                                                                    |                                   | 
+                !swamp -- !a_path_1 -- !a_path                    forest_2 -- forest_again         !mountian_3
+                                          |                         |                                   |
+                                    more_trees_1 -- more_trees -- forest_3                         !mountian_2
+                                          |                         |                                   |
+                                    more_trees_2                  forest_4                          mountian_1
+                                          |                                                             |
+                                    more_trees_3 -- path_to_village -- village                      mountian  
+                                                                          |                             |
+                                                                    forest_by_village -- valley --  mountians

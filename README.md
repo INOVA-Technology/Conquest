@@ -19,7 +19,6 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
-* - make the forest more maze like
 * - add directions like nw
 * - add support for multi word items
 * - add some kind of plot
@@ -35,7 +34,7 @@ achievements, and info. Not too many commands though, maybe just those idk
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
 *   add option to save game somewhere else
-*   have an all around refactortion session thing idk, just refactor some stuff
+*   refactor lots of stuff
 *   add rick astley easter egg
 *   add more tests
 *   make the current tests check the description for directions
