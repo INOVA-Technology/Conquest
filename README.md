@@ -14,7 +14,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 
 * * add more items that are useful
 * * add more to the main quest
-* * add way to add tasks in quests without -r
+* * add way to add tasks in quests, and new paths without -r
 * - make food edible
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
@@ -22,13 +22,13 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - make the forest more maze like
 * - add directions like nw
 * - add support for multi word items
-* - add a way to view your xp/health/other stuff
 * - add some kind of plot
 * - add more ways to fight, like swords, guns, and stuff
 * - add add a ?/help command that tells about essential commands like quests,
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
+* - add merge conflictia into map.txt
 *   make the code more MVC
 *   add an ocean that goes to an island
 *   add windows support (we can use wine to test it)

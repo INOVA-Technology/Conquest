@@ -86,9 +86,13 @@ forest__2:
 						task: { quest: :main, task: :climb_tree}
 						)}),
 	forest_2:
-		Room.new(name: "Large forest", desc: "Just some more forest. The forest continues north and south.",
-			paths: { n: :forest_1, s: :forest_3 }
+		Room.new(name: "Large forest", desc: "Just some more forest. The forest continues north, east, and south.",
+			paths: { n: :forest_1, e: :forest_again, s: :forest_3 }
 			),
+		forest_again:
+			Room.new(name: "Large forest", desc: "TODO: change this description",
+				paths: { w: :forest_2 }
+				),
 	forest_3:
 		Room.new(name: "Large forest", desc: "Dang, how many trees are in this forest? You can go north, south, and west.",
 			paths: { n: :forest_2, s: :forest_4, w: :more_trees }
@@ -200,11 +204,10 @@ Room.new(name: "Large forest", desc: "You can go north and east",
 					talk: str_to_hex("You should escape... now"),
 					item_wanted: "iphone",
 					action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}"
-				)
-			},
+				)},
 			starts_quest: :hex,
 			unlocks: :hex
-		)
+			)
 }.each do |_, r|
 	[:items, :people].map do |sym|
 		r[sym].map { |i| i.setup } if r[sym]

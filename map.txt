@@ -26,9 +26,9 @@ Map Starts Here:
                      |          |
        sticks -- forest__1 -- forest
                                	|
-                              forest_1 -- banyan tree          !mountian_top
+                              forest_1 -- banyan tree         !mountian_top
                                 |                                   | 
-                              forest_2                         !mountian_3
+                              forest_2 -- forest_again         !mountian_3
                                 |                                   |
 more_trees_1 -- more_trees -- forest_3                         !mountian_2
       |                         |                                   |
