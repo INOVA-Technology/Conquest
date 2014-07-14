@@ -1,12 +1,13 @@
 class Player < ConquestClass
 
-	attr_accessor :items, :current_room
-	attr_reader :xp, :health
+	attr_accessor :items, :current_room, :weapon
+	attr_reader :xp, :health, :weapon
 
 	def setup
 		@items ||= {}
 		@xp ||= 10
 		@health ||= 45
+		@weapon ||= ["none", 0]
 		self
 	end
 
@@ -17,7 +18,7 @@ class Player < ConquestClass
 	end
 
 	def die
-		puts "haha sucker" # this message needs to change
+		puts "What a disapointment...".red
 		exit
 	end
 
@@ -55,14 +56,18 @@ class Player < ConquestClass
 			a_or_an = %w[a e i o u].include?(item.name[0]) \
 				? "an " : "a "
 			a_or_an = "" if item.name[-1] == "s"
-			puts "#{a_or_an}#{item.name.downcase}"
+			if item.is_weapon
+				puts "#{a_or_an}#{item.name.downcase} with damage of #{item.damage}"
+			else
+				puts "#{a_or_an}#{item.name.downcase}"
+			end
 		end
 	end
 
 	def fight(enemy)
 		old_room_key = $rooms.key(@current_room)
 
-		fight_scene = FightScene.new(name: "(get player name at begining of game and put it here) vs #{enemy.name}", desc: "idk yet", enemy: enemy)
+		fight_scene = FightScene.new(name: "#{$player_name} vs #{enemy.name}", desc: "idk yet", enemy: enemy)
 		@current_room = fight_scene.enter
 
 		@current_room = $rooms[old_room_key]
@@ -70,12 +75,14 @@ class Player < ConquestClass
 	end
 
 	def smack
-		rand(2..4)
+		rand(2..4) + $player.weapon[1]
 	end
 
 	def info
 		puts "Health: #@health"
 		puts "XP: #@xp"
+		puts "Inventory:"
+		puts "Weapon: #{@weapon[0]}"
 		puts "Inventory:"
 		inventory
 	end

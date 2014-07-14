@@ -48,6 +48,9 @@ class Delegate
 			end
 		when /^rub sticks( together)?$/
 			rub_sticks
+		when /^equip( (?<weapon>[a-z]+))?$/
+			weapon = $~[:weapon]
+			equip(weapon)
 		when /^quests?$/
 			list_quests
 		when /^(i|inv|inventory)$/
@@ -176,12 +179,31 @@ class Delegate
 		$player.current_room.look
 	end
 
+	def equip(weapon)
+		if the_item = $player.items[weapon.to_sym]
+			if the_item.is_weapon == true
+				$player.weapon = [weapon, the_item.damage]
+				puts "#{weapon} has been equipped!".cyan
+			else
+				puts "That's not a weapon, stupid.".red
+			end
+		else
+			puts "you do not own that item...".red
+		end
+	end
+
 	def inspect(item)
 		# this could be refactored
 		if the_item = $player.items[item.to_sym]
 			puts the_item.description
+			if the_item.is_weapon
+				puts "Damage: #{the_item.damage}"
+			end
 		elsif the_item = $player.current_room.items[item.to_sym]
 			puts the_item.description
+			if the_item.is_weapon
+				puts "Damage: #{the_item.damage}"
+			end
 		elsif the_item = $player.current_room.people[item.to_sym]
 			puts the_item.description
 			puts "Race: #{the_item.race}"
@@ -237,7 +259,13 @@ class Delegate
 			$player = Player.new
 			$player.current_room = $rooms[room]
 			$quests[:main].start(false)
+			get_name
 		end
+	end
+
+	def get_name
+		puts "Wut b ur namez?"
+		$player_name = gets.chomp.downcase
 	end
 
 	def save
