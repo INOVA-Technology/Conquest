@@ -83,6 +83,7 @@ class Player < ConquestClass
 		puts "XP: #@xp"
 		puts "Inventory:"
 		puts "Weapon: #{@weapon[0]}"
+		puts "Inventory:"
 		inventory
 	end
 
