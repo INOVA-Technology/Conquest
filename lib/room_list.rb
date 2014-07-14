@@ -48,12 +48,8 @@ $rooms = {
 			),
 	courtyard:
 		Room.new(name: "Castle courtyard", desc: "You are at the castle courtyard. There's a nice fountain in the center.\nThe castle entrance is north. There is a forest south.",
-			paths: { n: :castle, s: :forest },
-			items: {
-				# this peach is useless, it'll confuse people 
-				# a peach: 🍑
-				peach: Food.new(name: "Peach", desc: "A delicious peach")
-				}),
+			paths: { n: :castle, s: :forest }
+			),
 	forest:
 		Room.new(name: "Large forest", desc: "This forest is very dense. There is a nice courtyard north.\nThe forest continues west and south.",
 			paths: { n: :courtyard, s: :forest_1, w: :forest__1 }
@@ -99,8 +95,12 @@ forest__2:
 			),
 more_trees:
 	Room.new(name: "Large forest", desc: "You can go east and west.",
-		paths: { e: :forest_3, w: :more_trees_1 }
-		),
+		paths: { e: :forest_3, w: :more_trees_1 },
+		items: {
+			# a peach: 🍑
+			peach: Food.new(name: "Peach", desc: "A delicious peach",
+				restores: 5
+				)}),
 more_trees_1:
 Room.new(name: "Large forest", desc: "You can go east and south.", 
 	paths: { e: :more_trees, s: :more_trees_2 }

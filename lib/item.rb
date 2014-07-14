@@ -26,8 +26,15 @@ end
 
 # SUBCLASSES BELOW: (only subclass when you have a good reason)
 
-# will add an eat method to this
 class Food < Item
+
+	def add_info
+		@restores = @options[:restores]
+	end
+
+	def eat
+		$player.health += @restores
+	end
 end
 
 class Tree < Prop

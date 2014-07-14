@@ -80,6 +80,12 @@ class Delegate
 			end
 		when /^info$/
 			info
+		when /^eat( (?<food>[a-z]+)?)?$/
+			if food = $~[:food]
+				eat(food)
+			else
+				puts "Who?"
+			end
 		when /^(help|h)$/
 			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].to_enum
 			begin
@@ -146,6 +152,10 @@ class Delegate
 
 	def info
 		$player.info
+	end
+
+	def eat(food)
+		$player.eat(food)
 	end
 
 	def give(item, guy)

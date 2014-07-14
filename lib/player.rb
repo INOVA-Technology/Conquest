@@ -30,6 +30,15 @@ class Player < ConquestClass
 		die unless is_alive
 	end
 
+	def eat(food)
+		if the_food = @items[food.to_sym]
+			the_food.eat
+			@items.delete(food.to_sym)
+		else
+			puts "You don't have that food."
+		end
+	end
+
 	def pickup(key, item)
 		@items[key.to_sym] = item
 		case key
