@@ -49,8 +49,11 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^equip( (?<weapon>[a-z]+))?$/
-			weapon = $~[:weapon]
-			equip(weapon)
+			if weapon = $~[:weapon]
+				equip(weapon)
+			else
+				puts "Please supply an weapon to equip."
+			end
 		when /^quests?$/
 			list_quests
 		when /^(i|inv|inventory)$/
@@ -181,7 +184,7 @@ class Delegate
 
 	def equip(weapon)
 		if the_item = $player.items[weapon.to_sym]
-			if the_item.is_weapon == true
+			if the_item.is_a?(Weapon)
 				$player.weapon = [weapon, the_item.damage]
 				puts "#{weapon} has been equipped!".cyan
 			else
@@ -196,12 +199,12 @@ class Delegate
 		# this could be refactored
 		if the_item = $player.items[item.to_sym]
 			puts the_item.description
-			if the_item.is_weapon
+			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
 		elsif the_item = $player.current_room.items[item.to_sym]
 			puts the_item.description
-			if the_item.is_weapon
+			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
 		elsif the_item = $player.current_room.people[item.to_sym]

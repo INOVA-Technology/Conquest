@@ -27,6 +27,8 @@ achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
 * - add merge conflictia into map.txt
+*   consistant colors
+*   add conditional spawning (like time of virtual day, etc...)
 *   make the code more MVC
 *   add an ocean that goes to an island
 *   add windows support (we can use wine to test it)

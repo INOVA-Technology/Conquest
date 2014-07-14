@@ -1,7 +1,7 @@
 class Item < ConquestClass
 
 
-	attr_reader :name, :description, :hidden, :can_pickup, :is_weapon, :damage
+	attr_reader :name, :description, :hidden, :can_pickup
 
 	def setup(options = {})
 		@name ||= options[:name]
@@ -10,8 +10,6 @@ class Item < ConquestClass
 		@hidden ||= (options[:hidden] || false)
 		@can_pickup ||= (!options[:hidden] || true)
 		@task ||= options[:task]
-		@is_weapon ||= options[:isweapon]
-		@damage ||= options[:damage]
 		add_info
 	end
 
@@ -40,6 +38,15 @@ class Food < Item
 	end
 end
 
+class Weapon < Item
+
+	attr_accessor :damage
+
+	def add_info
+		@damage ||= @options[:damage]
+	end
+end
+
 class Tree < Prop
 
 	def climb
@@ -51,3 +58,4 @@ class Tree < Prop
 		end
 	end
 end
+
