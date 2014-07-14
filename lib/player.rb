@@ -64,4 +64,11 @@ class Player < ConquestClass
 		rand(2..4)
 	end
 
+	def info
+		puts "Health: #@health"
+		puts "XP: #@xp"
+		puts "Inventory:"
+		inventory
+	end
+
 end

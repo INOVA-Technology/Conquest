@@ -29,6 +29,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
+*   make the code more MVC
 *   add an ocean that goes to an island
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
