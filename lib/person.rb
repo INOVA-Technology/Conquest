@@ -40,10 +40,11 @@ class Enemy < Person
 	# add :reward to attr_reader, it'll be an items(s)
 	
 	def add_info
-		@health = @options[:health]
-		@damage = @options[:damage] # should be a range
-		@xp = @options[:xp] || 0
-		@name = @name.red
+		@health ||= @options[:health]
+		@damage ||= @options[:damage] # should be a range
+		@name ||= @name.red
+		@xp ||= (@options[:xp] || 0)
+		@items ||= (@options[:items] || {})
 	end
 
 	def health=(new_health)
@@ -58,6 +59,7 @@ class Enemy < Person
 	def die
 		puts "You have slain the #{name}!"
 		$player.xp += @xp
+		$player.current_room.items.merge(@items)
 	end
 
 	def attack

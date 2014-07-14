@@ -26,7 +26,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
-* - add merge conflictia into map.txt
+* - you can only have one of each item
+*   add merge conflictia into map.txt
 *   consistant colors
 *   add conditional spawning (like time of virtual day, etc...)
 *   make the code more MVC
