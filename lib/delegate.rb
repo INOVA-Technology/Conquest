@@ -265,7 +265,13 @@ class Delegate
 			$player = Player.new
 			$player.current_room = $rooms[room]
 			$quests[:main].start(false)
+			get_name
 		end
+	end
+
+	def get_name
+		puts "Wut b ur namez?"
+		$player_name = gets.chomp.downcase
 	end
 
 	def save
