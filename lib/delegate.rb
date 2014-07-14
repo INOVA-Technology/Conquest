@@ -198,7 +198,7 @@ class Delegate
 
 	def talk(guy)
 		if $player.current_room.people[guy.to_sym]
-			puts puts $player.current_room.people[guy.to_sym].talk.cyan
+			puts $player.current_room.people[guy.to_sym].talk.cyan
 		else
 			puts "#{guy} isn't in this room.".cyan
 		end
