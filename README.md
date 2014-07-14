@@ -27,6 +27,7 @@ achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
 * - you can only have one of each item
+* - fix the way save prevents tasks and paths being added and such without -r
 *   add merge conflictia into map.txt
 *   consistant colors
 *   add conditional spawning (like time of virtual day, etc...)
