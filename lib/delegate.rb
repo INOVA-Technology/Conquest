@@ -119,17 +119,11 @@ class Delegate
 	end
 
 	def walk(direction)
-		if direction != "to mordor" && direction != "to merge conflictia"
-			key = $player.current_room[direction]
-			if new_room = $rooms[key]
-				$player.current_room = new_room.enter
-			else
-				puts "You can't go that way."
-			end
-		elsif direction == "to mordor"
-			puts "One does not simply walk to Mordor... You need to find the eagles. They will \ntake you to Mordor."
-		elsif direction == "to merge conflictia"
-			$player.current_room = $rooms[:merge_conflictia].enter
+		key = $player.walk(direction)
+		if key.nil?
+			puts "You can't go that way"
+		elsif key
+			$player.current_room = $rooms[key].enter
 		end
 	end
 

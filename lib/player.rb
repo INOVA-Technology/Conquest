@@ -80,4 +80,15 @@ class Player < ConquestClass
 		inventory
 	end
 
+	def walk(place)
+		if place == "to mordor"
+			puts "One does not simply walk to Mordor... You need to find the eagles.\nThey will take you to Mordor."
+			false
+		elsif place == "to merge conflictia"
+			:merge_conflictia
+		else
+			@current_room[place.to_sym]
+		end
+	end
+
 end
