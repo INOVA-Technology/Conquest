@@ -202,8 +202,14 @@ class Delegate
 		# this could be refactored
 		if the_item = $player.items[item.to_sym]
 			puts the_item.description
+			if the_item.is_weapon
+				puts "Damage: #{the_item.damage}"
+			end
 		elsif the_item = $player.current_room.items[item.to_sym]
 			puts the_item.description
+			if the_item.is_weapon
+				puts "Damage: #{the_item.damage}"
+			end
 		elsif the_item = $player.current_room.people[item.to_sym]
 			puts the_item.description
 			puts "Race: #{the_item.race}"
