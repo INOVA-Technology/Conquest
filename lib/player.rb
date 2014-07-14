@@ -1,12 +1,13 @@
 class Player < ConquestClass
 
-	attr_accessor :items, :current_room
-	attr_reader :xp, :health
+	attr_accessor :items, :current_room, :weapon
+	attr_reader :xp, :health, :weapon
 
 	def setup
 		@items ||= {}
 		@xp ||= 10
 		@health ||= 45
+		@weapon ||= ["none", 0]
 		self
 	end
 
@@ -17,7 +18,7 @@ class Player < ConquestClass
 	end
 
 	def die
-		puts "haha sucker" # this message needs to change
+		puts "What a disapointment...".red
 		exit
 	end
 
@@ -70,7 +71,7 @@ class Player < ConquestClass
 	end
 
 	def smack
-		rand(2..4)
+		rand(2..4) + $player.weapon[1]
 	end
 
 	def info

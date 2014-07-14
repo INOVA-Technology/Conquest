@@ -122,7 +122,7 @@ Room.new(name: "Large forest", desc: "You can go north and east",
 			Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
 				paths: { w: :path_to_village, s: :forest_by_village },
 				items: { 
-					pickaxe: Item.new(name: "Pickaxe", desc: "Be careful, it looks sharp.")
+					pickaxe: Item.new(name: "Pickaxe", desc: "Be careful, it looks sharp.", isweapon: true, damage: 5)
 					},
 				people: {
 					gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",

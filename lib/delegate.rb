@@ -48,6 +48,9 @@ class Delegate
 			end
 		when /^rub sticks( together)?$/
 			rub_sticks
+		when /^equip( (?<weapon>[a-z]+))?$/
+			weapon = $~[:weapon]
+			equip(weapon)
 		when /^quests?$/
 			list_quests
 		when /^(i|inv|inventory)$/
@@ -180,6 +183,19 @@ class Delegate
 
 	def look
 		$player.current_room.look
+	end
+
+	def equip(weapon)
+		if the_item = $player.items[weapon.to_sym]
+			if the_item.is_weapon == true
+				$player.weapon = [weapon, the_item.damage]
+				puts "#{weapon} has been equipped!".cyan
+			else
+				puts "That's not a weapon, stupid.".red
+			end
+		else
+			puts "you do not own that item...".red
+		end
 	end
 
 	def inspect(item)

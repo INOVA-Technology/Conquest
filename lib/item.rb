@@ -1,6 +1,7 @@
 class Item < ConquestClass
 
-	attr_reader :name, :description, :hidden, :can_pickup
+
+	attr_reader :name, :description, :hidden, :can_pickup, :is_weapon, :damage
 
 	def setup(options = {})
 		@name ||= options[:name]
@@ -9,6 +10,8 @@ class Item < ConquestClass
 		@hidden ||= (options[:hidden] || false)
 		@can_pickup ||= (!options[:hidden] || true)
 		@task ||= options[:task]
+		@is_weapon ||= options[:isweapon]
+		@damage ||= options[:damage]
 		add_info
 	end
 
