@@ -6,10 +6,10 @@ class Delegate
 		@options = options
 		@save_file = "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
-		start_counter
 	end
 
 	def parse(input)
+		check_time
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 		# input will always be converted to lower case before getting here
 		case input
@@ -114,14 +114,14 @@ class Delegate
 		end
 	end
 
-	def start_counter
+	def check_time
 		counter = Thread.new do
-			sleep(60)
 			the_time = $player.start_time
 			the_time[4] += 10
-			if DateTime.new(*the_time) < DateTime.now
-				$achievements[:five_minutes].unlock
+			if DateTime.new(*the_time) <= $player.get_time
+				$achievements[:ten_minutes].unlock
 			end
+			sleep(60)
 		end
 	end
 

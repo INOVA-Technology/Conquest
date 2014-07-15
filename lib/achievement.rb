@@ -5,7 +5,7 @@ class Achievement < ConquestClass
 	def setup(options = {})
 		@name ||= options[:name]
 		
-		@unlocked ||= options[:unlocked]
+		@unlocked ||= false
 		@options ||= options
 	end
 
