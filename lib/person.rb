@@ -1,5 +1,3 @@
-require "time"
-
 class Person < ConquestClass
 	# this would make more sence if it were "class Person < Item"
 	# its a lot like an item, but I like that it's in a separate file
@@ -22,9 +20,6 @@ class Person < ConquestClass
 			@can_pickup ||= (options[:hidden] || true)
 			@is_alive ||= true
 			@health ||= (options[:health] || 50)
-			# its year, month, day, hour, minute
-			# the year, month, and day should be changed. Probably to the past
-			@time ||= DateTime.new(2000, 1, 1, 6, 30)
 			add_info
 		end
 

@@ -92,6 +92,8 @@ class Delegate
 			else
 				puts "Who?"
 			end
+		when /^time$/
+			time
 		when /^(help|h)$/
 			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].to_enum
 			begin
@@ -122,6 +124,11 @@ class Delegate
 					unless done
 			end
 		end
+	end
+
+	def time
+		# this message seems awkward
+		puts $player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %P")
 	end
 
 	def walk(direction)
@@ -272,6 +279,7 @@ class Delegate
 	end
 
 	def save
+		$player.time[:virtual] += $player.time_since_start
 		File.open(@save_file, 'w') do |file|
 			data = { rooms: $rooms, player: $player, quests: $quests,
 				achievements: $achievements }
