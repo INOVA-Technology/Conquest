@@ -11,7 +11,7 @@ class Player < ConquestClass
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@start_time = [2000, 1, 1, 6, 30]
-		@time ||= { virtual: DateTime.new(*[2000, 1, 1, 6, 40]) }
+		@time ||= { virtual: DateTime.new(*@start_time) }
 		@time[:real] = DateTime.now
 		self
 	end

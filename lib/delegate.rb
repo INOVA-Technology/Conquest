@@ -57,6 +57,8 @@ class Delegate
 			end
 		when /^quests?$/
 			list_quests
+		when /^achievements?$/
+			list_achievements
 		when /^(i|inv|inventory)$/
 			inventory
 		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
@@ -135,6 +137,12 @@ class Delegate
 				puts "  Current Task: #{quest.current_task[:description]}" \
 					unless done
 			end
+		end
+	end
+
+	def list_achievements
+		$achievements.each do |_, a|
+			puts a.name if a.unlocked
 		end
 	end
 
@@ -276,6 +284,7 @@ class Delegate
 			$rooms  = $rooms.merge(data[:rooms])
 			$quests = $quests.merge(data[:quests])
 			$player = data[:player].setup
+			$achievements = data[:achievements]
 		rescue TypeError, Errno::ENOENT
 			room = :courtyard
 			$player = Player.new

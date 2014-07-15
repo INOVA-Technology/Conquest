@@ -28,8 +28,10 @@ class Quest < ConquestClass
 
 	def complete(task)
 		the_task = tasks[task]
-		the_task[:completed] = true
-		puts "Task '#{the_task[:description]}' completed!".cyan
+		unless the_task[:completed]
+			the_task[:completed] = true
+			puts "Task '#{the_task[:description]}' completed!".cyan
+		end
 	end
 
 	def current_task
