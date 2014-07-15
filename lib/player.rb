@@ -1,8 +1,6 @@
-require "time"
-
 class Player < ConquestClass
 
-	attr_accessor :items, :current_room, :weapon, :time
+	attr_accessor :items, :current_room, :weapon, :time, :start_time
 	attr_reader :xp, :health, :weapon
 
 	def setup
@@ -12,7 +10,8 @@ class Player < ConquestClass
 		@weapon ||= ["none", 0]
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
-		@time ||= { virtual: DateTime.new(2000, 1, 1, 6, 30) }
+		@start_time = [2000, 1, 1, 6, 30]
+		@time ||= { virtual: DateTime.new(*start_time) }
 		@time[:real] = DateTime.now
 		self
 	end

@@ -60,6 +60,7 @@ until ARGV.empty?
 	end
 end
 
+require "time"
 require "readline"
 
 def prompt(_prompt = "> ")

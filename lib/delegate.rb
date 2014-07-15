@@ -6,6 +6,7 @@ class Delegate
 		@options = options
 		@save_file = "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
+		start_counter
 	end
 
 	def parse(input)
@@ -113,6 +114,17 @@ class Delegate
 		end
 	end
 
+	def start_counter
+		counter = Thread.new do
+			sleep(60)
+			the_time = $player.start_time
+			the_time[4] += 10
+			if DateTime.new(*the_time) < DateTime.now
+				$achievements[:five_minutes].unlock
+			end
+		end
+	end
+
 	def list_quests
 		started_quests = $quests.values.select { |i| (i.started) }
 		unless started_quests.empty?
@@ -128,7 +140,7 @@ class Delegate
 
 	def time
 		# this message seems awkward
-		puts $player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %P")
+		puts $player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %p")
 	end
 
 	def walk(direction)
