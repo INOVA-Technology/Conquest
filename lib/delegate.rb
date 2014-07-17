@@ -109,6 +109,9 @@ class Delegate
 			quit
 		when /^save( game)?$/
 			save
+		# when /^- (?<code>.+)$/
+		# 	useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
+		# 	eval($~[:code])
 		when /^\s?$/
 		else
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]

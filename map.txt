@@ -30,7 +30,7 @@ Map Starts Here:
                                                                    	|
                                                                   forest_1 -- banyan tree         !mountian_top
                                                                     |                                   | 
-                !swamp -- !a_path_1 -- !a_path                    forest_2 -- forest_again         !mountian_3
+                !swamp -- !a_path_1 -- !a_path !forest_again_1 -- forest_2 -- forest_again         !mountian_3
                                           |                         |                                   |
                                     more_trees_1 -- more_trees -- forest_3                         !mountian_2
                                           |                         |                                   |
