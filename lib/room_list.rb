@@ -40,8 +40,11 @@ $rooms = {
 									),
 								dinning_hall:
 									Room.new(name: "Dinning hall", desc: "The dinning hall. There is a door to the east.",
-										paths: { e: :hallway }
-										),
+										paths: { e: :hallway },
+										items: { 
+											apple: Food.new(name: "Apple", desc: "A juicy macintosh apple.",
+												restores: 7)
+										}),
 							castle:
 								Room.new(name: "Castle", desc: "You are in the castle. There's a long hallway to the north, and\nthe courtyard is to the south.",
 									paths: { n: :hallway, s: :courtyard }
