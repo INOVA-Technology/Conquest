@@ -56,21 +56,13 @@ class Player < ConquestClass
 	def pickup(key)
 		if item = item_in_room(key)
 			if item.can_pickup
-				@current_room.remove_item(key)
+				@current_room.pickup_item(key)
 				@items[key.to_sym] = item
 			else
 				puts "You can't pick that up."
 			end
 		else
 			puts "That item isn't here."
-		end
-
-		case key
-		when "scroll"
-			$quests[:mordor].start
-			$achievements[:mordor].unlock
-		when "peach"
-			$achievements[:peach].unlock
 		end
 	end
 

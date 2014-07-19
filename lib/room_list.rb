@@ -102,7 +102,8 @@ $rooms = {
 								items: {
 									# a peach: 🍑
 									peach: Food.new(name: "Peach", desc: "A delicious peach",
-										restores: 5
+										restores: 5,
+										unlocks: :peach
 										)}),
 					a_path:
 						Room.new(name: "Small path", desc: "You are on a small. It looks like you can see a light up ahead. You can go west and south.",
@@ -164,7 +165,10 @@ $rooms = {
 
 													# the scroll and Randy should be moved to mountain_3 once it exists
 													items: {
-														scroll: Item.new(name: "Scroll", desc: "Its some kind of elvish... You can't read it.")},
+														scroll: Item.new(name: "Scroll", desc: "Its some kind of elvish... You can't read it.",
+															starts_quest: :mordor,
+															unlocks: :mordor
+															)},
 													people: {
 														randy: Person.new(name: "Randy", desc: "He's just an elf",
 															race: "Elf",

@@ -13,6 +13,14 @@ class Item < ConquestClass
 		add_info
 	end
 
+	def pickup
+		quest = @options[:starts_quest]
+		$quests[quest].start if quest
+		achievement = @options[:unlocks]
+		$achievements[achievement].unlock if achievement
+		self
+	end
+
 	def add_info
 	end
 

@@ -35,8 +35,8 @@ class Room < ConquestClass
 		self
 	end
 
-	def remove_item(item)
-		@items.delete(item.to_sym)
+	def pickup_item(item)
+		@items.delete(item.to_sym).pickup
 	end
 
 	def look
