@@ -66,7 +66,7 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^attack( (?<enemy>[a-z]+)?)?$/
 			if enemy = $~[:enemy]
-				attack(enemy)
+				attack(enemy, $player.smack)
 			else
 				puts "Who?"
 			end
@@ -166,12 +166,17 @@ class Delegate
 		$player.eat(food)
 	end
 
-	def attack(enemy)
-		victim = $player.current_room.people[enemy.to_sym]
-		if victim
-			@enemy = victim
+	def attack(enemy, damage)
+		# refactor this
+		if @enemy
+			puts "You are already fighting someone else."
 		else
-			puts "Who?"
+			victim = $player.current_room.people[enemy.to_sym]
+			if victim
+				@enemy = victim
+			else
+				puts "Who?"
+			end
 		end
 	end
 
