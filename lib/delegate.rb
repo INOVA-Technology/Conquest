@@ -65,11 +65,8 @@ class Delegate
 			climb(🌳)
 			# doesn't have to be a tree...
 		when /^attack( (?<enemy>[a-z]+)?)?$/
-			if enemy = $~[:enemy]
-				attack(enemy, $player.smack)
-			else
-				puts "Who?"
-			end
+			enemy = $~[:enemy]
+			attack(enemy, $player.smack)
 		when /^info$/
 			info
 		when /^eat( (?<food>[a-z]+)?)?$/
@@ -169,15 +166,22 @@ class Delegate
 
 	def attack(enemy, damage)
 		# refactor this
-		if @enemy
-			puts "You are already fighting someone else."
-		else
-			victim = $player.current_room.people[enemy.to_sym]
-			if victim
-				@enemy = victim
+		if enemy.nil?
+			if @enemy
 
 			else
-				puts "Who?"
+				puts "You aren't fighting anyone."
+			end
+		else
+			if @enemy
+				puts "You are already fighting someone."
+			else
+				victim = $player.current_room.people[enemy.to_sym]
+				if victim
+					@enemy = victim
+				else
+					puts "#{victim} isn't here."
+				end
 			end
 		end
 	end
