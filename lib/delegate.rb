@@ -23,11 +23,8 @@ class Delegate
 				puts "#{input.capitalize} where?"
 			end
 		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
-			if item = $~[:item]
-				pickup(item)
-			else
-				puts "Please supply an object to #{input}."
-			end
+			item = $~[:item]
+			pickup(item)
 		when /^look( (?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
@@ -150,7 +147,7 @@ class Delegate
 	end
 
 	def time
-		# this message seems awkward
+		# this message seems awkwardly worded
 		puts $player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %p")
 	end
 
@@ -163,16 +160,11 @@ class Delegate
 		end
 	end
 
-	def pickup(item)
-		if _item = $player.current_room.items[item.to_sym]
-			if _item.can_pickup
-				_item = $player.current_room.remove_item(item)
-				$player.pickup(item, _item)
-			else
-				puts "You can't pick that up."
-			end
+	def pickup(item_name)
+		if item_name.nil?
+			puts "Please supply an object to #{input}."
 		else
-			puts "That item isn't in here."
+			$player.pickup(item_name)
 		end
 	end
 

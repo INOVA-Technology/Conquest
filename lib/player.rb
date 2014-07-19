@@ -53,8 +53,18 @@ class Player < ConquestClass
 		end
 	end
 
-	def pickup(key, item)
-		@items[key.to_sym] = item
+	def pickup(key)
+		if item = item_in_room(key)
+			if item.can_pickup
+				@current_room.remove_item(key)
+				@items[key.to_sym] = item
+			else
+				puts "You can't pick that up."
+			end
+		else
+			puts "That item isn't here."
+		end
+
 		case key
 		when "scroll"
 			$quests[:mordor].start
@@ -109,6 +119,10 @@ class Player < ConquestClass
 		else
 			@current_room[place.to_sym]
 		end
+	end
+
+	def item_in_room(item)
+		@current_room.items[item.to_sym]
 	end
 
 end
