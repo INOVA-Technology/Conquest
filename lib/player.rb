@@ -7,7 +7,7 @@ class Player < ConquestClass
 		@items ||= {}
 		@xp ||= 10
 		@health ||= 45
-		@weapon ||= ["none", 0]
+		@weapon ||= nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@start_time = [2000, 1, 1, 6, 30]
@@ -79,24 +79,13 @@ class Player < ConquestClass
 		end
 	end
 
-	def fight(enemy)
-		old_room_key = $rooms.key(@current_room)
-
-		fight_scene = FightScene.new(name: "#{$player_name} vs #{enemy.name}", desc: "idk yet", enemy: enemy)
-		@current_room = fight_scene.enter
-
-		@current_room = $rooms[old_room_key]
-	end
-
 	def smack
-		rand(2..4) + $player.weapon[1]
+		rand(2..4)
 	end
 
 	def info
 		puts "Health: #@health"
 		puts "XP: #@xp"
-		puts "Inventory:"
-		puts "Weapon: #{@weapon[0]}"
 		puts "Inventory:"
 		inventory
 	end

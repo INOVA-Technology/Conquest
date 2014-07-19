@@ -64,23 +64,9 @@ class Delegate
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
-		when /^(fight|attack)( (?<enemy>[a-z]+)?)?$/
-			# this needs factoring
+		when /^attack( (?<enemy>[a-z]+)?)?$/
 			if enemy = $~[:enemy]
-				if e = $player.current_room.people[enemy.to_sym]
-					if e.is_alive
-						if e.is_a?(Enemy)
-							$player.fight(e)
-						else
-							# we'll change this part eventualy
-							puts "Why would you want to hurt #{enemy}?"
-						end
-					else
-						puts "Person isn't here"
-					end
-				else
-					puts "Person isn't here"
-				end
+				attack(enemy)
 			else
 				puts "Who?"
 			end
@@ -180,6 +166,15 @@ class Delegate
 		$player.eat(food)
 	end
 
+	def attack(enemy)
+		victim = $player.current_room.people[enemy.to_sym]
+		if victim
+			@enemy = victim
+		else
+			puts "Who?"
+		end
+	end
+
 	def give(item, guy)
 		# Do I have this item?
 		if the_item = $player.items[item.to_sym]
@@ -204,11 +199,11 @@ class Delegate
 		$player.current_room.look
 	end
 
-	def equip(weapon)
-		if the_item = $player.items[weapon.to_sym]
-			if the_item.is_a?(Weapon)
-				$player.weapon = [weapon, the_item.damage]
-				puts "#{weapon} has been equipped!".cyan
+	def equip(weapon_name)
+		if weapon = $player.items[weapon_name.to_sym]
+			if weapon.is_a?(Weapon)
+				$player.weapon = weapon
+				puts "#{weapon_name} has been equipped!".cyan
 			else
 				puts "That's not a weapon, stupid.".red
 			end
@@ -280,11 +275,13 @@ class Delegate
 			$quests = $quests.merge(data[:quests])
 			$player = data[:player].setup
 			$achievements = data[:achievements]
+			@enemy = data[:enemy]
 		rescue TypeError, Errno::ENOENT
 			room = :courtyard
 			$player = Player.new
 			$player.current_room = $rooms[room]
 			$quests[:main].start(false)
+			@enemy = nil
 			get_name
 		end
 	end
@@ -298,7 +295,7 @@ class Delegate
 		$player.time[:virtual] += $player.time_since_start
 		File.open(@save_file, 'w') do |file|
 			data = { rooms: $rooms, player: $player, quests: $quests,
-				achievements: $achievements }
+				achievements: $achievements, enemy: @enemy }
 			file.puts(Marshal.dump(data))
 		end
 	end
