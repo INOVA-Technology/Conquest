@@ -86,7 +86,6 @@ class Player < ConquestClass
 		@current_room = fight_scene.enter
 
 		@current_room = $rooms[old_room_key]
-
 	end
 
 	def smack
