@@ -152,7 +152,8 @@ $rooms = {
 													talk: "Give me your milk money.",
 													damage: 3..7,
 													health: 10,
-													xp: 3
+													xp: 3,
+													bad: true
 											)}),
 										mountains:
 											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. You can go back west. You hear something in the distance.",

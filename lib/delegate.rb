@@ -66,7 +66,7 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^attack( (?<enemy>[a-z]+)?)?$/
 			enemy = $~[:enemy]
-			attack(enemy, $player.smack)
+			fight(enemy, $player.smack)
 		when /^info$/
 			info
 		when /^eat( (?<food>[a-z]+)?)?$/
@@ -89,9 +89,9 @@ class Delegate
 			quit
 		when /^save( game)?$/
 			save
-		# when /^- (?<code>.+)$/
-		# 	useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
-		# 	eval($~[:code])
+		when /^- (?<code>.+)$/
+			eval($~[:code])
+			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
@@ -164,11 +164,11 @@ class Delegate
 		$player.eat(food)
 	end
 
-	def attack(enemy, damage)
+	def fight(enemy, damage)
 		# refactor this
 		if enemy.nil?
 			if @enemy
-
+				attack(damage)
 			else
 				puts "You aren't fighting anyone."
 			end
@@ -178,11 +178,30 @@ class Delegate
 			else
 				victim = $player.current_room.people[enemy.to_sym]
 				if victim
-					@enemy = victim
+					if victim.is_alive
+						@enemy = victim
+						attack(damage)
+					else
+						puts "#{enemy} is dead."
+					end
 				else
-					puts "#{victim} isn't here."
+					puts "#{enemy} isn't here."
 				end
 			end
+		end
+	end
+
+	def attack(damage_range)
+		damage = rand(damage_range)
+		puts "You smacked the #{@enemy.name} -#{damage}"
+		@enemy.health -= damage
+
+		if @enemy.is_alive
+			damage = @enemy.attack
+			puts "The #{@enemy.name} attacked you! -#{damage}"
+			$player.health -= damage
+		else
+			@enemy = nil
 		end
 	end
 

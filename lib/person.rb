@@ -19,15 +19,18 @@ class Person < ConquestClass
 			# This was left in because some characters will be able to be picked up
 			@can_pickup ||= (options[:hidden] || true)
 			@is_alive ||= true
-			@health ||= (options[:health] || 50)
+			@health ||= (options[:health] || 15)
 			@items ||= (@options[:items] || {})
 			@xp ||= (@options[:xp] || 0)
 			@damage ||= (@options[:damage] || (3..6))
+			@bad ||= (@options[:bad] || false)
 			add_info
 		end
 
 		def die
-			puts "You have slain #{name}!"
+			good = "You killed %s. How rude."
+			bad = "You have slain %s!"
+			puts (@bad ? bad : good) % @name
 			$player.xp += @xp
 			$player.current_room.items.merge(@items)
 		end
@@ -45,7 +48,7 @@ class Person < ConquestClass
 		end
 
 		def attack
-			rand(damage)
+			rand(@damage)
 		end
 
 		def info
