@@ -8,7 +8,7 @@ class Delegate
 		load_game(@save_file)
 	end
 
-	def parse(input)
+	def parse(input, write_to_history = true)
 		check_time
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 		# input will always be converted to lower case before getting here
@@ -97,6 +97,7 @@ class Delegate
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
 			puts 😱.sample
 		end
+		open(@save_file, "a") { |file| file.puts input } if write_to_history
 	end
 
 	def check_time
@@ -296,42 +297,29 @@ class Delegate
 		end
 	end
 
-	def load_game(file)
-		File.delete(@save_file) if @options[:reset] && File.file?(@save_file)
-		begin
-			data = nil
-			File.open(file, 'r') { |file| data = Marshal.load(file) }
-			$rooms  = $rooms.merge(data[:rooms])
-			$quests = $quests.merge(data[:quests])
-			$player = data[:player].setup
-			$achievements = data[:achievements]
-			@enemy = data[:enemy]
-		rescue TypeError, Errno::ENOENT
-			room = :courtyard
-			$player = Player.new
-			$player.current_room = $rooms[room]
-			$quests[:main].start(false)
-			@enemy = nil
-			get_name
+	def load_game(file)		
+		room = :courtyard
+		$player = Player.new
+		$player.current_room = $rooms[room]
+		$quests[:main].start(false)
+		@enemy = nil
+		get_name
+		if File.file?(file)
+			old_stdout = $stdout
+			$stdout = StringIO.new
+			File.foreach(file) do |line|
+				parse(line, false)
+			end
+			$stdout = old_stdout
 		end
 	end
 
 	def get_name
 		puts "Wut b ur namez?"
-		$player_name = gets.chomp.downcase
-	end
-
-	def save
-		$player.time[:virtual] += $player.time_since_start
-		File.open(@save_file, 'w') do |file|
-			data = { rooms: $rooms, player: $player, quests: $quests,
-				achievements: $achievements, enemy: @enemy }
-			file.puts(Marshal.dump(data))
-		end
+		$player_name = prompt
 	end
 
 	def quit
-		save unless @options[:no_save]
 		puts "Come back when you can't stay so long!"
 		exit
 	end

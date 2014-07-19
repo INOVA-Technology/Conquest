@@ -62,6 +62,7 @@ end
 
 require "time"
 require "readline"
+require "stringio"
 
 def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
