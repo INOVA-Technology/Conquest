@@ -20,50 +20,37 @@ class Person < ConquestClass
 			@can_pickup ||= (options[:hidden] || true)
 			@is_alive ||= true
 			@health ||= (options[:health] || 50)
+			@items ||= (@options[:items] || {})
+			@xp ||= (@options[:xp] || 0)
+			@damage ||= (@options[:damage] || (3..6))
 			add_info
 		end
 
+		def die
+			puts "You have slain #{name}!"
+			$player.xp += @xp
+			$player.current_room.items.merge(@items)
+		end
+
 		def is_alive
-			health > 0
+			@health > 0
 		end
 
 		def add_info
 		end
 
+		def health=(new_health)
+			@health = new_health
+			die unless is_alive
+		end
 
+		def attack
+			rand(damage)
+		end
 
-end
-
-class Enemy < Person
-
-	attr_reader :damage, :xp
-	# add :reward to attr_reader, it'll be an items(s)
-	
-	def add_info
-		@health ||= @options[:health]
-		@damage ||= @options[:damage] # should be a range
-		@name ||= @name.red
-		@xp ||= (@options[:xp] || 0)
-		@items ||= (@options[:items] || {})
-	end
-
-	def health=(new_health)
-		@health = new_health
-		die unless is_alive
-	end
-
-	def is_alive
-		@health > 0
-	end
-
-	def die
-		puts "You have slain the #{name}!"
-		$player.xp += @xp
-		$player.current_room.items.merge(@items)
-	end
-
-	def attack
-		rand(damage)
-	end
+		def info
+			puts "#{name}'s info"
+			puts "Health: #@health"
+		end
 
 end

@@ -160,6 +160,7 @@ class Delegate
 
 	def info
 		$player.info
+		@enemy.info if @enemy
 	end
 
 	def eat(food)
@@ -174,6 +175,7 @@ class Delegate
 			victim = $player.current_room.people[enemy.to_sym]
 			if victim
 				@enemy = victim
+
 			else
 				puts "Who?"
 			end

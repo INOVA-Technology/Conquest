@@ -147,7 +147,7 @@ $rooms = {
 										Room.new(name: "Valley", desc: "It's a beautiful valley, with some gigantic mountains east, with some\nsnow of the tops. There is a forest to the west",
 											paths: { e: :mountains, w: :forest_by_village },
 											people: {
-												orc: Enemy.new(name: "Orc", desc: "Hmmm... You are no genius, but you think he wants to kill you.",
+												orc: Person.new(name: "Orc", desc: "Hmmm... You are no genius, but you think he wants to kill you.",
 													race: "Orc",
 													talk: "Give me your milk money.",
 													damage: 3..7,
