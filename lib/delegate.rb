@@ -8,8 +8,9 @@ class Delegate
 		load_game(@save_file)
 	end
 
-	def parse(input, write_to_history = true)
+	def parse(input, write_to_history = true, secrets_allowed = false)
 		check_time
+		save_command = true
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 		# input will always be converted to lower case before getting here
 		case input
@@ -67,6 +68,7 @@ class Delegate
 		when /^attack( (?<enemy>[a-z]+)?)?$/
 			enemy = $~[:enemy]
 			fight(enemy, $player.smack)
+			save_command = false
 		when /^info$/
 			info
 		when /^eat( (?<food>[a-z]+)?)?$/
@@ -96,8 +98,16 @@ class Delegate
 		else
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
 			puts 😱.sample
+			save_command = false
+			if secrets_allowed # for saving purposes only
+				case input
+				when /^damage (?<player_damage>) (?<enemy_damage>)$/
+					player_damage = $~[:player_damage]
+					enemy_damage = $~[:enemy_damage]
+				end
+			end
 		end
-		open(@save_file, "a") { |file| file.puts input } if write_to_history
+		open(@save_file, "a") { |file| file.puts input } if write_to_history && save_command
 	end
 
 	def check_time
@@ -197,13 +207,16 @@ class Delegate
 		puts "You smacked the #{@enemy.name} -#{damage}"
 		@enemy.health -= damage
 
+		_damage = 0
 		if @enemy.is_alive
-			damage = @enemy.attack
-			puts "The #{@enemy.name} attacked you! -#{damage}"
-			$player.health -= damage
+			_damage = @enemy.attack
+			puts "The #{@enemy.name} attacked you! -#{_damage}"
+			$player.health -= _damage
 		else
 			@enemy = nil
 		end
+		input = "damage #{_damage} #{damage}"
+		open(@save_file, "a") { |file| file.puts input }
 	end
 
 	def give(item, guy)
@@ -308,7 +321,7 @@ class Delegate
 			old_stdout = $stdout
 			$stdout = StringIO.new
 			File.foreach(file) do |line|
-				parse(line, false)
+				parse(line, false, true)
 			end
 			$stdout = old_stdout
 		end
