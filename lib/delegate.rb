@@ -337,7 +337,7 @@ class Delegate
 
 	def get_name
 		puts "Wut b ur namez?"
-		$player_name = prompt
+		$player.name = prompt
 	end
 
 	def quit

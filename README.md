@@ -15,7 +15,6 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * * add more items that are useful
 * * add more to the main quest
 * * add a way to save players name
-* * add way to save random value, ex. attack
 * - make better names && descriptions for rooms
 * - make function that replaces stuff like east with e
 * - have at least 50 different rooms
