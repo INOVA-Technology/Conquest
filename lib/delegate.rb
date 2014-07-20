@@ -93,6 +93,7 @@ class Delegate
 			save
 		# when /^- (?<code>.+)$/
 			# eval($~[:code])
+			# save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
@@ -101,9 +102,14 @@ class Delegate
 			save_command = false
 			if secrets_allowed # for saving purposes only
 				case input
-				when /^damage (?<player_damage>) (?<enemy_damage>)$/
-					player_damage = $~[:player_damage]
-					enemy_damage = $~[:enemy_damage]
+				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
+					player_damage = $~[:player_damage].to_i
+					enemy_damage = $~[:enemy_damage].to_i
+					$player.health -= player_damage
+					@enemy.health -= enemy_damage
+				when /^enemy (?<enemy>[a-z]+)\s?$/
+					enemy = $~[:enemy]
+					@enemy = $player.current_room.people[enemy.to_sym]
 				end
 			end
 		end
@@ -191,6 +197,8 @@ class Delegate
 				if victim
 					if victim.is_alive
 						@enemy = victim
+						input = "enemy #{enemy}"
+						open(@save_file, "a") { |file| file.puts input }
 						attack(damage)
 					else
 						puts "#{enemy} is dead."
