@@ -297,7 +297,7 @@ class Delegate
 		end
 	end
 
-	def load_game(file)		
+	def load_game(file)
 		room = :courtyard
 		$player = Player.new
 		$player.current_room = $rooms[room]

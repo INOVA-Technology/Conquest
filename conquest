@@ -68,12 +68,6 @@ def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
-class ConquestClass
-	def initialize(*args)
-		setup(*args)
-	end
-end
-
 require_relative 'lib/colors'
 require_relative 'lib/quest'
 require_relative 'lib/quest_list'

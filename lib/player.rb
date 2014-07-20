@@ -1,17 +1,17 @@
-class Player < ConquestClass
+class Player
 
 	attr_accessor :items, :current_room, :weapon, :time, :start_time
 	attr_reader :xp, :health, :weapon
 
-	def setup
-		@items ||= {}
-		@xp ||= 10
-		@health ||= 45
-		@weapon ||= nil
+	def initialize
+		@items = {}
+		@xp = 10
+		@health = 45
+		@weapon = nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@start_time = [2000, 1, 1, 6, 30]
-		@time ||= { virtual: DateTime.new(*@start_time) }
+		@time = { virtual: DateTime.new(*@start_time) }
 		@time[:real] = DateTime.now
 		self
 	end

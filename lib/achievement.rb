@@ -1,12 +1,12 @@
-class Achievement < ConquestClass
+class Achievement
 
 	attr_accessor :name, :unlocked
 
-	def setup(options = {})
-		@name ||= options[:name]
+	def initialize(options = {})
+		@name = options[:name]
 		
-		@unlocked ||= false
-		@options ||= options
+		@unlocked = false
+		@options = options
 	end
 
 	def unlock

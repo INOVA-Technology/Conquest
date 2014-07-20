@@ -3,4 +3,4 @@ $achievements = {
 	mordor: Achievement.new(name: "From Mordor with Love"),
 	hex: Achievement.new(name: "Confused"),
 	ten_minutes: Achievement.new(name: "Player for 10 minutes!")
-}.each { |_, a| a.setup }
+}

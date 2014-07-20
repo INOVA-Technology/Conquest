@@ -220,13 +220,7 @@ $rooms = {
 									starts_quest: :hex,
 									unlocks: :hex
 									)
-}.each do |_, r|
-	[:items, :people].map do |sym|
-		r[sym].map { |i| i.setup } if r[sym]
-	end
-	r.setup
-end
-
+}
 
 
 	
