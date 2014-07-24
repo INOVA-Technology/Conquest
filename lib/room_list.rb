@@ -138,7 +138,8 @@ $rooms = {
 												talk: "People tell me I look like Morgan Freeman."
 												#item_wanted: "",
 												#action: ""
-												)}),
+												)},
+										task: { quest: :main, task: :go_to_village}),
 								forest_by_village:
 									Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east",
 										paths: { n: :village, e: :valley }

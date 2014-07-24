@@ -8,6 +8,7 @@ class Room
 		@paths = (options[:paths] || {})
 		@items = (options[:items] || {})
 		@people = (options[:people] || {})
+		@task = (options[:tasks] || {})
 		@options = options
 		@visited = false
 		add_info
