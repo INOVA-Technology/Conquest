@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :start_time
+	attr_accessor :items, :current_room, :weapon, :time, :start_time, :name
 	attr_reader :xp, :health, :weapon
 
 	def initialize

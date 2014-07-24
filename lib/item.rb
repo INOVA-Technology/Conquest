@@ -33,7 +33,7 @@ class Prop < Item
 	end
 end
 
-# SUBCLASSES BELOW: (only subclass when you have a good reason)
+# SUBCLASSES BELOW:
 
 class Food < Item
 

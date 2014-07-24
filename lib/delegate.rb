@@ -110,6 +110,9 @@ class Delegate
 				when /^enemy (?<enemy>[a-z]+)\s?$/
 					enemy = $~[:enemy]
 					@enemy = $player.current_room.people[enemy.to_sym]
+				when /^name (?<name>.+)\s?$/
+					name = $~[:name]
+					$player.name = name
 				end
 			end
 		end
@@ -324,7 +327,6 @@ class Delegate
 		$player.current_room = $rooms[room]
 		$quests[:main].start(false)
 		@enemy = nil
-		get_name
 		if File.file?(file)
 			old_stdout = $stdout
 			$stdout = StringIO.new
@@ -332,12 +334,16 @@ class Delegate
 				parse(line, false, true)
 			end
 			$stdout = old_stdout
+		else
+			get_name
 		end
 	end
 
 	def get_name
 		puts "Wut b ur namez?"
 		$player.name = prompt
+		input = "name #{$player.name}"
+		open(@save_file, "a") { |file| file.puts input }
 	end
 
 	def quit
