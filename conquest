@@ -53,7 +53,7 @@ until ARGV.empty?
 	when "--reset", "-r"
 		options[:reset] = true
 	when "--save-file", "-f"
-		options[:save_file] = ARGV.shift
+		options[:save_file] = File.expand_path(ARGV.shift)
 	else
 		puts "unrecognized option: #{o}"
 		exit
