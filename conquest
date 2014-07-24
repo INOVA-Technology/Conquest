@@ -49,14 +49,14 @@ puts "Theres a 1 in #{chance} that this will be printed." \
 options = {}
 
 until ARGV.empty?
-	case ARGV.shift
-	when "--no-save"
-		options[:no_save] = true
+	case o = ARGV.shift
 	when "--reset", "-r"
 		options[:reset] = true
-	when "-R"
-		options[:no_save] = true
-		options[:reset] = true
+	when "--save-file", "-f"
+		options[:save_file] = ARGV.shift
+	else
+		puts "unrecognized option: #{o}"
+		exit
 	end
 end
 

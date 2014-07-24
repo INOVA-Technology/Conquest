@@ -4,7 +4,7 @@ class Delegate
 
 	def initialize(options = {})
 		@options = options
-		@save_file = "#{Dir.home}/.conquest_save"
+		@save_file = options[:save_file] || "#{Dir.home}/.conquest_save"
 		load_game(@save_file)
 	end
 
@@ -322,6 +322,7 @@ class Delegate
 	end
 
 	def load_game(file)
+		File.delete(@save_file) if File.file?(@save_file) && @options[:reset]
 		room = :courtyard
 		$player = Player.new
 		$player.current_room = $rooms[room]

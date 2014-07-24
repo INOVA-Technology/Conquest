@@ -1,6 +1,5 @@
 class Item
 
-
 	attr_reader :name, :description, :hidden, :can_pickup
 
 	def initialize(options = {})

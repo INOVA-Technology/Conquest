@@ -27,11 +27,16 @@ class Room
 		unless @visited
 			puts @description
 			list_items
+			@visited = true
+
 			quest = options[:starts_quest]
 			$quests[quest].start if quest
+
 			achievement = options[:unlocks]
 			$achievements[achievement].unlock if achievement
-			@visited = true
+
+			quest, task = options[:completes_task]
+			$quests[quest].complete(task) if quest && task
 		end
 		self
 	end
