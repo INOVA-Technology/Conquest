@@ -14,7 +14,7 @@ class Delegate
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 
 		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
-		special_attacks = ($player.weapon.nil? ? "" : $player.weapon.attacks)
+		special_attacks = ($player.weapon.nil? ? "" : $player.weapon.regex_attacks)
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
@@ -73,7 +73,7 @@ class Delegate
 		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z]+)?)?$/
 			attack = $~[:attack]
 			enemy = $~[:enemy]
-			fight(enemy, $player.weapon.send(attack))
+			fight(enemy, $player.weapon.attacks[:attack])
 			save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 

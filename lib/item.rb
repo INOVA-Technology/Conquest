@@ -48,11 +48,12 @@ end
 
 class Weapon < Item
 
-	attr_accessor :damage, :attacks
+	attr_accessor :damage, :attacks, :regex_attacks
 
 	def add_info
 		@damage = @options[:damage]
-		@attacks = @options[:attacks]
+		@attacks = @options[:attacks] # ex. {uppercut: 5..10, slash: 6..8, attack: 3..7}
+		@regex_attacks = @options[:regex_attacks] # ex. "uppercut|slash|attack"
 	end
 end
 
