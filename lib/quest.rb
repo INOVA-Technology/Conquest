@@ -1,10 +1,10 @@
 class Quest
 
-	attr_accessor :name, :started, :tasks
+	attr_accessor :name, :started, :tasks, :tasks_completed
 
 	def initialize(options = {})
 		@name = options[:name]
-		
+		@tasks_completed = 0
 		# tasks (the argument) should be a hash like this:
 		# [[:find_ring, "My Precious"], [:melt_ring, "Idk"]]
 		@tasks = options[:tasks].inject({}) do |hash, task|
