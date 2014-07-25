@@ -46,7 +46,6 @@ class Player
 
 			@xp = 0
 			@xp_max = @xp_max*2
-
 		end
 	end
 
@@ -96,7 +95,7 @@ class Player
 				? "an " : "a "
 			a_or_an = "" if item.name[-1] == "s"
 			if item.is_a?(Weapon)
-				puts "#{a_or_an}#{item.name.downcase} with damage of #{item.damage}"
+				puts "#{a_or_an}#{item.name.downcase}"
 			else
 				puts "#{a_or_an}#{item.name.downcase}"
 			end

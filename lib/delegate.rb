@@ -118,8 +118,9 @@ class Delegate
 				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
 					player_damage = $~[:player_damage].to_i
 					enemy_damage = $~[:enemy_damage].to_i
-					$player.health -= player_damage
-					@enemy.health -= enemy_damage
+					$player.health -= player_damage if @enemy
+					@enemy.health -= enemy_damage if @enemy
+					@enemy = nil unless @enemy.nil?
 				when /^enemy (?<enemy>[a-z]+)\s?$/
 					enemy = $~[:enemy]
 					@enemy = $player.current_room.people[enemy.to_sym]
