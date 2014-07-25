@@ -1,6 +1,6 @@
 class Item
 
-	attr_reader :name, :description, :hidden, :can_pickup
+	attr_reader :name, :description, :hidden, :can_pickup, :item_xp
 
 	def initialize(options = {})
 		@name = options[:name]
@@ -9,6 +9,7 @@ class Item
 		@hidden = (options[:hidden] || false)
 		@can_pickup = (!options[:hidden] || true)
 		@task = options[:task]
+		@item_xp = (options[:xp] || 0)
 		add_info
 	end
 

@@ -6,6 +6,8 @@ class Player
 	def initialize
 		@items = {}
 		@xp = 10
+		@xp_max = 100
+		@rank = 0
 		@health = 45
 		@weapon = nil
 		# its year, month, day, hour, minute
@@ -28,6 +30,24 @@ class Player
 		diff = new_xp - @xp
 		@xp = new_xp
 		puts "+#{diff}xp!" if diff > 0
+		rank_up
+	end
+
+	def give_xp(more_xp)
+		@xp += more_xp
+		rank_up
+	end
+
+	def rank_up
+		if @xp >= @xp_max
+			@rank += 1
+			puts "Rank up!".magenta
+			puts "Level #{@rank}"
+
+			@xp = 0
+			@xp_max = @xp_max*2
+
+		end
 	end
 
 	def die
@@ -59,6 +79,9 @@ class Player
 			if item.can_pickup
 				@current_room.pickup_item(key)
 				@items[key.to_sym] = item
+				if item.item_xp != 0
+					give_xp(item.item_xp)
+				end
 			else
 				puts "You can't pick that up."
 			end
@@ -86,7 +109,8 @@ class Player
 
 	def info
 		puts "Health: #@health"
-		puts "XP: #@xp"
+		puts "Rank: #{@rank}"
+		puts "XP: #{@xp}/#{@xp_max} "
 		if @weapon != nil
 			puts "Current Weapon: #{@weapon.name}"
 		end
