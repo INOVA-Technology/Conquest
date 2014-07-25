@@ -212,8 +212,10 @@ $rooms = {
 								Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
 									paths: { n: :abyss1 },
 									items: {
-										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.", isweapon: true, damage: 25)
-									},
+										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.",
+											attacks: { attack: 22..26 },
+											regex_attacks: "attack"
+										)},
 									people: {
 										hex: Person.new(name: "Hex", desc: "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
 											race: "Hex-Man",
