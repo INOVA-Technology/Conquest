@@ -52,6 +52,8 @@ until ARGV.empty?
 	case o = ARGV.shift
 	when "--reset", "-r"
 		options[:reset] = true
+	when "--no-save", "-n"
+		options[:no_save] = true
 	when "--save-file", "-f"
 		options[:save_file] = File.expand_path(ARGV.shift)
 	else
@@ -80,10 +82,10 @@ require_relative 'lib/room_list'
 require_relative 'lib/player'
 require_relative 'lib/delegate'
 
-delegate = Delegate.new(options)
-
 if __FILE__ == $0
+	delegate = Delegate.new(options)
 	$player.current_room.enter
+	
 	loop do
 		💬 = prompt
 		delegate.parse(💬)

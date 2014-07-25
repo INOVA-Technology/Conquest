@@ -130,7 +130,11 @@ class Delegate
 				end
 			end
 		end
-		open(@save_file, "a") { |file| file.puts input } if write_to_history && save_command
+		add_command_to_history(input) if write_to_history && save_command
+	end
+
+	def add_command_to_history(cmd)
+		open(@save_file, "a") { |file| file.puts cmd } unless @options[:no_save]
 	end
 
 	def check_time
