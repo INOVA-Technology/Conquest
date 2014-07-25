@@ -133,8 +133,10 @@ $rooms = {
 									Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
 										paths: { w: :path_to_village, s: :forest_by_village },
 										items: { 
-											pickaxe: Weapon.new(name: "Pickaxe", desc: "Be careful, it looks sharp.", isweapon: true, damage: 5)
-											},
+											pickaxe: Weapon.new(name: "Pickaxe", desc: "Be careful, it looks sharp.",
+												attacks: { slash: 5..5, hack: 5..8 },
+												regex_attacks: "slash|hack"
+												)},
 										people: {
 											gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",
 												race: "Human",
