@@ -208,17 +208,19 @@ class Delegate
 		else
 			victim = $player.current_room.people[enemy.to_sym]
 			if victim
-				if victim.name.downcase == @enemy.name.downcase
-					if victim.is_alive
-						@enemy = victim
-						input = "enemy #{enemy}"
-						open(@save_file, "a") { |file| file.puts input }
-						attack(damage)
-					else
-						puts "#{enemy} is dead."
+				if @enemy
+					if victim.name.downcase != @enemy.name.downcase
+						puts "You are already fighting someone else."
+						return
 					end
+				end
+				if victim.is_alive
+					@enemy = victim
+					input = "enemy #{enemy}"
+					open(@save_file, "a") { |file| file.puts input }
+					attack(damage)
 				else
-					puts "You are already fighting someone else."
+					puts "#{enemy} is dead."
 				end
 			else
 				puts "#{enemy} isn't here."
