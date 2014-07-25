@@ -15,12 +15,9 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * * add more items that are useful
 * * add more to the main quest
 * - make better names && descriptions for rooms
-* - make function that replaces stuff like east with e
 * - have at least 50 different rooms
 * - add directions like nw
-* - add support for multi word items
 * - add some kind of plot
-* - add more ways to fight, like swords, guns, and stuff
 * - add add a help/? command that tells about essential commands like quests,
 achievements, and info. Not too many commands though, maybe just those idk
 * - add installer

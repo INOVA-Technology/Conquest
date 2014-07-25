@@ -29,20 +29,20 @@ class Delegate
 		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
 			item = $~[:item]
 			pickup(item)
-		when /^look( (?<item>[a-z]+))?$/
+		when /^look( (at )?(?<item>[a-z]+))?$/
 			item = $~[:item]
 			item.nil? ? look : inspect(item)
-		when /^(talk|speak) to( (?<guy>[a-z]+))?$/
+		when /^(talk|speak) to( (?<guy>[a-z ]+))?$/
 			if guy = $~[:guy]
 				talk(guy)
 			else
 				puts "Who?"
 			end
-		when /^give( (?<item>[a-z]+)) to( (?<guy>[a-z]+))?$/
+		when /^give( (?<item>[a-z ]+)) to( (?<guy>[a-z ]+))?$/
 			item = $~[:item]
 			guy = $~[:guy]
 			give(item, guy)
-		when /^inspect( (?<item>[a-z]+))?$/
+		when /^inspect( (?<item>[a-z ]+))?$/
 			if item = $~[:item]
 				inspect(item)
 			else
@@ -50,7 +50,7 @@ class Delegate
 			end
 		when /^rub sticks( together)?$/
 			rub_sticks
-		when /^equip( (?<weapon>[a-z]+))?$/
+		when /^equip( (?<weapon>[a-z ]+))?$/
 			if weapon = $~[:weapon]
 				equip(weapon)
 			else
@@ -70,7 +70,7 @@ class Delegate
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
-		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z]+)?)?$/
+		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z ]+)?)?$/
 			attack = $~[:attack]
 			enemy = $~[:enemy]
 			fight(enemy, $player.weapon.attacks[:attack])
@@ -78,13 +78,13 @@ class Delegate
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
 		# have both an attack method and "attack" in the attacks variable
-		when /^attack( (?<enemy>[a-z]+)?)?$/
+		when /^attack( (?<enemy>[a-z ]+)?)?$/
 			enemy = $~[:enemy]
 			fight(enemy, $player.smack)
 			save_command = false
 		when /^info$/
 			info
-		when /^eat( (?<food>[a-z]+)?)?$/
+		when /^eat( (?<food>[a-z ]+)?)?$/
 			if food = $~[:food]
 				eat(food)
 			else
