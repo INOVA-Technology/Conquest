@@ -134,8 +134,8 @@ $rooms = {
 										paths: { w: :path_to_village, s: :forest_by_village },
 										items: { 
 											pickaxe: Weapon.new(name: "Pickaxe", desc: "Be careful, it looks sharp.",
-												attacks: { slash: 5..5, hack: 5..8 },
-												regex_attacks: "slash|hack"
+												attacks: { slash: 5..5, hack: 5..8, attack: 5..5 },
+												regex_attacks: "slash|hack|attack"
 												)},
 										people: {
 											gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",
