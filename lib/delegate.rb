@@ -206,10 +206,8 @@ class Delegate
 				puts "You aren't fighting anyone."
 			end
 		else
-			if @enemy
-				puts "You are already fighting someone."
-			else
-				victim = $player.current_room.people[enemy.to_sym]
+			victim = $player.current_room.people[enemy.to_sym]
+			if victim.name.downcase == @enemy.name.downcase
 				if victim
 					if victim.is_alive
 						@enemy = victim
@@ -222,6 +220,8 @@ class Delegate
 				else
 					puts "#{enemy} isn't here."
 				end
+			else
+				puts "You are already fighting someone else."
 			end
 		end
 	end
