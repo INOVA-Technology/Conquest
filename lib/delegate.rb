@@ -130,11 +130,7 @@ class Delegate
 				end
 			end
 		end
-		add_command_to_history(input) if write_to_history && save_command
-	end
-
-	def add_command_to_history(cmd)
-		open(@save_file, "a") { |file| file.puts cmd } unless @options[:no_save]
+		open(@save_file, "a") { |file| file.puts input } if write_to_history && save_command
 	end
 
 	def check_time
@@ -154,7 +150,8 @@ class Delegate
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
 				done = quest.completed
-				puts "#{quest.name}#{' - Completed!' if done}"
+				puts quest.tasks_completed
+				puts "#{quest.name}#{' - Completed!' if done} #{(quest.tasks_completed.to_f/quest.tasks.length.to_f)*100}%"
 				puts "  Current Task: #{quest.current_task[:description]}" \
 					unless done
 			end

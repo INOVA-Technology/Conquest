@@ -31,6 +31,9 @@ class Quest
 		unless the_task[:completed]
 			the_task[:completed] = true
 			puts "Task '#{the_task[:description]}' completed!".cyan
+			puts "xp +15".cyan
+			@tasks_completed += 1
+			$player.give_xp(15)
 		end
 	end
 
