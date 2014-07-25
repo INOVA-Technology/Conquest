@@ -165,7 +165,7 @@ $rooms = {
 												has_mountain: true
 												),
 											mountain:
-												Room.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
+												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
 													paths: { d: :mountains, u: :mountain_1 },
 
 													# the scroll and Randy should be moved to mountain_3 once it exists
@@ -182,7 +182,7 @@ $rooms = {
 															action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
 															)}),
 											mountain_1:
-												Room.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
+												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
 													paths: { d: :mountain },
 													people: {
 														rick: Person.new(name: "Rick", desc: "Oh... Oh no... Its Rick Astley",

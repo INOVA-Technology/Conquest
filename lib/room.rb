@@ -76,3 +76,12 @@ class Room
 	end
 
 end
+
+
+class Mountain < Room
+
+	def mine
+		$player.die("You start mining, then cause an avalanche and die. Smooth.")
+	end
+
+end

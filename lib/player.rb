@@ -49,8 +49,8 @@ class Player
 		end
 	end
 
-	def die
-		puts "What a disapointment...".red
+	def die(message = "What a disapointment...")
+		puts message.red
 		File.delete("#{Dir.home}/.conquest_save")
 		exit
 	end

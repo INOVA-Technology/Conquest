@@ -64,7 +64,7 @@ class Delegate
 			list_achievements
 		when /^(i|inv|inventory)$/
 			inventory
-		when /^climb( (?<tree_name>[a-z]+))?( tree)?$/
+		when /^climb( (?<tree_name>[a-z ]+))?$/
 			# this regex needs to be cleaned up, just the tree part really
 			# nvm, the whole regex sucks
 			🌳 = $~[:tree_name]
@@ -90,6 +90,8 @@ class Delegate
 			else
 				puts "Who?"
 			end
+		when /^mine$/
+			mine
 		when /^time$/
 			time
 		when /^(help|h)$/
@@ -326,22 +328,33 @@ class Delegate
 		end
 	end
 
+	def mine
+		if $player.current_room.is_a?(Mountain)
+			if $player.items[:pickaxe]
+				$player.current_room.mine
+			else
+				puts "You have nothing to mine with."
+			end
+		else
+			puts "There's nothing here to mine."
+		end
+	end
+
 	def climb(thing_name)
+		thing_name = convert_input(thing_name)
 		if 🌳 = $player.current_room.items[:tree]
 			name = 🌳.name.downcase
-			if thing_name.nil? || thing_name == "tree" || thing_name == name
+			if [nil, "tree"].include?(thing_name)
 				🌳.climb
 			else
 				puts "You can't climb that."
 			end
-
-		# I don't like how this works :(
-		elsif $player.current_room.options[:has_mountain]
-			if ["up", "mountain", nil].include? thing_name
+		elsif $rooms[$player.current_room[:u]].is_a?(Mountain)
+			if [nil, "mountain"].include?(thing_name)
 				walk("u")
 			end
 		else
-			puts "You can't climb that."
+			puts "There's nothing here to climb."
 		end
 	end
 

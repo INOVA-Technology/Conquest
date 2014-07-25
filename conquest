@@ -50,6 +50,18 @@ def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
+def convert_input(input)
+	# it's assumed the input is already all lowercase
+	case input
+	when "banyan tree", "banyan"
+		"tree"
+	when "tall mountain"
+		"mountain"
+	else
+		input
+	end
+end
+
 require_relative 'lib/colors'
 require_relative 'lib/quest'
 require_relative 'lib/quest_list'
