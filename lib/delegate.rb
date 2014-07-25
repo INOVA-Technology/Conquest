@@ -14,7 +14,7 @@ class Delegate
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 
 		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
-		special_attacks = ($player.weapon.nil? ? "" : $player.weapon.regex_attacks)
+		special_attacks = ($player.weapon.nil? ? "dontMakeAnAttackNamedThis" : $player.weapon.regex_attacks)
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
