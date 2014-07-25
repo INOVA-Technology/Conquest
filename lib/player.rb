@@ -87,6 +87,9 @@ class Player
 	def info
 		puts "Health: #@health"
 		puts "XP: #@xp"
+		if @weapon != nil
+			puts "Current Weapon: #{@weapon.name}"
+		end
 		puts "Inventory:"
 		inventory
 	end

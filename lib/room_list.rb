@@ -130,7 +130,7 @@ $rooms = {
 									Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
 										paths: { w: :path_to_village, s: :forest_by_village },
 										items: { 
-											pickaxe: Item.new(name: "Pickaxe", desc: "Be careful, it looks sharp.", isweapon: true, damage: 5)
+											pickaxe: Weapon.new(name: "Pickaxe", desc: "Be careful, it looks sharp.", isweapon: true, damage: 5)
 											},
 										people: {
 											gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",
@@ -207,7 +207,7 @@ $rooms = {
 								Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
 									paths: { n: :abyss1 },
 									items: {
-										staff: Item.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.", isweapon: true, damage: 25)
+										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.", isweapon: true, damage: 25)
 									},
 									people: {
 										hex: Person.new(name: "Hex", desc: "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",

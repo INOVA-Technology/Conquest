@@ -53,6 +53,8 @@ class Delegate
 			else
 				puts "Please supply an weapon to equip."
 			end
+		when /^unequip?$/
+			unequip
 		when /^quests?$/
 			list_quests
 		when /^achievements?$/
@@ -265,6 +267,10 @@ class Delegate
 		else
 			puts "you do not own that item...".red
 		end
+	end
+
+	def unequip
+		$player.weapon = nil
 	end
 
 	def inspect(item)
