@@ -12,6 +12,9 @@ class Delegate
 		check_time
 		save_command = true
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
+
+		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
+		special_attacks = ($player.weapon.nil? ? "" : $player.weapon.attacks)
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
@@ -67,6 +70,14 @@ class Delegate
 			🌳 = $~[:tree_name]
 			climb(🌳)
 			# doesn't have to be a tree...
+		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z]+)?)?$/
+			attack = $~[:attack]
+			enemy = $~[:enemy]
+			fight(enemy, $player.weapon.send(attack))
+			save_command = false
+
+		# this'll run if they don't have a weapon or their weapon doesn't 
+		# have both an attack method and "attack" in the attacks variable
 		when /^attack( (?<enemy>[a-z]+)?)?$/
 			enemy = $~[:enemy]
 			fight(enemy, $player.smack)
@@ -94,8 +105,8 @@ class Delegate
 		when /^save( game)?$/
 			save
 		# when /^- (?<code>.+)$/
-			# eval($~[:code])
-			# save_command = false
+		# 	eval($~[:code])
+		# 	save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else

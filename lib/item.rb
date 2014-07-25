@@ -48,10 +48,11 @@ end
 
 class Weapon < Item
 
-	attr_accessor :damage
+	attr_accessor :damage, :attacks
 
 	def add_info
 		@damage = @options[:damage]
+		@attacks = @options[:attacks]
 	end
 end
 
