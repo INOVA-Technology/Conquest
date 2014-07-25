@@ -42,24 +42,6 @@
 # then please read this article below. It's for your own good.
 # http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
 
-chance = 1000 # increase this number if more people start using this
-puts "Theres a 1 in #{chance} that this will be printed." \
-	if rand(1..chance) == 1
-
-options = {}
-
-until ARGV.empty?
-	case o = ARGV.shift
-	when "--reset", "-r"
-		options[:reset] = true
-	when "--save-file", "-f"
-		options[:save_file] = File.expand_path(ARGV.shift)
-	else
-		puts "unrecognized option: #{o}"
-		exit
-	end
-end
-
 require "time"
 require "readline"
 require "stringio"
@@ -80,10 +62,30 @@ require_relative 'lib/room_list'
 require_relative 'lib/player'
 require_relative 'lib/delegate'
 
-delegate = Delegate.new(options)
-
 if __FILE__ == $0
+	chance = 1000 # increase this number if more people start using this
+	puts "Theres a 1 in #{chance} that this will be printed." \
+		if rand(1..chance) == 1
+
+	options = {}
+
+	until ARGV.empty?
+		case o = ARGV.shift
+		when "--reset", "-r"
+			options[:reset] = true
+		when "--no-save", "-n"
+			options[:no_save] = true
+		when "--save-file", "-f"
+			options[:save_file] = File.expand_path(ARGV.shift)
+		else
+			puts "unrecognized option: #{o}"
+			exit
+		end
+	end
+
+	delegate = Delegate.new(options)
 	$player.current_room.enter
+	
 	loop do
 		💬 = prompt
 		delegate.parse(💬)
