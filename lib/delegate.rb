@@ -123,12 +123,15 @@ class Delegate
 					$player.health -= player_damage if @enemy
 					@enemy.health -= enemy_damage if @enemy
 					@enemy = nil unless @enemy.nil?
-				when /^enemy (?<enemy>[a-z]+)\s?$/
+				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
 					@enemy = $player.current_room.people[enemy.to_sym]
 				when /^name (?<name>.+)\s?$/
 					name = $~[:name]
 					$player.name = name
+				when /^unlock (?<achievement>[a-z_]+)\s?$/
+					achievement = $~[:achievement]
+					$achievements[achievement.to_sym].unlock
 				end
 			end
 		end
@@ -145,6 +148,7 @@ class Delegate
 			the_time[4] += 10
 			if DateTime.new(*the_time) <= $player.get_time
 				$achievements[:ten_minutes].unlock
+				add_command_to_history("unlock ten_minutes")
 			end
 			sleep(60)
 		end
