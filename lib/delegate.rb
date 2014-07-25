@@ -14,7 +14,7 @@ class Delegate
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 
 		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
-		special_attacks = ($player.weapon.nil? ? "" : $player.weapon.regex_attacks)
+		special_attacks = ($player.weapon.nil? ? "dontMakeAnAttackNamedThis" : $player.weapon.regex_attacks)
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
@@ -132,7 +132,11 @@ class Delegate
 				end
 			end
 		end
-		open(@save_file, "a") { |file| file.puts input } if write_to_history && save_command
+		add_command_to_history(input) if write_to_history && save_command
+	end
+
+	def add_command_to_history(input)
+		open(@save_file, "a") { |file| file.puts input } unless options[:no_save]
 	end
 
 	def check_time
@@ -221,7 +225,7 @@ class Delegate
 				if victim.is_alive
 					@enemy = victim
 					input = "enemy #{enemy}"
-					open(@save_file, "a") { |file| file.puts input }
+					add_command_to_history(input)
 					attack(damage)
 				else
 					puts "#{enemy} is dead."
@@ -246,7 +250,7 @@ class Delegate
 			@enemy = nil
 		end
 		input = "damage #{_damage} #{damage}"
-		open(@save_file, "a") { |file| file.puts input }
+		add_command_to_history(input)
 	end
 
 	def give(item, guy)
@@ -378,7 +382,7 @@ class Delegate
 		puts "Wut b ur namez?"
 		$player.name = prompt
 		input = "name #{$player.name}"
-		open(@save_file, "a") { |file| file.puts input }
+		add_command_to_history(input)
 	end
 
 	def quit
