@@ -242,13 +242,13 @@ class Delegate
 
 	def attack(damage_range)
 		damage = rand(damage_range)
-		puts "You smacked the #{@enemy.name} -#{damage}"
+		puts "You smacked the #{@enemy.name} #{"-".red + damage.to_s.red}"
 		@enemy.health -= damage
 
 		_damage = 0
 		if @enemy.is_alive
 			_damage = @enemy.attack
-			puts "The #{@enemy.name} attacked you! -#{_damage}"
+			puts "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}"
 			$player.health -= _damage
 		else
 			@enemy = nil
