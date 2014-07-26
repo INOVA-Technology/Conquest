@@ -132,6 +132,9 @@ class Delegate
 				when /^unlock (?<achievement>[a-z_]+)\s?$/
 					achievement = $~[:achievement]
 					$achievements[achievement.to_sym].unlock
+				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)$/
+					time = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
+					$player.time[:virtual] = DateTime.new(*time)
 				end
 			end
 		end
@@ -391,6 +394,10 @@ class Delegate
 
 	def quit
 		puts "Come back when you can't stay so long!"
+		t = $player.get_time
+		time = [t.year, t.month, t.day, t.hour, t.minute] * " "
+		cmd = "time #{time}"
+		add_command_to_history(cmd)
 		exit
 	end
 
