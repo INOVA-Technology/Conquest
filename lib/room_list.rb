@@ -202,11 +202,14 @@ $rooms = {
 
 							abyss1:
 								Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You can go south and east"),
-									paths: { s: :merge_conflictia },
+									paths: { s: :merge_conflictia, e: :abyss2 },
 									items: {
 										iphone: Item.new(name: str_to_hex("iphone"), desc: str_to_hex("The perfect smart phone"))
 									}
 								),
+								abyss2:
+									Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You continue into the never ending abyss. You can go west."),
+										paths: { w: :abyss1 }),
 							# eventually there will be a hex translator.
 							merge_conflictia:
 								Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
