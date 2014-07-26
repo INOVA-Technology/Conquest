@@ -120,8 +120,8 @@ class Delegate
 				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
 					player_damage = $~[:player_damage].to_i
 					enemy_damage = $~[:enemy_damage].to_i
-					$player.health -= player_damage if @enemy
-					@enemy.health -= enemy_damage if @enemy
+					$player.take_damage(player_damage) if @enemy
+					@enemy.take_damage(enemy_damage) if @enemy
 					@enemy = nil unless @enemy.nil?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
@@ -252,14 +252,14 @@ class Delegate
 				end
 		attack_phrases =[ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
 		puts attack_phrases.sample
-		@enemy.health -= damage
+		@enemy.take_damage(damage)
 
 		_damage = 0
 		if @enemy.is_alive
 			_damage = @enemy.attack
 			badguy_says = [ "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}", "#{@enemy.name} is on fire  #{"-".red + _damage.to_s.red}", "POW! That hurt.  #{"-".red + _damage.to_s.red}" ]
 			puts badguy_says.sample
-			$player.health -= _damage
+			$player.take_damage(_damage)
 		else
 			@enemy = nil
 		end

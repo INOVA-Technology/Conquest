@@ -31,7 +31,7 @@ class Person
 			good = "You killed %s. How rude."
 			bad = "You have slain %s!"
 			puts (@bad ? bad : good) % @name
-			$player.xp += @xp
+			$player.give_xp(@xp)
 			$player.current_room.items.merge(@items)
 		end
 
@@ -42,8 +42,8 @@ class Person
 		def add_info
 		end
 
-		def health=(new_health)
-			@health = new_health
+		def take_damage(amount)
+			@health -= amount
 			die unless is_alive
 		end
 

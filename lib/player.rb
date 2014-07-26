@@ -9,7 +9,6 @@ class Player
 		@xp_max = 100
 		@rank = 0
 		@health = 45
-		@max_health = 45
 		@weapon = nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
@@ -27,10 +26,9 @@ class Player
 		DateTime.now - @time[:real]
 	end
 
-	def xp=(new_xp)
-		diff = new_xp - @xp
-		@xp = new_xp
-		puts "+#{diff}xp!" if diff > 0
+	def give_xp(amount)
+		@xp += amount
+		puts "+#{diff}xp!"
 		$achievements[:over_9000].unlock if @xp > 9000
 		rank_up
 	end
@@ -60,7 +58,7 @@ class Player
 			puts "Your loss!"
 			return
 		when "health", "h"
-			health += _health # using health += because @health += doesn't call the custom health= method
+			heal(_health)
 		when "attack", "a"
 			@weapon.upgrade + _attack
 		else
@@ -79,14 +77,13 @@ class Player
 		@health > 0
 	end
 
-	def health=(new_health)
-		old_health = @health
-		@health = new_health
-		if @health > @max_health
-			@health = @max_health
-		end
-		diff = @health - old_health
-		puts "+#{diff}health!" if diff > 0
+	def heal(amount)
+		@health += amount
+		puts "+#{diff}health!"
+	end
+
+	def take_damage(amount)
+		@health -= amount
 		die unless is_alive
 	end
 
@@ -105,7 +102,7 @@ class Player
 				@current_room.pickup_item(key)
 				@items[key.to_sym] = item
 				if item.item_xp != 0 # 👻
-					xp += (item.item_xp) # using xp += because @xp += doesn't call the custom xp= method
+					give_xp(item.item_xp)
 					puts "xp +#{item.item_xp}".cyan
 				end
 			else

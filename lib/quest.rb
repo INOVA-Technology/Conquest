@@ -33,7 +33,7 @@ class Quest
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			puts "xp +15".cyan
 			@tasks_completed += 1
-			$player.xp += 15
+			$player.give_xp(15)
 		end
 	end
 

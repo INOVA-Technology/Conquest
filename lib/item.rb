@@ -42,7 +42,7 @@ class Food < Item
 	end
 
 	def eat
-		$player.health += @restores
+		$player.heal(@restores)
 	end
 end
 
