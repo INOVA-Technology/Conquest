@@ -71,9 +71,9 @@ class Delegate
 			climb(🌳)
 			# doesn't have to be a tree...
 		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z ]+)?)?$/
-			attack = $~[:attack]
+			attack = $~[:attack].to_sym
 			enemy = $~[:enemy]
-			fight(enemy, $player.weapon.attacks[:attack])
+			fight(enemy, attack)
 			save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
@@ -106,9 +106,9 @@ class Delegate
 			quit
 		when /^save( game)?$/
 			save
-		# when /^- (?<code>.+)$/
-		# 	eval($~[:code])
-		# 	save_command = false
+		when /^- (?<code>.+)$/
+			eval($~[:code])
+			save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
@@ -212,11 +212,11 @@ class Delegate
 		$player.eat(food)
 	end
 
-	def fight(enemy, damage)
+	def fight(enemy, attack)
 		# refactor this
 		if enemy.nil?
 			if @enemy
-				attack(damage)
+				attack_enemy(attack)
 			else
 				puts "You aren't fighting anyone."
 			end
@@ -233,7 +233,7 @@ class Delegate
 					@enemy = victim
 					input = "enemy #{enemy}"
 					add_command_to_history(input)
-					attack(damage)
+					attack_enemy(attack)
 				else
 					puts "#{enemy} is dead."
 				end
@@ -243,8 +243,13 @@ class Delegate
 		end
 	end
 
-	def attack(damage_range)
-		damage = rand(damage_range)
+	def attack_enemy(attack)
+		weapon = $player.weapon
+		damage = if weapon
+					rand(weapon.attacks[attack]) + weapon.upgrade
+				else
+					$player.smack
+				end
 		attack_phrases =[ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
 		puts attack_phrases.sample
 		@enemy.health -= damage

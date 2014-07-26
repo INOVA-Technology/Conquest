@@ -10,7 +10,6 @@ class Player
 		@rank = 0
 		@health = 45
 		@max_health = 45
-		@upgrades
 		@weapon = nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
@@ -32,17 +31,7 @@ class Player
 		diff = new_xp - @xp
 		@xp = new_xp
 		puts "+#{diff}xp!" if diff > 0
-		if more_xp >= 9000 && $achievements[:over_9000].unlocked == false
-			$achievements[:over_9000].unlock
-		end
-		rank_up
-	end
-
-	def give_xp(more_xp)
-		@xp += more_xp
-		if more_xp >= 9000 && $achievements[:over_9000].unlocked == false
-			$achievements[:over_9000].unlock
-		end
+		$achievements[:over_9000].unlock if @xp > 9000
 		rank_up
 	end
 
@@ -55,22 +44,28 @@ class Player
 			@xp_max = @xp_max*2
 			@upgrades += 1
 			puts "New upgrade available!".magenta
-			if @xp >= @xp_max
-				rank_up
-			end
 			upgrade
+			rank_up
 		end
 	end
 
 	def upgrade
-		if @upgrades > 0
-			puts "What would you like to upgrade?".cyan
-			puts "Attack | Health | Cancel".yellow
-			th_input = Readline.readline(_prompt, true).squeeze(" ").strip.downcase
+		(_health, _attack) = [3, 1]
+		puts "What would you like to upgrade?".cyan
+		puts "Attack (+#{_attack}) | Health (+#{_health}) | Cancel".yellow
+		input = prompt
 
-			if the_input = "cancel"
-
-			end
+		case input
+		when "cancel", "c"
+			puts "Your loss!"
+			return
+		when "health", "h"
+			health += _health # using health += because @health += doesn't call the custom health= method
+		when "attack", "a"
+			@weapon.upgrade + _attack
+		else
+			puts "Come again?"
+			upgrade
 		end
 	end
 
@@ -85,10 +80,13 @@ class Player
 	end
 
 	def health=(new_health)
+		old_health = @health
 		@health = new_health
 		if @health > @max_health
 			@health = @max_health
 		end
+		diff = @health - old_health
+		puts "+#{diff}health!" if diff > 0
 		die unless is_alive
 	end
 
@@ -107,7 +105,7 @@ class Player
 				@current_room.pickup_item(key)
 				@items[key.to_sym] = item
 				if item.item_xp != 0 # 👻
-					give_xp(item.item_xp)
+					xp += (item.item_xp) # using xp += because @xp += doesn't call the custom xp= method
 					puts "xp +#{item.item_xp}".cyan
 				end
 			else
@@ -125,6 +123,8 @@ class Player
 			a_or_an = "" if item.name[-1] == "s"
 			if item.is_a?(Weapon)
 				puts "#{a_or_an}#{item.name.downcase}"
+				puts "  " + (@weapon == item ? "Equiped" : "Not equiped")
+				puts "  Upgrades: #{item.upgrade}"
 			else
 				puts "#{a_or_an}#{item.name.downcase}"
 			end
