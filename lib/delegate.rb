@@ -263,7 +263,7 @@ class Delegate
 	def give(item, guy)
 		# Do I have this item?
 		if the_item = $player.items[item.to_sym]
-			# Does this guy even exist?
+			# Does this guy even exist? 👻
 			if $player.current_room.people[guy.to_sym]
 				# awesome, we r not crazy... But does guy want this item?
 				if $player.current_room.people[guy.to_sym].item_wanted == item

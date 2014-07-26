@@ -63,7 +63,7 @@ class Tree < Prop
 		if @options[:can_climb]
 			puts @description
 		else
-			puts "You start climbing the tree, but you don't get far before you fall down."
+			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
 	end
 end

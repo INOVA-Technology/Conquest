@@ -78,7 +78,7 @@ class Player
 			if item.can_pickup
 				@current_room.pickup_item(key)
 				@items[key.to_sym] = item
-				if item.item_xp != 0
+				if item.item_xp != 0 # 👻
 					give_xp(item.item_xp)
 				end
 			else
