@@ -35,6 +35,9 @@ class Player
 
 	def give_xp(more_xp)
 		@xp += more_xp
+		if more_xp >= 9000 && $achievements[:over_9000].unlocked == false
+			$achievements[:over_9000].unlock
+		end
 		rank_up
 	end
 
@@ -43,9 +46,11 @@ class Player
 			@rank += 1
 			puts "Rank up!".magenta
 			puts "Level #{@rank}"
-
 			@xp -= @xp_max 
 			@xp_max = @xp_max*2
+			if @xp >= @xp_max
+				rank_up
+			end
 		end
 	end
 
@@ -80,6 +85,7 @@ class Player
 				@items[key.to_sym] = item
 				if item.item_xp != 0 # 👻
 					give_xp(item.item_xp)
+					puts "xp +#{item.item_xp}".cyan
 				end
 			else
 				puts "You can't pick that up."
