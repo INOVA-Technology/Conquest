@@ -9,6 +9,8 @@ class Player
 		@xp_max = 100
 		@rank = 0
 		@health = 45
+		@max_health = 45
+		@upgrades
 		@weapon = nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
@@ -30,6 +32,9 @@ class Player
 		diff = new_xp - @xp
 		@xp = new_xp
 		puts "+#{diff}xp!" if diff > 0
+		if more_xp >= 9000 && $achievements[:over_9000].unlocked == false
+			$achievements[:over_9000].unlock
+		end
 		rank_up
 	end
 
@@ -48,8 +53,23 @@ class Player
 			puts "Level #{@rank}"
 			@xp -= @xp_max 
 			@xp_max = @xp_max*2
+			@upgrades += 1
+			puts "New upgrade available!".magenta
 			if @xp >= @xp_max
 				rank_up
+			end
+			upgrade
+		end
+	end
+
+	def upgrade
+		if @upgrades > 0
+			puts "What would you like to upgrade?".cyan
+			puts "Attack | Health | Cancel".yellow
+			th_input = Readline.readline(_prompt, true).squeeze(" ").strip.downcase
+
+			if the_input = "cancel"
+
 			end
 		end
 	end
@@ -66,6 +86,9 @@ class Player
 
 	def health=(new_health)
 		@health = new_health
+		if @health > @max_health
+			@health = @max_health
+		end
 		die unless is_alive
 	end
 

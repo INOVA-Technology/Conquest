@@ -216,8 +216,8 @@ $rooms = {
 									paths: { n: :abyss1 },
 									items: {
 										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.",
-											attacks: { attack: 22..26 },
-											regex_attacks: "attack"
+											attacks: { attack: 22..26, jab: 20..40 },
+											regex_attacks: "attack|jab"
 										)},
 									people: {
 										hex: Person.new(name: "Hex", desc: "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
