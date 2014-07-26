@@ -44,7 +44,7 @@ class Player
 			puts "Rank up!".magenta
 			puts "Level #{@rank}"
 
-			@xp = 0
+			@xp -= @xp_max 
 			@xp_max = @xp_max*2
 		end
 	end
