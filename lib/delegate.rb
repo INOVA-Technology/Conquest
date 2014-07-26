@@ -112,7 +112,7 @@ class Delegate
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
-			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?"]
+			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?", "Ur about the biggest idiot I've ever seen.", "What the crap are u trying to say?", "Ya, sure.", "Ur face", "Why? Why me?", "I'm about ready to quit, this job is to stressful"]
 			puts 😱.sample
 			save_command = false
 			if secrets_allowed # for saving purposes only
