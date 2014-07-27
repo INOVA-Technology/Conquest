@@ -50,7 +50,7 @@ class Player
 
 	def upgrade
 		(_health, _attack) = [3, 1]
-		puts "What would you like to upgrade?".cyan
+		puts "What would you like to upgrade? #{@upgrades} upgrades available".cyan
 		puts "Attack (+#{_attack}) | Health (+#{_health}) | Cancel".yellow
 		input = prompt
 
@@ -60,6 +60,7 @@ class Player
 			return
 		when "health", "h"
 			heal(_health)
+			_health += 3
 			puts "Health #{"+".cyan + _health.to_s.cyan}"
 		when "attack", "a"
 			if @weapon != nil
