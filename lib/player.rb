@@ -41,34 +41,39 @@ class Player
 		@xp -= @max_xp 
 		@max_xp += 5*(@rank+1)
 		puts "New upgrade available!".magenta
-		upgrade_weapon
+		upgrade unless $options[:loading]
 		rank_up if @xp >= @max_xp
 	end
 
-	def upgrade_weapon
+	def upgrade
 		return if @items.none? { |k, v| v.is_a?(Weapon) }
 
 		puts "Choose a weapon to upgrade: "
-		@items.values.each do |item| # print all weapons in @inventory
+		@items.values.each do |item| # print all weapons in @items
 			if item.is_a?(Weapon)
 				puts item.name.downcase
 				puts "  Upgrades: +#{item.upgrade} damage"
 			end
 		end
 		input = convert_input(prompt)
+		upgrade_weapon(input)
+	end
 
-		if item = @items[input.to_sym]
+	def upgrade_weapon(item_name)
+		if item = @items[item_name.to_sym]
 			if item.is_a?(Weapon)
 				value = 3 # this value can change
 				item.upgrade += value
 				puts "#{item.name} upgraded! +#{value} damage"
+				cmd = "upgrade #{item_name}"
+				add_command_to_history(cmd)
 			else
 				puts "That isn't a weapon."
-				upgrade_weapon
+				upgrade
 			end
 		else
 			puts "You don't have that."
-			upgrade_weapon
+			upgrade
 		end
 	end
 
@@ -132,7 +137,7 @@ class Player
 			if item.is_a?(Weapon)
 				puts "#{a_or_an}#{item.name.downcase}"
 				puts "  " + (@weapon == item ? "Equiped" : "Not equiped")
-				puts "  Upgrades: #{item.upgrade}"
+				puts "  Upgrades: +#{item.upgrade} damage"
 			else
 				puts "#{a_or_an}#{item.name.downcase}"
 			end

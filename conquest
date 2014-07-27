@@ -64,6 +64,12 @@ def convert_input(input)
 	end
 end
 
+$options = {save_file: File.expand_path("~/.conquest_save")}
+
+def add_command_to_history(input)
+	open($options[:save_file], "a") { |file| file.puts input } unless $options[:no_save] || $options[:loading]
+end
+
 require_relative 'lib/colors'
 require_relative 'lib/quest'
 require_relative 'lib/quest_list'
@@ -81,23 +87,22 @@ if __FILE__ == $0
 	puts "Theres a 1 in #{chance} that this will be printed." \
 		if rand(1..chance) == 1
 
-	options = {}
-
 	until ARGV.empty?
 		case o = ARGV.shift
 		when "--reset", "-r"
-			options[:reset] = true
+			$options[:reset] = true
 		when "--no-save", "-n"
-			options[:no_save] = true
+			$options[:no_save] = true
 		when "--save-file", "-f"
-			options[:save_file] = File.expand_path(ARGV.shift)
+			$options[:save_file] = File.expand_path(ARGV.shift)
 		else
 			puts "unrecognized option: #{o}"
 			exit
 		end
 	end
 
-	delegate = Delegate.new(options)
+	delegate = Delegate.new
+
 	$player.current_room.enter
 	
 	loop do

@@ -2,13 +2,11 @@ class Delegate
 
 	attr_accessor :current_room
 
-	def initialize(options = {})
-		@options = options
-		@save_file = options[:save_file] || "#{Dir.home}/.conquest_save"
-		load_game(@save_file)
+	def initialize
+		load_game
 	end
 
-	def parse(input, write_to_history = true, secrets_allowed = false)
+	def parse(input)
 		check_time
 		save_command = true
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
@@ -115,7 +113,7 @@ class Delegate
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?", "Ur about the biggest idiot I've ever seen.", "What the crap are u trying to say?", "Ya, sure.", "Ur face", "Why? Why me?", "I'm about ready to quit, this job is to stressful"]
 			puts 😱.sample
 			save_command = false
-			if secrets_allowed # for saving purposes only
+			if $options[:loading] # for saving purposes only
 				case input
 				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
 					player_damage = $~[:player_damage].to_i
@@ -135,14 +133,13 @@ class Delegate
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)$/
 					time = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
 					$player.time[:virtual] = DateTime.new(*time)
+				when /^upgrade (?<weapon>[a-z_ ]+)\s?$/
+					weapon = $~[:weapon]
+					$player.upgrade_weapon(weapon)
 				end
 			end
 		end
-		add_command_to_history(input) if write_to_history && save_command
-	end
-
-	def add_command_to_history(input)
-		open(@save_file, "a") { |file| file.puts input } unless @options[:no_save]
+		add_command_to_history(input) if !$options[:loading] && save_command
 	end
 
 	def check_time
@@ -373,19 +370,21 @@ class Delegate
 		end
 	end
 
-	def load_game(file)
-		File.delete(@save_file) if File.file?(@save_file) && @options[:reset]
+	def load_game
+		File.delete($options[:save_file]) if File.file?($options[:save_file]) && $options[:reset]
 		room = :courtyard
 		$player = Player.new
 		$player.current_room = $rooms[room]
 		$quests[:main].start(false)
 		@enemy = nil
-		if File.file?(file)
+		if File.file?($options[:save_file])
 			old_stdout = $stdout
 			$stdout = StringIO.new
-			File.foreach(file) do |line|
-				parse(line, false, true)
+			$options[:loading] = true
+			File.foreach($options[:save_file]) do |line|
+				parse(line)
 			end
+			$options[:loading] = nil
 			$stdout = old_stdout
 		else
 			get_name

@@ -51,11 +51,8 @@ $rooms = {
 									),
 							courtyard:
 								Room.new(name: "Castle courtyard", desc: "You are at the castle courtyard. There's a nice fountain in the center.\nThe castle entrance is north. There is a forest south.",
-									paths: { n: :castle, s: :forest },
-									items: {
-										sticks: Item.new(name: "Sticks", desc: "Just a couple of sticks. They like they are cedar wood.", xp: 10000)
-										}
-									),
+									paths: { n: :castle, s: :forest
+									}),
 							forest:
 								Room.new(name: "Large forest", desc: "This forest is very dense. There is a nice courtyard north.\nThe forest continues west and south.",
 									paths: { n: :courtyard, s: :forest_1, w: :forest__1 }
