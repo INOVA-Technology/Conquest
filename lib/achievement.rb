@@ -13,7 +13,7 @@ class Achievement
 		unless @unlocked
 			@unlocked = true
 			puts "#{'Achievement Unlocked!'.cyan} - #{@name}"
-			$player.give_xp(5)
+			$player.give_xp(15)
 		end
 	end
 

@@ -153,7 +153,7 @@ $rooms = {
 													talk: "Give me your milk money.",
 													damage: 3..7,
 													health: 10,
-													xp: 3,
+													xp: 10,
 													bad: true
 											)}),
 										mountains:
