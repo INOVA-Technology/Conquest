@@ -10,6 +10,7 @@ class Player
 		@rank = 0
 		@health = 45
 		@weapon = nil
+		@upgrades = 0
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@start_time = [2000, 1, 1, 6, 30]
@@ -28,7 +29,7 @@ class Player
 
 	def give_xp(amount)
 		@xp += amount
-		puts "+#{diff}xp!"
+		puts "+#{amount}xp!"
 		$achievements[:over_9000].unlock if @xp > 9000
 		rank_up
 	end
@@ -55,14 +56,22 @@ class Player
 
 		case input
 		when "cancel", "c"
-			puts "Your loss!"
+			puts ["Your loss!", "What a loser...", "Thx for waisting my time.", "Sure! Great idea! Let's waiste the narrators time and pretend we r gonna upgrade something and don't!"].sample
 			return
 		when "health", "h"
 			heal(_health)
+			puts "Health #{"+".cyan + _health.to_s.cyan}"
 		when "attack", "a"
-			@weapon.upgrade + _attack
+			if @weapon != nil
+				@weapon.upgrade + _attack
+				puts "Weapon upgraded! #{"+".cyan + _attack.to_s.cyan}"
+				puts "Weapon Level: #{@weapon.upgrade.to_s.yellow}"
+			else
+				puts "No weapon equipped"
+				rank_up
+			end
 		else
-			puts "Come again?"
+			puts ["Do I need to put it in braille for u?", "I'm sorry I don't speak idiot.", "hmmm... can u put that in words plz?", "hmmm... I see..", "U really need mental help"].sample
 			upgrade
 		end
 	end
@@ -79,7 +88,7 @@ class Player
 
 	def heal(amount)
 		@health += amount
-		puts "+#{diff}health!"
+		puts "+#{amount}health!"
 	end
 
 	def take_damage(amount)

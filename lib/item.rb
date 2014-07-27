@@ -47,7 +47,7 @@ class Food < Item
 end
 
 class Weapon < Item
-
+	attr_reader :upgrade
 	attr_accessor :damage, :attacks, :regex_attacks, :upgrade
 
 	def add_info
