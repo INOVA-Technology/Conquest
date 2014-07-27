@@ -15,7 +15,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * * add more items that are useful
 * * add more to the main quest
 * - make better names && descriptions for rooms
-* - have at least 50 different rooms
+* - have at least 100 different rooms
 * - add directions like nw
 * - add some kind of plot
 * - add add a help/? command that tells about essential commands like quests,
@@ -31,9 +31,7 @@ achievements, and info. Not too many commands though, maybe just those idk
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
-*   add option to save game somewhere else
 *   refactor lots of stuff
 *   add rick astley easter egg
-*   add more tests
-*   make the current tests check the description for directions
+*   add tests
 *   add some ? method aliases
