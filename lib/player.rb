@@ -6,12 +6,11 @@ class Player
 	def initialize
 		@items = {}
 		@xp = 10
-		@xp_max = 100
+		@max_xp = 100
 		@rank = 0
 		@health = 45
 		@max_health = 45
 		@weapon = nil
-		@upgrades = 0
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@start_time = [2000, 1, 1, 6, 30]
@@ -32,49 +31,44 @@ class Player
 		@xp += amount
 		puts "+#{amount}xp!"
 		$achievements[:over_9000].unlock if @xp > 9000
-		rank_up
+		rank_up if @xp >= @max_xp
 	end
 
 	def rank_up
-		if @xp >= @xp_max
-			@rank += 1
-			puts "Rank up!".magenta
-			puts "Level #{@rank}"
-			@xp -= @xp_max 
-			@xp_max = @xp_max*2
-			@upgrades += 1
-			puts "New upgrade available!".magenta
-			upgrade
-			rank_up
-		end
+		@rank += 1
+		puts "Rank up!".magenta
+		puts "Level #{@rank}"
+		@xp -= @max_xp 
+		@max_xp += 5*(@rank+1)
+		puts "New upgrade available!".magenta
+		upgrade_weapon
+		rank_up if @xp >= @max_xp
 	end
 
-	def upgrade
-		(_health, _attack) = [3, 1]
-		puts "What would you like to upgrade? #{@upgrades} upgrades available".cyan
-		puts "Attack (+#{_attack}) | Health (+#{_health}) | Cancel".yellow
+	def upgrade_weapon
+		return if @items.none? { |k, v| v.is_a?(Weapon) }
+
+		puts "Choose a weapon to upgrade: "
+		@items.values.each do |item| # print all weapons in @inventory
+			if item.is_a?(Weapon)
+				puts item.name.downcase
+				puts "  Upgrades: #{item.upgrade}"
+			end
+		end
 		input = prompt
 
-		case input
-		when "cancel", "c"
-			puts ["Your loss!", "What a loser...", "Thx for waisting my time.", "Sure! Great idea! Let's waiste the narrators time and pretend we r gonna upgrade something and don't!"].sample
-			return
-		when "health", "h"
-			heal(_health)
-			_health += 3
-			puts "Health #{"+".cyan + _health.to_s.cyan}"
-		when "attack", "a"
-			if @weapon != nil
-				@weapon.upgrade + _attack
-				puts "Weapon upgraded! #{"+".cyan + _attack.to_s.cyan}"
-				puts "Weapon Level: #{@weapon.upgrade.to_s.yellow}"
+		if item = @items[input.to_sym]
+			if item.is_a?(Weapon)
+				value = 3 # this value can change
+				item.upgrade += value
+				puts "#{item.name} upgraded! +#{value} damage"
 			else
-				puts "No weapon equipped"
-				upgrade
+				puts "That isn't a weapon."
+				upgrade_weapon
 			end
 		else
-			puts ["Do I need to put it in braille for u?", "I'm sorry I don't speak idiot.", "hmmm... can u put that in words plz?", "hmmm... I see..", "U really need mental help"].sample
-			upgrade
+			puts "You don't have that."
+			upgrade_weapon
 		end
 	end
 
@@ -152,7 +146,7 @@ class Player
 	def info
 		puts "Health: #@health/#@max_health"
 		puts "Rank: #{@rank}"
-		puts "XP: #{@xp}/#{@xp_max} "
+		puts "XP: #{@xp}/#{@max_xp} "
 		if @weapon != nil
 			puts "Current Weapon: #{@weapon.name}"
 		end

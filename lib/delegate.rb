@@ -106,9 +106,9 @@ class Delegate
 			quit
 		when /^save( game)?$/
 			save
-		# when /^- (?<code>.+)$/
-		# 	eval($~[:code])
-		# 	save_command = false
+		when /^- (?<code>.+)$/
+			eval($~[:code])
+			save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
