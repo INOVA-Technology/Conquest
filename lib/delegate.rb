@@ -92,7 +92,7 @@ class Delegate
 			mine
 		when /^time$/
 			time
-		when /^(help|h)$/
+		when /^h(elp)?$/
 			help
 		when /^(quit|exit)$/
 			quit
