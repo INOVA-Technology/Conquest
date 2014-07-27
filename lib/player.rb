@@ -68,7 +68,7 @@ class Player
 				puts "Weapon Level: #{@weapon.upgrade.to_s.yellow}"
 			else
 				puts "No weapon equipped"
-				rank_up
+				upgrade
 			end
 		else
 			puts ["Do I need to put it in braille for u?", "I'm sorry I don't speak idiot.", "hmmm... can u put that in words plz?", "hmmm... I see..", "U really need mental help"].sample
