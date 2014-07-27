@@ -37,7 +37,7 @@ class Player
 	def rank_up
 		@rank += 1
 		puts "Rank up!".magenta
-		puts "Level #{@rank}"
+		puts "Rank #{@rank}"
 		@xp -= @max_xp 
 		@max_xp += 5*(@rank+1)
 		puts "New upgrade available!".magenta
@@ -52,10 +52,10 @@ class Player
 		@items.values.each do |item| # print all weapons in @inventory
 			if item.is_a?(Weapon)
 				puts item.name.downcase
-				puts "  Upgrades: #{item.upgrade}"
+				puts "  Upgrades: +#{item.upgrade} damage"
 			end
 		end
-		input = prompt
+		input = convert_input(prompt)
 
 		if item = @items[input.to_sym]
 			if item.is_a?(Weapon)

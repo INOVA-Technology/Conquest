@@ -27,23 +27,23 @@ class Delegate
 				puts "#{input.capitalize} where?"
 			end
 		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
-			item = $~[:item]
+			item = convert_input($~[:item])
 			pickup(item)
 		when /^look( (at )?(?<item>[a-z]+))?$/
-			item = $~[:item]
+			item = convert_input($~[:item])
 			item.nil? ? look : inspect(item)
 		when /^(talk|speak) to( (?<guy>[a-z ]+))?$/
-			if guy = $~[:guy]
+			if guy = convert_input($~[:guy])
 				talk(guy)
 			else
 				puts "Who?"
 			end
 		when /^give( (?<item>[a-z ]+)) to( (?<guy>[a-z ]+))?$/
-			item = $~[:item]
-			guy = $~[:guy]
+			item = convert_input($~[:item])
+			guy = convert_input($~[:guy])
 			give(item, guy)
 		when /^inspect( (?<item>[a-z ]+))?$/
-			if item = $~[:item]
+			if item = convert_input($~[:item])
 				inspect(item)
 			else
 				puts "Please supply an object to inspect."
@@ -51,7 +51,7 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^equip( (?<weapon>[a-z ]+))?$/
-			if weapon = $~[:weapon]
+			if weapon = convert_input($~[:weapon])
 				equip(weapon)
 			else
 				puts "Please supply an weapon to equip."
@@ -72,20 +72,20 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z ]+)?)?$/
 			attack = $~[:attack].to_sym
-			enemy = $~[:enemy]
+			enemy = convert_input($~[:enemy])
 			fight(enemy, attack)
 			save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
 		# have both an attack method and "attack" in the attacks variable
 		when /^attack( (?<enemy>[a-z ]+)?)?$/
-			enemy = $~[:enemy]
+			enemy = convert_input($~[:enemy])
 			fight(enemy, $player.smack)
 			save_command = false
 		when /^info$/
 			info
 		when /^eat( (?<food>[a-z ]+)?)?$/
-			if food = $~[:food]
+			if food = convert_input($~[:food])
 				eat(food)
 			else
 				puts "Who?"
@@ -106,9 +106,9 @@ class Delegate
 			quit
 		when /^save( game)?$/
 			save
-		when /^- (?<code>.+)$/
-			eval($~[:code])
-			save_command = false
+		# when /^- (?<code>.+)$/
+		# 	eval($~[:code])
+		# 	save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
