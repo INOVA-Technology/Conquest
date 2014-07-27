@@ -56,9 +56,9 @@ class Delegate
 			end
 		when /^unequip?$/
 			unequip
-		when /^quests?$/
+		when /^quests$/
 			list_quests
-		when /^achievements?$/
+		when /^achievements$/
 			list_achievements
 		when /^(i|inv|inventory)$/
 			inventory
@@ -93,13 +93,7 @@ class Delegate
 		when /^time$/
 			time
 		when /^(help|h)$/
-			@smart_aleck ||= ["Why?","No.","Stop asking plz.","seriously, shut up.","...","...","...","Ok, seriously.","Do u not understand the meaning of \"be quiet\"?","ug"].to_enum
-			begin
-				puts @smart_aleck.next
-			rescue StopIteration
-				@smart_aleck.rewind
-				puts @smart_aleck.next
-			end
+			help
 		when /^(quit|exit)$/
 			quit
 		when /^save( game)?$/
@@ -172,6 +166,19 @@ class Delegate
 		$achievements.each do |_, a|
 			puts a.name if a.unlocked
 		end
+	end
+
+	def help
+		puts
+		puts "Here are some basic commands to help you out: n, e, s, w, ne, nw, ..."
+		puts "You get the point."
+		puts %q[You can also type stuff like "go north", "north", and "go n"]
+		puts
+		puts "Also, \"achievements\" views your unlocks achievements"
+		puts "and \"quests\" views the status on your started quests,"
+		puts "but there are more quest to start. But remember, have fun, and explore."
+		puts "Of course, there are more commands, but you'll have to figure those out."
+		puts
 	end
 
 	def time

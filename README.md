@@ -18,8 +18,6 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - have at least 100 different rooms
 * - add directions like nw
 * - add some kind of plot
-* - add add a help/? command that tells about essential commands like quests,
-achievements, and info. Not too many commands though, maybe just those idk
 * - add installer
 * - add an updater
 * - you can only have one of each item
