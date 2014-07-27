@@ -9,6 +9,7 @@ class Player
 		@xp_max = 100
 		@rank = 0
 		@health = 45
+		@max_health = 45
 		@weapon = nil
 		@upgrades = 0
 		# its year, month, day, hour, minute
@@ -88,8 +89,11 @@ class Player
 	end
 
 	def heal(amount)
+		old_health = @health
 		@health += amount
-		puts "+#{amount}health!"
+		@health = @max_health if @health > @max_health
+		diff = @health - old_health
+		puts "+#{diff} health!" if diff > 0
 	end
 
 	def take_damage(amount)
@@ -99,8 +103,11 @@ class Player
 
 	def eat(food)
 		if the_food = @items[food.to_sym]
-			the_food.eat
-			@items.delete(food.to_sym)
+			old_health = @health
+			heal(the_food.restores)
+
+			the_food.restores -= (@health - old_health)
+			@items.delete(food.to_sym) if the_food.restores == 0
 		else
 			puts "You don't have that food."
 		end
@@ -143,7 +150,7 @@ class Player
 	end
 
 	def info
-		puts "Health: #@health"
+		puts "Health: #@health/#@max_health"
 		puts "Rank: #{@rank}"
 		puts "XP: #{@xp}/#{@xp_max} "
 		if @weapon != nil

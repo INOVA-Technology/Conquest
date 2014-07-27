@@ -37,6 +37,8 @@ end
 
 class Food < Item
 
+	attr_accessor :restores
+
 	def add_info
 		@restores = @options[:restores]
 	end
