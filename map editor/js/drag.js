@@ -1,7 +1,7 @@
 var x = y = 0
 
 interact(".draggable").draggable({
-	onmove: function (event) {
+	onmove: function(event) {
 		x += event.dx;
 		y += event.dy;
 
@@ -10,8 +10,12 @@ interact(".draggable").draggable({
 			'translate(' + x + 'px, ' + y + 'px)';
 	}
 })
-.inertia(true)
 .restrict({
     drag: "parent",
     endOnly: true
+});
+
+$('.add-room').on('click', function(event) {
+	var e = '<div class="draggable"><h1 class="name" contenteditable>name</h1></div>';
+	$('.container').append(e);
 });

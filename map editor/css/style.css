@@ -3,8 +3,30 @@ html, body, .container {
 	height: 100%;
 }
 
+body {
+	margin: 0;
+}
+
+header {
+	background-color: rgb(180, 180, 180);
+	height: 40px;
+}
+
+header button {
+	margin: 10px;
+}
+
 .draggable {
+	margin: 10px;
 	width: 100px;
 	height: 100px;
-	background-color: rgb(200, 200, 200);
+	background-color: rgba(200, 200, 200, .8);
+	font-family: 'helvetica neue';
+	font-size: 12px;
+}
+
+.draggable h1 {
+	padding: 8px;
+	margin: 0;
+	font-weight: 200;
 }
