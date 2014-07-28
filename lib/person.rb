@@ -13,7 +13,6 @@ class Person
 			@hidden = (options[:hidden] || false)
 			@race = options[:race]
 			@talk = options[:talk]
-			@talk = @talk.yellow if @talk
 			@action = options[:action]
 			@item_wanted = options[:item_wanted]
 			# This was left in because some characters will be able to be picked up
@@ -23,7 +22,7 @@ class Person
 			@items = (@options[:items] || {})
 			@xp = (@options[:xp] || 0)
 			@damage = (@options[:damage] || (3..6))
-			@bad = (@options[:bad] || false)
+			@bad = false
 			add_info
 		end
 
@@ -55,5 +54,10 @@ class Person
 			puts "#{name}'s info"
 			puts "Health: #@health"
 		end
+end
 
+class Enemy < Person
+	def add_info
+		@bad = true
+	end
 end

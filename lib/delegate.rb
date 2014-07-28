@@ -30,7 +30,7 @@ class Delegate
 		when /^look( (at )?(?<item>[a-z]+))?$/
 			item = convert_input($~[:item])
 			item.nil? ? look : inspect(item)
-		when /^(talk|speak) to( (?<guy>[a-z ]+))?$/
+		when /^(talk|speak)( to)?( (?<guy>[a-z ]+))?$/
 			if guy = convert_input($~[:guy])
 				talk(guy)
 			else
@@ -99,8 +99,6 @@ class Delegate
 			help
 		when /^(quit|exit)$/
 			quit
-		when /^save( game)?$/
-			save
 		# when /^- (?<code>.+)$/
 		# 	eval($~[:code])
 		# 	save_command = false
@@ -158,11 +156,11 @@ class Delegate
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
-				done = quest.completed
-				puts quest.tasks_completed
-				puts "#{quest.name}#{' - Completed!' if done} #{(quest.tasks_completed.to_f/quest.tasks.length.to_f)*100}%"
+				percent = (quest.tasks_completed.to_f/quest.tasks.length.to_f)*100
+				puts "#{quest.name}: #{percent.round}%"
 				puts "  Current Task: #{quest.current_task[:description]}" \
-					unless done
+					unless quest.completed
+				puts
 			end
 		end
 	end
@@ -339,9 +337,9 @@ class Delegate
 
 	def talk(guy)
 		if $player.current_room.people[guy.to_sym]
-			puts $player.current_room.people[guy.to_sym].talk.cyan
+			puts $player.current_room.people[guy.to_sym].talk.yellow
 		else
-			puts "#{guy} isn't in this room.".cyan
+			puts "#{guy} isn't in this room."
 		end
 	end
 
