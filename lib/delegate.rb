@@ -95,7 +95,7 @@ class Delegate
 			mine
 		when /^time$/
 			time
-		when /^h(elp)?$/
+		when /^(h|help|\?)$/
 			help
 		when /^(quit|exit)$/
 			quit
@@ -156,7 +156,7 @@ class Delegate
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
-				percent = (quest.tasks_completed.to_f/quest.tasks.length.to_f)*100
+				percent = quest.tasks_completed.to_f/quest.tasks.length.to_f*100
 				puts "#{quest.name}: #{percent.round}%"
 				puts "  Current Task: #{quest.current_task[:description]}" \
 					unless quest.completed
