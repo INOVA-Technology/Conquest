@@ -72,7 +72,7 @@ class Delegate
 			attack = $~[:attack].to_sym
 			enemy = convert_input($~[:enemy])
 			fight(enemy, attack)
-			save_command = false
+			# save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
 		# have both an attack method and "attack" in the attacks variable
@@ -88,6 +88,9 @@ class Delegate
 			else
 				puts "Who?"
 			end
+		when /^upgrade( weapon)?$/
+			$player.upgrade
+			save_command = false
 		when /^mine$/
 			mine
 		when /^time$/
@@ -130,6 +133,8 @@ class Delegate
 				when /^upgrade (?<weapon>[a-z_ ]+)\s?$/
 					weapon = $~[:weapon]
 					$player.upgrade_weapon(weapon)
+				when /^add_upgrade\s?$/
+					$player.upgrades += 1
 				end
 			end
 		end

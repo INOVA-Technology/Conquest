@@ -1,9 +1,10 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :start_time, :name
+	attr_accessor :items, :current_room, :weapon, :time, :start_time, :name, :upgrades
 	attr_reader :xp, :health, :weapon
 
 	def initialize
+		@upgrades = 0
 		@items = {}
 		@xp = 10
 		@max_xp = 100
@@ -39,24 +40,32 @@ class Player
 		puts "Rank up!".magenta
 		puts "Rank #{@rank}"
 		@xp -= @max_xp 
-		@max_xp += 5*(@rank+1)
+		@max_xp += 50*(@rank*1)
+		@max_health += 10*@rank
 		puts "New upgrade available!".magenta
+		@upgrades += 1
 		upgrade unless $options[:loading]
 		rank_up if @xp >= @max_xp
 	end
 
 	def upgrade
+		if @upgrades.zero?
+			puts "You have no upgrades available."
+			return
+		end
 		return if @items.none? { |k, v| v.is_a?(Weapon) }
 
-		puts "Choose a weapon to upgrade: "
-		@items.values.each do |item| # print all weapons in @items
+		puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
+		
+		puts "Weapons available for upgrade:"
+		@items.values.each do |item|
 			if item.is_a?(Weapon)
 				puts item.name.downcase
 				puts "  Upgrades: +#{item.upgrade} damage"
 			end
 		end
-		input = convert_input(prompt)
-		upgrade_weapon(input)
+		input = convert_input(prompt("choose a weapon: "))
+		upgrade_weapon(input) unless /^c(ancel)?$/ === input
 	end
 
 	def upgrade_weapon(item_name)
@@ -65,6 +74,8 @@ class Player
 				value = 3 # this value can change
 				item.upgrade += value
 				puts "#{item.name} upgraded! +#{value} damage"
+				@upgrades -= 1
+
 				cmd = "upgrade #{item_name}"
 				add_command_to_history(cmd)
 			else
