@@ -136,7 +136,7 @@ class Player
 			a_or_an = "" if item.name[-1] == "s"
 			if item.is_a?(Weapon)
 				puts "#{a_or_an}#{item.name.downcase}"
-				puts "  " + (@weapon == item ? "Equiped" : "Not equiped")
+				# puts "  " + (@weapon == item ? "Equiped" : "Not equiped")
 				puts "  Upgrades: +#{item.upgrade} damage"
 			else
 				puts "#{a_or_an}#{item.name.downcase}"
@@ -150,11 +150,9 @@ class Player
 
 	def info
 		puts "Health: #@health/#@max_health"
-		puts "Rank: #{@rank}"
 		puts "XP: #{@xp}/#{@max_xp} "
-		if @weapon != nil
-			puts "Current Weapon: #{@weapon.name}"
-		end
+		puts "Rank: #{@rank}"
+		puts "Equiped Weapon: #{(@weapon ? @weapon.name : "none")}"
 		puts "Inventory:"
 		inventory
 	end
