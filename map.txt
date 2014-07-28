@@ -1,5 +1,5 @@
 - Use the keys in the ROOMS hash in lib/room_list.rb for names on map
-- Use spaces not tabs for this file because of different tab widths
+- You can import it then edit it here: http://asciiflow.com/
 
 ######### Key: ##################
 #                               #
@@ -16,26 +16,24 @@ Map Starts Here:
 
 
 
-
-
-                                                                                      castle_main
-                                                                                          |
-                                                                        dinning_room -- hallway
-                                                                                          |
-                                                                                        castle
-                                                                                          |
-                                                                          forest__2   @courtyard
-                                                                               |          |
-                                                                 sticks -- forest__1 -- forest
-                                                                                         	|
-              !swamp -- !swamp_1 -- !swamp_2                                            forest_1 -- banyan tree         !mountian_top
-                             |          |                                                 |                                   | 
-                        !swamp_3 -- !swamp_4 -- !a_path_1 -- !a_path !forest_again_1 -- forest_2 -- forest_again         !mountian_3
-                             |          |                       |                         |                                   |
-                        !swamp_5 -- !spawn_6              more_trees_1 -- more_trees -- forest_3                         !mountian_2
-                                                                |                         |                                   |
-                                                          more_trees_2                  forest_4                          mountian_1
-                                                                |                                                             |
-                                                          more_trees_3 -- path_to_village -- village                      mountian  
-                                                                                                |                             |
-                                                                                          forest_by_village -- valley --  mountians
+                                                                        castle_main                                    
+                                                                            +                                          
+                                                          dinning_room ++ hallway                                      
+                                                                            +                                          
+                                                                          castle                                       
+                                                                            +                                          
+                                                            forest__2   @courtyard                                     
+                                                                 +          +                                          
+                                                   sticks ++ forest__1 ++ forest                                       
+                                                                            +                                          
+!swamp ++ !swamp_1 ++ !swamp_2                                            forest_1 ++ banyan tree         !mountian_top
+               +          +                                                 +                                   +      
+          !swamp_3 ++ !swamp_4 ++ !a_path_1 ++ !a_path !forest_again_1 ++ forest_2 ++ forest_again         !mountian_3 
+               +          +                       +                         +                                   +      
+          !swamp_5 ++ !spawn_6              more_trees_1 ++ more_trees ++ forest_3                         !mountian_2 
+                                                  +                         +                                   +      
+                                            more_trees_2                  forest_4                          mountian_1 
+                                                  +                                                             +      
+                                            more_trees_3 ++ path_to_^illage ++ ^illage                      mountian   
+                                                                                  +                             +      
+                                                                            forest_by_^illage ++ ^alley ++  mountians  
