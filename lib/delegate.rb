@@ -7,7 +7,7 @@ class Delegate
 	end
 
 	def parse(input)
-		check_time
+		check_time unless $options[:loading]
 		save_command = true
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 
@@ -140,14 +140,11 @@ class Delegate
 	end
 
 	def check_time
-		counter = Thread.new do
-			the_time = $player.start_time
-			the_time[4] += 10
-			if DateTime.new(*the_time) <= $player.get_time
-				$achievements[:ten_minutes].unlock
-				add_command_to_history("unlock ten_minutes")
-			end
-			sleep(60)
+		the_time = $player.start_time.dup
+		the_time[4] += 10
+		if DateTime.new(*the_time) <= $player.get_time
+			$achievements[:ten_minutes].unlock
+			add_command_to_history("unlock ten_minutes")
 		end
 	end
 
@@ -394,6 +391,7 @@ class Delegate
 			File.foreach($options[:save_file]) do |line|
 				parse(line)
 			end
+			check_time
 			$options[:loading] = nil
 			$stdout = old_stdout
 		else
