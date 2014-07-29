@@ -267,8 +267,7 @@ class Delegate
 		else
 			@enemy = nil
 		end
-		input = "damage #{_damage} #{damage}"
-		add_command_to_history(input)
+		add_command_to_history("damage #{_damage} #{damage}")
 	end
 
 	def give(item, guy)
@@ -402,16 +401,14 @@ class Delegate
 	def get_name
 		puts "Wut b ur namez?"
 		$player.name = prompt
-		input = "name #{$player.name}"
-		add_command_to_history(input)
+		add_command_to_history("name #{$player.name}")
 	end
 
 	def quit
 		puts "Come back when you can't stay so long!"
 		t = $player.get_time
 		time = [t.year, t.month, t.day, t.hour, t.minute] * " "
-		cmd = "time #{time}"
-		add_command_to_history(cmd)
+		add_command_to_history("time #{time}")
 		exit
 	end
 
