@@ -7,21 +7,29 @@ class Person
 
 		def initialize(options = {})
 			# this seems to be getting cluttered
+
+			# required: 
 			@name = options[:name]
 			@description = options[:desc]
-			@options = options
-			@hidden = (options[:hidden] || false)
 			@race = options[:race]
-			@talk = options[:talk]
+			@options = options
+
+			# not required but recommended:
+			@talk = (options[:talk] || "#@name doesn't want to talk right now.")
+			@health = (options[:health] || 15)
+			@damage = (@options[:damage] || (3..6))
+			@items = (@options[:items] || {})
+			@xp = (@options[:xp] || 0) # make this small for good guys
+
+			# not required: 
 			@action = options[:action]
 			@item_wanted = options[:item_wanted]
+			@hidden = (options[:hidden] || false)
 			# This was left in because some characters will be able to be picked up
 			@can_pickup = (options[:hidden] || true)
+
+			# never set in options
 			@is_alive = true
-			@health = (options[:health] || 15)
-			@items = (@options[:items] || {})
-			@xp = (@options[:xp] || 0)
-			@damage = (@options[:damage] || (3..6))
 			@bad = false
 			add_info
 		end
