@@ -166,14 +166,16 @@ $rooms = {
 
 													# the scroll and Randy should be moved to mountain_3 once it exists
 													items: {
-														scroll: Item.new(name: "Scroll", desc: "Its some kind of elvish... You can't read it.",
+														scroll: Book.new(name: "Scroll", desc: "Its some kind of elvish... You can't read it.",
+															title: "Parma od Osto",
+															print: "hirsornë an tululyë an Mordor san polendraith kemen",
 															starts_quest: :mordor,
 															unlocks: :mordor
 															)},
 													people: {
 														randy: Person.new(name: "Randy", desc: "He's just an elf",
 															race: "Elf",
-															talk: "I can read elvish. Go figure.",
+															talk: "I can read elvesish. Go figure.",
 															item_wanted: "scroll",
 															action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
 															)}),

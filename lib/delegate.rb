@@ -48,6 +48,12 @@ class Delegate
 			end
 		when /^rub sticks( together)?$/
 			rub_sticks
+		when /^read( (?<book>[a-z ]+))?$/
+			if book = convert_input($~[:book])
+				read(book)
+			else
+				puts "Please supply an book to read."
+			end
 		when /^equip( (?<weapon>[a-z ]+))?$/
 			if weapon = convert_input($~[:weapon])
 				equip(weapon)
@@ -214,6 +220,12 @@ class Delegate
 
 	def eat(food)
 		$player.eat(food)
+	end
+
+	def read(book)
+		if books = $player.items[book.to_sym]
+			books.read
+		end
 	end
 
 	def fight(enemy, attack)

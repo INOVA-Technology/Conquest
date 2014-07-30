@@ -48,6 +48,21 @@ class Food < Item
 	end
 end
 
+class Book < Item
+	#attr_accessor :print
+	
+	def add_info
+		@title = @options[:title]
+		@print = @options[:print]
+	end
+
+	def read
+		puts @title.yellow
+		puts @print.yellow
+	end
+
+end
+
 class Weapon < Item
 	attr_reader :upgrade
 	attr_accessor :damage, :attacks, :regex_attacks, :upgrade
