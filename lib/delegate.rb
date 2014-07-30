@@ -225,6 +225,8 @@ class Delegate
 	def read(book)
 		if books = $player.items[book.to_sym]
 			books.read
+		else
+			puts "You can't read that."
 		end
 	end
 
@@ -247,8 +249,7 @@ class Delegate
 				end
 				if victim.is_alive
 					@enemy = victim
-					input = "enemy #{enemy}"
-					add_command_to_history(input)
+					add_command_to_history("enemy #{enemy}")
 					attack_enemy(attack)
 				else
 					puts "#{enemy} is dead."
