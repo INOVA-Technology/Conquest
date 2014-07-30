@@ -112,7 +112,7 @@ class Delegate
 		when /^\s?$/
 		else
 			😱 = ["I don't speak jibberish.","Speak up. Ur not making any sense.","R u trying to confuse me? Cuz dats not gonna work","What the heck is that supposed to mean?", "Ur about the biggest idiot I've ever seen.", "What the crap are u trying to say?", "Ya, sure.", "Ur face", "Why? Why me?", "I'm about ready to quit, this job is to stressful"]
-			puts 😱.sample
+			puts 😱.rand_choice
 			save_command = false
 			if $options[:loading] # for saving purposes only
 				case input
@@ -268,14 +268,14 @@ class Delegate
 					$player.smack
 				end
 		attack_phrases =[ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
-		puts attack_phrases.sample
+		puts attack_phrases.rand_choice
 		@enemy.take_damage(damage)
 
 		_damage = 0
 		if @enemy.is_alive
 			_damage = @enemy.attack
 			badguy_says = [ "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}", "#{@enemy.name} is on fire  #{"-".red + _damage.to_s.red}", "POW! That hurt.  #{"-".red + _damage.to_s.red}" ]
-			puts badguy_says.sample
+			puts badguy_says.rand_choice
 			$player.take_damage(_damage)
 		else
 			@enemy = nil
@@ -534,4 +534,14 @@ class Delegate
 	/^Never gonna tell a lie and hurt you[\.,]?$/i
 	]
 
+end
+
+class Array
+	def rand_choice
+		if RUBY_VERSION.to_f > 1.8
+			self.sample
+		else
+			self[rand(self.length)]
+		end
+	end
 end
