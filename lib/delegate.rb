@@ -292,7 +292,7 @@ class Delegate
 				# awesome, we r not crazy... But does guy want this item?
 				if $player.current_room.people[guy.to_sym].item_wanted == item
 					puts $player.current_room.people[guy.to_sym].action
-
+					# complete task?
 					if $player.current_room.people[guy.to_sym].task != nil
 						$quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
 					end
