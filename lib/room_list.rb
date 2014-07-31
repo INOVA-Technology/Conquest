@@ -177,7 +177,8 @@ $rooms = {
 															race: "Elf",
 															talk: "I can read elvesish. Go figure.",
 															item_wanted: "scroll",
-															action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}"
+															action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}",
+															task: { quest: :mordor, task: :read_scroll}
 															)}),
 											mountain_1:
 												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",

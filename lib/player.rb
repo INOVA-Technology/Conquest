@@ -1,3 +1,4 @@
+
 class Player
 
 	attr_accessor :items, :current_room, :weapon, :time, :start_time, :name, :upgrades

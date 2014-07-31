@@ -1,3 +1,4 @@
+
 class Delegate
 
 	attr_accessor :current_room
@@ -291,6 +292,11 @@ class Delegate
 				# awesome, we r not crazy... But does guy want this item?
 				if $player.current_room.people[guy.to_sym].item_wanted == item
 					puts $player.current_room.people[guy.to_sym].action
+
+					if $player.current_room.people[guy.to_sym].task != nil
+						$quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
+					end
+
 				else
 					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
 				end
