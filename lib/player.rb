@@ -71,38 +71,63 @@ class Player
 			puts "You have no upgrades available."
 			return
 		end
-		return if @items.none? { |k, v| v.is_a?(Weapon) }
-
-		puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
-		
-		puts "Weapons available for upgrade:"
-		@items.values.each do |item|
-			if item.is_a?(Weapon)
-				puts item.name.downcase
-				puts "  Upgrades: +#{item.upgrade} damage"
+		# return if @items.none? { |k, v| v.is_a?(Weapon) }
+		puts "Upgrades available! Plz enter the desired upgrade or cancel to do it later.".magenta
+		puts "Weapon | Health "
+		input = prompt.downcase
+		if input == "weapon" || input == "w"
+			if @items.none? { |k, v| v.is_a?(Weapon) }
+				puts "You have no weapons :(".red
+			else
+				upgrade_weapon(nil)
 			end
+		elsif input == "health" || input == "h"
+			@max_health += 10
+			@health = @max_health
+			puts "Max Health upgraded! +10".magenta
+			return
+		elsif input == "cancel" || input == "c"
+			return
+		else
+			puts "Plz enter a valid input".red
+			upgrade
 		end
-		input = convert_input(prompt("choose a weapon: "))
-		upgrade_weapon(input) unless /^c(ancel)?$/ === input
 	end
 
 	def upgrade_weapon(item_name)
+		if item_name == nil
+			puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
+			
+			puts "Weapons available for upgrade:"
+			@items.values.each do |item|
+				if item.is_a?(Weapon)
+					puts item.name.downcase
+					puts "  Upgrades: +#{item.upgrade} damage"
+				end
+			end
+			input = convert_input(prompt("choose a weapon: "))
+			if input == "back" || input == "b"
+				upgrade
+			end
+			item_name = input
+		end
+
 		if item = @items[item_name.to_sym]
 			if item.is_a?(Weapon)
 				value = 3 # this value can change
 				item.upgrade += value
-				puts "#{item.name} upgraded! +#{value} damage"
+				puts "#{item.name} upgraded! +#{value} damage".magenta
 				@upgrades -= 1
 
 				cmd = "upgrade #{item_name}"
 				add_command_to_history(cmd)
 			else
 				puts "That isn't a weapon."
-				upgrade
+				upgrade_weapon(nil)
 			end
 		else
 			puts "You don't have that."
-			upgrade
+			upgrade_weapon(nil)
 		end
 	end
 

@@ -3,7 +3,7 @@ class Person
 	# its a lot like an item, but I like that it's in a separate file
 	# I'll probably add that in or you can idc
 
-	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health
+	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task
 
 	def initialize(options = {})
 		# this seems to be getting cluttered
@@ -25,6 +25,7 @@ class Person
 		@action = options[:action]
 		@item_wanted = options[:item_wanted]
 		@hidden = (options[:hidden] || false)
+		@task = (options[:task] || nil)
 		# This was left in because some characters will be able to be picked up
 		@can_pickup = (options[:hidden] || true)
 

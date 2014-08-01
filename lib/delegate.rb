@@ -1,10 +1,11 @@
+
 class Delegate
 
 	attr_accessor :current_room
 
 	def initialize
 		load_game
-		keep_time
+		$player.give_xp(200)
 	end
 
 	def parse(input)
@@ -305,6 +306,11 @@ class Delegate
 				# awesome, we r not crazy... But does guy want this item?
 				if $player.current_room.people[guy.to_sym].item_wanted == item
 					puts $player.current_room.people[guy.to_sym].action
+					# complete task?
+					if $player.current_room.people[guy.to_sym].task != nil
+						$quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
+					end
+
 				else
 					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
 				end

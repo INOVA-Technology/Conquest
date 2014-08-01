@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby 
 
 # theres needs to be a dragon in the game
 #                                                  /===-_---~~~~~~~~~------____
@@ -64,7 +64,7 @@ def convert_input(input)
 	end
 end
 
-$options = {save_file: File.expand_path("~/.conquest_save")}
+$options = {:save_file => File.expand_path("~/.conquest_save")}
 
 def add_command_to_history(input)
 	open($options[:save_file], "a") { |file| file.puts input } unless $options[:no_save] || $options[:loading]
