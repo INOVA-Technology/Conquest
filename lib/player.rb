@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :real_time
+	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds
 	attr_reader :xp, :health, :weapon
 
 	def initialize
@@ -16,7 +16,7 @@ class Player
 		# the year, month, and day should be changed. Probably to the past
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
 		@time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
-		@real_time = {total: 0, last_checked: DateTime.now}
+		@total_seconds = 0
 		# @total[:total] is in seconds
 		self
 	end
