@@ -12,6 +12,7 @@ class Player
 		@health = 45
 		@max_health = 45
 		@weapon = nil
+		@gold = 0
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
@@ -51,6 +52,12 @@ class Player
 		puts "+#{amount}xp!".cyan
 		$achievements[:over_9000].unlock if @xp > 9000
 		rank_up if @xp >= @max_xp
+	end
+
+	def give_gold(amount)
+		@gold += amount
+		puts "+#{amount} gold!".cyan
+		$achievements[:banker].unlock if @gold >= 500
 	end
 
 	def rank_up
