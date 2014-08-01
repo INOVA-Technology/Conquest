@@ -161,7 +161,7 @@ class Delegate
 	end
 
 	def check_time
-		if $player.total_seconds >= 5
+		if $player.total_seconds >= 600
 			$achievements[:ten_minutes].unlock
 			add_command_to_history("unlock ten_minutes")
 		end
