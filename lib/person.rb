@@ -120,24 +120,3 @@ class Merchant < Person
 	end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
