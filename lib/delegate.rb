@@ -5,6 +5,7 @@ class Delegate
 
 	def initialize
 		load_game
+		$player.give_xp(200)
 	end
 
 	def parse(input)
