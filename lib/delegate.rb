@@ -135,7 +135,7 @@ class Delegate
 					$achievements[achievement.to_sym].unlock
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
 					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
-					$player.time = [:year, :month, :day, :hour, :minute].zip(t).to_h
+					$player.time = Hash[[:year, :month, :day, :hour, :minute].zip(t)]
 				when /^total_seconds (?<seconds>\d+)\s?$/
 					seconds = $~[:seconds].to_i
 					$player.total_seconds = seconds
