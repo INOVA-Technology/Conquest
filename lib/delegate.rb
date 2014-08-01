@@ -5,7 +5,7 @@ class Delegate
 
 	def initialize
 		load_game
-		$player.give_xp(200)
+		keep_time
 	end
 
 	def parse(input)
@@ -136,9 +136,9 @@ class Delegate
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
 					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
 					$player.time = [:year, :month, :day, :hour, :minute].zip(t).to_h
-				when /^total_time (?<minutes>\d+)\s?$/
-					minutes = $~[:minutes].to_i
-					$player.real_time[:total] = minutes
+				when /^total_time (?<seconds>\d+)\s?$/
+					seconds = $~[:seconds].to_i
+					$player.real_time[:total] = seconds
 				when /^upgrade (?<weapon>[a-z_ ]+)\s?$/
 					weapon = $~[:weapon]
 					$player.upgrade_weapon(weapon)
@@ -162,8 +162,10 @@ class Delegate
 	def check_time
 		diff = DateTime.now - $player.real_time[:last_checked]
 		$player.real_time[:total] += (diff * 24 * 60 * 60).round
+
 		$player.real_time[:last_checked] = DateTime.now
-		if $player.real_time[:total] >= 10
+
+		if $player.real_time[:total] >= 600
 			$achievements[:ten_minutes].unlock
 			add_command_to_history("unlock ten_minutes")
 		end
@@ -439,11 +441,15 @@ class Delegate
 
 	def quit
 		puts "Come back when you can't stay so long!"
+		
 		t = $player.time.values * " "
 		add_command_to_history("time #{t}")
+
 		diff = DateTime.now - $player.real_time[:last_checked]
 		$player.real_time[:total] += (diff * 24 * 60 * 60).round
+		
 		add_command_to_history("total_time #{$player.real_time[:total]}")
+		
 		exit
 	end
 

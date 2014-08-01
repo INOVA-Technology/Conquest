@@ -17,7 +17,7 @@ class Player
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
 		@time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
 		@real_time = {total: 0, last_checked: DateTime.now}
-		# @total[:total] is in minutes
+		# @total[:total] is in seconds
 		self
 	end
 
