@@ -142,6 +142,10 @@ $rooms = {
 											gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",
 												race: "Human",
 												talk: "People tell me I look like Morgan Freeman."
+												),
+											merchant: Merchant.new(name: "Merchant", desc: "He sells food and equipment.",
+												race: "Human",
+												talk: "Let's see what we've got in the trailer for you..."
 												)},
 										completes_task: [:main, :go_to_village]),
 								forest_by_village:

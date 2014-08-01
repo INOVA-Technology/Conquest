@@ -363,8 +363,12 @@ class Delegate
 	end
 
 	def talk(guy)
-		if $player.current_room.people[guy.to_sym]
-			puts $player.current_room.people[guy.to_sym].talk.yellow
+		if dude = $player.current_room.people[guy.to_sym]
+			if dude.merchant == false
+				puts dude.talk.yellow
+			else
+				dude.store
+			end
 		else
 			puts "#{guy} isn't in this room."
 		end

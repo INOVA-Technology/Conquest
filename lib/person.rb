@@ -3,7 +3,7 @@ class Person
 	# its a lot like an item, but I like that it's in a separate file
 	# I'll probably add that in or you can idc
 
-	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold
+	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold, :merchant
 
 	def initialize(options = {})
 		# this seems to be getting cluttered
@@ -33,6 +33,7 @@ class Person
 		# never set in options
 		@is_alive = true
 		@bad = false
+		@merchant = false
 		add_info
 	end
 
@@ -72,3 +73,71 @@ class Enemy < Person
 		@bad = true
 	end
 end
+
+class Merchant < Person
+	def add_info
+		rand1 = rand(0..10)
+		rand2 = rand(10..30)
+
+		@merchant = true
+		@gold = rand(20..100)
+		@damage = (rand1..rand2)
+		@talk = (@options[:talk] || "Like to shop around a bit, eh?")
+
+		@stock = {"peach" => 5, "ice" => 2}
+
+	end
+
+	def store
+		puts @talk
+		puts "items".magenta
+		@stock.each {|x, y|
+			puts "#{x.cyan} cost:#{y.to_s.yellow}"
+		}
+
+		input = prompt.downcase
+			if input == "peach"
+				if $player.gold >= @stock[input] 
+					$player.items[input.to_sym] = Food.new(name: "Peach", desc: "A delicious peach", restores: 5)
+				else
+					puts "u ain't got the cash, boy."
+					store
+				end
+			elsif input == "ice"
+				if $player.gold >= @stock[input] 
+					$player.items[input.to_sym] = Food.new(name: "Ice", desc: "Just some ice", restores: 1)
+				else
+					puts "u ain't got the cash, boy."
+					store
+				end
+			else
+				puts "thats not an item"
+				store
+			end
+		$player.gold -= @stock[input]
+		puts "You bought #{input} for #{@stock[input]} gold"
+
+	end
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
