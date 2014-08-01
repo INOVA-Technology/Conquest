@@ -22,7 +22,7 @@ class Person
 		@xp = (@options[:xp] || 0) # make this small for good guys
 
 		# not required: 
-		@action = options[:action]
+		@action = options[:action].to_s.yellow
 		@item_wanted = options[:item_wanted]
 		@hidden = (options[:hidden] || false)
 		@task = (options[:task] || nil)
@@ -36,8 +36,8 @@ class Person
 	end
 
 	def die
-		good = "You killed %s. How rude."
-		bad = "You have slain %s!"
+		good = "You killed #{@name.cyan}. How rude."
+		bad = "You have slain #{@name.red}!"
 		puts (@bad ? bad : good) % @name
 		$player.give_xp(@xp)
 		$player.current_room.items.merge(@items)

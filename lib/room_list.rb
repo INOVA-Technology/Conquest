@@ -179,10 +179,13 @@ $rooms = {
 													people: {
 														randy: Person.new(name: "Randy", desc: "He's just an elf",
 															race: "Elf",
-															talk: "I can read elvesish. Go figure.",
+															talk: "I can read elvish. Go figure.",
 															item_wanted: "scroll",
-															action: "Randy reads the scroll and gives you the gist of it: \n#{'It says to find the eagles to take you to Mordor so you may save the world.'.cyan}\n#{'Go to the forest of mirkwood.  The elves there are my kin.  They will'.cyan} \n#{'know where to start.'.cyan}",
-															task: { quest: :mordor, task: :read_scroll}
+															action: "Randy reads the scroll and gives you the gist of it: \nIt says to find the eagles to take you to Mordor so you may save the world.\nGo to the forest of mirkwood.  The elves there are my kin.  They will\nknow where to start.",
+															health: 200,
+															damage: 25,
+															xp: 40,
+															task: { quest: :mordor, task: :read_scroll }
 															)}),
 											mountain_1:
 												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
@@ -219,8 +222,8 @@ $rooms = {
 									paths: { n: :abyss1 },
 									items: {
 										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.",
-											attacks: { attack: 22..26, jab: 20..40 },
-											regex_attacks: "attack|jab"
+											attacks: { attack: 22..26, jab: 20..40, demolish: 10..50 },
+											regex_attacks: "attack|jab|demolish"
 										)},
 									people: {
 										hex: Person.new(name: "Hex", desc: "He doesn't look to good... Something appears to be wrong with his mental\nfunctions",
@@ -230,7 +233,8 @@ $rooms = {
 											action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}",
 											damage: 40..70,
 											health: 200,
-											xp: 400
+											xp: 400,
+											task: { quest: :hex, task: :iphone}
 										)},
 									starts_quest: :hex,
 									unlocks: :hex

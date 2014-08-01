@@ -48,7 +48,7 @@ class Player
 
 	def give_xp(amount)
 		@xp += amount
-		puts "+#{amount}xp!"
+		puts "+#{amount}xp!".cyan
 		$achievements[:over_9000].unlock if @xp > 9000
 		rank_up if @xp >= @max_xp
 	end
