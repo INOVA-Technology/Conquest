@@ -3,7 +3,7 @@ class Person
 	# its a lot like an item, but I like that it's in a separate file
 	# I'll probably add that in or you can idc
 
-	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task
+	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold
 
 	def initialize(options = {})
 		# this seems to be getting cluttered
@@ -19,7 +19,8 @@ class Person
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
 		@items = (@options[:items] || {})
-		@xp = (@options[:xp] || 0) # make this small for good guys
+		@xp = (@options[:xp] || rand(0..5)) # make this small for good guys
+		@gold = (@options[:gold] || rand(0..10))
 
 		# not required: 
 		@action = options[:action].to_s.yellow
@@ -40,6 +41,7 @@ class Person
 		bad = "You have slain #{@name.red}!"
 		puts (@bad ? bad : good) % @name
 		$player.give_xp(@xp)
+		$player.give_gold(@gold)
 		$player.current_room.items.merge(@items)
 	end
 
