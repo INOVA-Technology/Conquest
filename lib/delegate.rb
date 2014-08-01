@@ -4,6 +4,7 @@ class Delegate
 
 	def initialize
 		load_game
+		keep_time
 	end
 
 	def parse(input)
@@ -131,9 +132,12 @@ class Delegate
 				when /^unlock (?<achievement>[a-z_]+)\s?$/
 					achievement = $~[:achievement]
 					$achievements[achievement.to_sym].unlock
-				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)$/
-					time = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
-					$player.time[:virtual] = DateTime.new(*time)
+				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
+					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
+					$player.time = [:year, :month, :day, :hour, :minute].zip(t).to_h
+				when /^total_time (?<minutes>\d+)\s?$/
+					minutes = $~[:minutes].to_i
+					$player.real_time[:total] = minutes
 				when /^upgrade (?<weapon>[a-z_ ]+)\s?$/
 					weapon = $~[:weapon]
 					$player.upgrade_weapon(weapon)
@@ -145,10 +149,20 @@ class Delegate
 		add_command_to_history(input) if !$options[:loading] && save_command
 	end
 
+	def keep_time
+		@timer = Thread.new do
+			loop do
+				sleep 2
+				$player.add_minute
+			end
+		end
+	end
+
 	def check_time
-		the_time = $player.start_time.dup
-		the_time[4] += 10
-		if DateTime.new(*the_time) <= $player.get_time
+		diff = DateTime.now - $player.real_time[:last_checked]
+		$player.real_time[:total] += (diff * 24 * 60 * 60).round
+		$player.real_time[:last_checked] = DateTime.now
+		if $player.real_time[:total] >= 10
 			$achievements[:ten_minutes].unlock
 			add_command_to_history("unlock ten_minutes")
 		end
@@ -419,9 +433,11 @@ class Delegate
 
 	def quit
 		puts "Come back when you can't stay so long!"
-		t = $player.get_time
-		time = [t.year, t.month, t.day, t.hour, t.minute] * " "
-		add_command_to_history("time #{time}")
+		t = $player.time.values * " "
+		add_command_to_history("time #{t}")
+		diff = DateTime.now - $player.real_time[:last_checked]
+		$player.real_time[:total] += (diff * 24 * 60 * 60).round
+		add_command_to_history("total_time #{$player.real_time[:total]}")
 		exit
 	end
 

@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :start_time, :name, :upgrades
+	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :real_time
 	attr_reader :xp, :health, :weapon
 
 	def initialize
@@ -14,18 +14,36 @@ class Player
 		@weapon = nil
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
-		@start_time = [2000, 1, 1, 6, 30]
-		@time = { virtual: DateTime.new(*@start_time) }
-		@time[:real] = DateTime.now
+		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
+		@time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
+		@real_time = {total: 0, last_checked: DateTime.now}
+		# @total[:total] is in minutes
 		self
 	end
 
 	def get_time
-		@time[:virtual] + time_since_start
+		DateTime.new(*@time.values)
 	end
 
-	def time_since_start
-		DateTime.now - @time[:real]
+	def add_minute
+		@time[:minute] += 1
+		if @time[:minute] == 60
+			@time[:minute] = 0
+			@time[:hour] += 1
+		end
+		if @time[:hour] == 24
+			@time[:hour] = 0
+			@time[:day] += 1
+		end
+		max_days = (Date.new(@time[:year], 12, 31) << (12-@time[:month])).day
+		if @time[:day] > max_days
+			@time[:day] = 1
+			@time[:month] += 1
+		end
+		if @time[:month] > 12
+			@time[:month] = 1
+			@time[:year] += 1
+		end
 	end
 
 	def give_xp(amount)
