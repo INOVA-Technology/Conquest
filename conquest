@@ -84,9 +84,10 @@ require_relative 'lib/delegate'
 
 if __FILE__ == $0
 	chance = 1000 # increase this number if more people start using this
-	puts "Theres a 1 in #{chance} that this will be printed." \
-		if rand(1..chance) == 1
-
+	if rand(1..chance) == 1
+		puts "Theres a 1 in #{chance} that this will be printed."
+		$achievements[:lucky].unlock
+	end
 	until ARGV.empty?
 		case o = ARGV.shift
 		when "--reset", "-r"
