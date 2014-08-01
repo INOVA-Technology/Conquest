@@ -30,7 +30,7 @@ class Quest
 	def complete(task)
 		the_task = tasks[task]
 		
-		if the_task != current_task
+		if the_task != current_task && @will_complete.include?(the_task) != true
 			@will_complete.push(the_task)
 		end
 
@@ -46,6 +46,7 @@ class Quest
 				puts "Task '#{new_task[:description]}' completed!".cyan
 				@tasks_completed += 1
 				$player.give_xp(15)
+				@will_complete.delete(new_task)
 			end
 
 		end
