@@ -30,9 +30,13 @@ end
 
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 $rooms = {
+							chamber:
+								Room.new(name: "Chamber", desc: "You are underground, below the castle. It's very dark. There is a long\nhallway south, and the castle is back up stairs.",
+									paths: {u: :castle_main}
+									),
 							castle_main:
-								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south.", 
-									paths: { s: :hallway}
+								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down.", 
+									paths: { s: :hallway, d: :chamber}
 									),
 							hallway:
 								Room.new(name: "Hallway", desc: "This castle has a long hallway. There is a door to the west and\na large room north.",

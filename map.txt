@@ -12,10 +12,8 @@
 
 Map Starts Here:
 
-
-
-
-
+                                                                         chamber                                       
+                                                                            + # down                                    
                                                                         castle_main                                    
                                                                             +                                          
                                                           dinning_room ++ hallway                                      
@@ -37,3 +35,22 @@ Map Starts Here:
                                             more_trees_3 ++ path_to_^illage ++ ^illage                      mountian   
                                                                                   +                             +      
                                                                             forest_by_^illage ++ ^alley ++  mountians  
+
+
+
+chamber (underground):
+# there should be a dungon here
+
+                                                                        castle_main
+                                                                            + # up                                          
+                                                                         chamber 
+                                                                            +
+                                                                    !chamber_hallway                                
+                                                                            +                                          
+                                                                    !chamber_hallway_1
+
+
+
+
+
+
