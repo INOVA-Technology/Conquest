@@ -27,9 +27,14 @@ class Quest
 	end
 
 	def complete(task)
+		the_task = if task.is_a?(Hash)
+					task
+				else
+					tasks[task]
+				end
 
-		if the_task != current_task && @will_complete.include?(the_task) != true
-			@will_complete.push(the_task)
+		if the_task != current_task
+			the_task[:will_complete] = true
 		end
 
 		if !the_task[:completed] && the_task == current_task
@@ -37,17 +42,11 @@ class Quest
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			@tasks_completed += 1
 			$player.give_xp(15)
-			if @will_complete.include? current_task
-				new_task = @will_complete[@will_complete.index(current_task)]
-				new_task[:completed] = true
-				puts "Task '#{new_task[:description]}' completed!".cyan
-				@tasks_completed += 1
-				$player.give_xp(15)
-				@will_complete.delete(new_task)
-			end
+			new_task = current_task
+			complete(new_task) if new_task[:will_complete]
 		end
-
 	end
+	
 	def current_task
 		result = @tasks.detect { |_, task| !task[:completed] }
 		result.nil? ? {} : result[1]
