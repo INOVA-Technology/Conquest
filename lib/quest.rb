@@ -15,6 +15,7 @@ class Quest
 		# find_ring: {description: "My Precious", completed: false},
 		# melt_ring: {description: "Idk", completed: false}
 		# }
+		@will_complete = []
 		@started = false
 		@options = options
 	end
@@ -28,14 +29,28 @@ class Quest
 
 	def complete(task)
 		the_task = tasks[task]
-		unless the_task[:completed]
+		
+		if the_task != current_task
+			@will_complete.push(the_task)
+		end
+
+		unless the_task[:completed] || the_task != current_task
 			the_task[:completed] = true
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			@tasks_completed += 1
 			$player.give_xp(15)
-		end
-	end
 
+			if @will_complete.include? current_task
+				new_task = @will_complete[@will_complete.index(current_task)]
+				new_task[:completed] = true
+				puts "Task '#{new_task[:description]}' completed!".cyan
+				@tasks_completed += 1
+				$player.give_xp(15)
+			end
+
+		end
+
+	end
 	def current_task
 		@tasks.detect { |_, task| !task[:completed] }[1] || {}
 	end
