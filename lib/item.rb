@@ -77,12 +77,12 @@ end
 class Tree < Prop
 
 	def climb
-		$quests[@task[:quest]].complete(@task[:task]) if @task
 		if @options[:can_climb]
 			puts @description
 		else
 			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
+		$quests[@task[:quest]].complete(@task[:task]) if @task
 	end
 end
 
