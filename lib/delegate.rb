@@ -138,7 +138,7 @@ class Delegate
 					@player.name = name
 				when /^unlock (?<achievement>[a-z_]+)\s?$/
 					achievement = $~[:achievement]
-					@player.achievements[achievement.to_sym].unlock
+					@player.give_stuff(@player.achievements[achievement.to_sym].unlock)
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
 					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
 					@player.time = Hash[[:year, :month, :day, :hour, :minute].zip(t)]
@@ -168,7 +168,7 @@ class Delegate
 
 	def check_time
 		if @player.total_seconds >= 600
-			@player.achievements[:ten_minutes].unlock
+			@player.give_stuff(@player.achievements[:ten_minutes].unlock)
 			add_command_to_history("unlock ten_minutes")
 		end
 	end
