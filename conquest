@@ -99,8 +99,6 @@ if __FILE__ == $0
 	end
 
 	delegate = Delegate.new
-
-	delegate.player.current_room.enter
 	
 	chance = 1000 # increase this number if more people start using this
 	if rand(1..chance) == 1

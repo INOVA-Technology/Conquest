@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+
+load "./conquest"
+
+$options[:save_file] = File.expand_path("~/.conquest_tests")
+$options[:reset] = true
+$options[:no_save] = true
+
+require "stringio"
+require "minitest/autorun"
+
+def prompt(*a) "name" end
+
+describe Delegate do
+	
+	before do
+		@out = StringIO.new
+		$stdout = @out
+		@delegate = Delegate.new
+		@player = @delegate.player
+		@out.truncate(0)
+	end
+
+	after do
+		$stdout = STDOUT
+	end
+
+	describe "invalid command is entered" do
+		it "must warn user" do
+			@delegate.parse("not valid")
+			@out.string.wont_equal ""
+		end
+	end
+
+	describe "command is empty" do
+		it "must do nothing" do
+			@delegate.parse("")
+			@out.string.must_equal ""
+		end
+	end
+
+	describe "it keeps time" do
+		it "must increase the time" do
+			start = @player.total_seconds
+			sleep 3
+			done = @player.total_seconds
+			done.must_be :>, start
+		end
+
+		it "must give an achievement after 10 minutes" do
+			@player.total_seconds = 599
+			refute(@player.achievements[:ten_minutes].unlocked)
+			@player.total_seconds = 601
+			@delegate.check_time
+			assert(@player.achievements[:ten_minutes].unlocked)
+		end
+	end
+
+	describe "quests command" do
+		it "must list quests" do
+			@player.quests[:mordor].start
+			@delegate.parse("quests")
+			regex = /started quests:.+current task:.+mordor/mi
+			@out.string.must_match regex
+		end
+	end
+
+	describe "achievements command" do
+		it "must list achievements" do
+			@player.achievements[:mordor].unlock
+			@player.achievements[:peach].unlock
+			@delegate.parse("achievements")
+			regex = /(mordor|peach)+/mi
+			@out.string.must_match regex
+		end
+	end
+end

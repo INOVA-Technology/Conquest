@@ -1,6 +1,6 @@
 class Delegate
 
-	attr_accessor :player
+	attr_accessor :player, :timer
 
 	def initialize
 		load_game
@@ -448,8 +448,10 @@ class Delegate
 			check_time
 			$options[:loading] = nil
 			$stdout = old_stdout
+			look
 		else
 			get_name
+			@player.current_room.enter
 		end
 	end
 
