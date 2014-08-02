@@ -6,6 +6,7 @@ class Delegate
 	def initialize
 		load_game
 		keep_time
+		$player.give_gold(100)
 	end
 
 	def parse(input)
@@ -38,6 +39,13 @@ class Delegate
 			else
 				puts "Who?"
 			end
+		when /^buy( (?<item>[a-z ]+)?)?$/
+			item = convert_input($~[:item])
+			if item
+				buy(item)
+			else
+				puts "Buy what?"
+			end
 		when /^give( (?<item>[a-z ]+)) to( (?<guy>[a-z ]+))?$/
 			item = convert_input($~[:item])
 			guy = convert_input($~[:guy])
@@ -68,7 +76,7 @@ class Delegate
 			list_quests
 		when /^achievements$/
 			list_achievements
-		when /^(i|inv|inventory)$/
+		when /^inv(entory)?$/
 			inventory
 		when /^climb( (?<tree_name>[a-z ]+))?$/
 			# this regex needs to be cleaned up, just the tree part really
@@ -88,7 +96,7 @@ class Delegate
 			enemy = convert_input($~[:enemy])
 			fight(enemy, $player.smack)
 			save_command = false
-		when /^info$/
+		when /^i(nfo)?$/
 			info
 		when /^eat( (?<food>[a-z ]+)?)?$/
 			if food = convert_input($~[:food])
@@ -364,13 +372,22 @@ class Delegate
 
 	def talk(guy)
 		if dude = $player.current_room.people[guy.to_sym]
-			if dude.merchant == false
-				puts dude.talk.yellow
-			else
+			if dude.is_a?(Merchant)
 				dude.store
+			else
+				puts dude.talk.yellow
 			end
 		else
 			puts "#{guy} isn't in this room."
+		end
+	end
+
+	def buy(item)
+		merchant = $player.current_room.people.select { |_, p| p.is_a?(Merchant) }.first
+		if merchant
+			merchant[1].buy(item)
+		else
+			puts "There is no one to buy from here."
 		end
 	end
 

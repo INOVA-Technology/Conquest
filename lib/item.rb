@@ -1,15 +1,16 @@
 class Item
 
-	attr_reader :name, :description, :hidden, :can_pickup, :item_xp
+	attr_reader :name, :description, :hidden, :can_pickup, :item_xp, :cost
 
 	def initialize(options = {})
 		@name = options[:name]
 		@description = options[:desc]
 		@options = options
-		@hidden = (options[:hidden] || false)
-		@can_pickup = (!options[:hidden] || true)
+		@hidden = options[:hidden] || false
+		@can_pickup = !options[:hidden] || true
 		@task = options[:task]
-		@item_xp = (options[:xp] || 0)
+		@item_xp = options[:xp] || 0
+		@cost = options[:cost] || 0
 		add_info
 	end
 

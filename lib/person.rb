@@ -3,7 +3,7 @@ class Person
 	# its a lot like an item, but I like that it's in a separate file
 	# I'll probably add that in or you can idc
 
-	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold, :merchant
+	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold
 
 	def initialize(options = {})
 		# this seems to be getting cluttered
@@ -78,45 +78,34 @@ class Merchant < Person
 	def add_info
 		rand1 = rand(0..10)
 		rand2 = rand(10..30)
-
-		@merchant = true
 		@gold = rand(20..100)
 		@damage = (rand1..rand2)
-		@talk = (@options[:talk] || "Like to shop around a bit, eh?")
+		@talk = @options[:talk] || "Like to shop around a bit, eh?"
 
-		@stock = {"peach" => 5, "ice" => 2}
-
+		@stock = @options[:stock] || {}
 	end
 
 	def store
 		puts @talk
-		puts "items".magenta
-		@stock.each {|x, y|
-			puts "#{x.cyan} cost:#{y.to_s.yellow}"
-		}
+		puts "Items for sale:".magenta
+		@stock.values.each do |item|
+			puts "#{item.name}: #{(item.cost.to_s + ' gold').yellow}"
+		end
+	end
 
-		input = prompt.downcase
-			if input == "peach"
-				if $player.gold >= @stock[input] 
-					$player.items[input.to_sym] = Food.new(name: "Peach", desc: "A delicious peach", restores: 5)
-				else
-					puts "u ain't got the cash, boy."
-					store
-				end
-			elsif input == "ice"
-				if $player.gold >= @stock[input] 
-					$player.items[input.to_sym] = Food.new(name: "Ice", desc: "Just some ice", restores: 1)
-				else
-					puts "u ain't got the cash, boy."
-					store
-				end
+	def buy(input)
+		item = input.to_sym
+		if @stock[item]
+			if $player.gold >= (price = @stock[item].cost)
+				$player.items[item] = @stock.delete(item)
+				$player.gold -= price
+				puts "You bought #{item} for #{$player.items[item].cost} gold"
 			else
-				puts "thats not an item"
-				store
+				puts "u ain't got the cash, boy."
 			end
-		$player.gold -= @stock[input]
-		puts "You bought #{input} for #{@stock[input]} gold"
-
+		else
+			puts "That isn't sold here"
+		end
 	end
 
 end

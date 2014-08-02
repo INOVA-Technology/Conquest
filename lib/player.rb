@@ -192,7 +192,7 @@ class Player
 
 	def inventory
 		@items.values.each do |item|
-			a_or_an = %w[a e i o u].include?(item.name[0]) \
+			a_or_an = %w[a e i o u].include?(item.name[0].downcase) \
 				? "an " : "a "
 			a_or_an = "" if item.name[-1] == "s"
 			if item.is_a?(Weapon)

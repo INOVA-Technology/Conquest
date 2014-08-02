@@ -145,8 +145,11 @@ $rooms = {
 												),
 											merchant: Merchant.new(name: "Merchant", desc: "He sells food and equipment.",
 												race: "Human",
-												talk: "Let's see what we've got in the trailer for you..."
-												)},
+												talk: "Let's see what we've got in the trailer for you...",
+												stock: {
+													peach: Food.new(name: "Peach", desc: "A delicious peach", restores: 5, cost: 5),
+													ice: Food.new(name: "Ice", desc: "Just some ice", restores: 1, cost: 2)
+												})},
 										completes_task: [:main, :go_to_village]),
 								forest_by_village:
 									Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east",
