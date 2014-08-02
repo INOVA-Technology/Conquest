@@ -6,7 +6,6 @@ class Delegate
 	def initialize
 		load_game
 		keep_time
-		$player.give_gold(100)
 	end
 
 	def parse(input)
