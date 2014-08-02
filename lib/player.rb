@@ -22,23 +22,9 @@ class Player
 		@total_seconds = 0
 
 		# eventualy, this needs to be put somewhere else
-		@achievements = {
-			peach:   Achievement.new(name: "Have a Peach!"),
-			mordor: Achievement.new(name: "From Mordor with Love"),
-			hex: Achievement.new(name: "Confused"),
-			ten_minutes: Achievement.new(name: "Play for 10 minutes!"),
-			over_9000: Achievement.new(name: "It's over 9000"),
-			lucky: Achievement.new(name: "Lucky"),
-			banker: Achievement.new(name: "Banker")
-		}
+		@achievements = AchievementList.achievements
 		# this too
-		@quests = {
-			# consider whether you want the task name
-			# to give away what you have to do or not
-			main:   Quest.new(name: "Questalicious", tasks: [[:climb_tree, "Banyan"], [:go_to_village, "Go to the village"]]),
-			mordor: Quest.new(name: "Onward to Mordor", tasks: [[:read_scroll, "Figure out what the scroll says"], [:goto_mirkwood, "Go to Mirkwood to meet the Elves"], [:meet_elves, "Meet with Joey"]]),
-			hex:    Quest.new(name: "Escape from Merge Conflictia", tasks: [[:iphone, "69 70 68 6f 6e 65"], [:escape, "Escape from Merge Conflicia"]])
-		}
+		@quests = QuestList.quests
 
 		self
 	end
