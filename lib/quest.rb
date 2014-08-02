@@ -27,6 +27,7 @@ class Quest
 	end
 
 	def complete(task)
+		xp = 0
 		the_task = if task.is_a?(Hash)
 					task
 				else
@@ -41,10 +42,12 @@ class Quest
 			the_task[:completed] = true
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			@tasks_completed += 1
-			$player.give_xp(15)
 			new_task = current_task
-			complete(new_task) if new_task[:will_complete]
+			xp = 15
+			xp += complete(new_task) if new_task[:will_complete]
 		end
+
+		{xp: xp}
 	end
 	
 	def current_task

@@ -54,17 +54,34 @@ class Player
 		end
 	end
 
+	def give_stuff(hash) # i didn't know what to name this
+		die if hash[:die] # this must be first
+		@quests[hash[:quest]].start if hash[:quest]
+		give_stuff(@achievements[hash[:achievement]].unlock) if hash[:achievement]
+		give_xp(hash[:xp]) if hash[:xp]
+		give_gold(hash[:gold]) if hash[:gold]
+		@current_room.items.merge(hash[:dropped_items]) if hash[:dropped_items]
+		@items.merge(hash[:items]) if hash[:items]
+		unless hash[:task].nil? || hash[:task].empty?
+			task = hash[:task]
+			give_stuff(quests[task[:quest]].complete(task[:task]))
+		end
+	end
+
+
 	def give_xp(amount)
+		old = @xp
 		@xp += amount
-		puts "+#{amount}xp!".cyan
-		@achievements[:over_9000].unlock if @xp > 9000
+		puts "+#{amount}xp!".cyan unless old == @xp
+		give_xp(@achievements[:over_9000].unlock) if @xp > 9000
 		rank_up if @xp >= @max_xp
 	end
 
 	def give_gold(amount)
+		old = @gold
 		@gold += amount
-		puts "+#{amount} gold!".cyan
-		@achievements[:banker].unlock if @gold >= 500
+		puts "+#{amount} gold!".cyan unless old == @gold
+		give_xp(@achievements[:banker].unlock) if @gold >= 500
 	end
 
 	def rank_up
@@ -180,23 +197,13 @@ class Player
 		end
 	end
 
-	def handle_stuff(hash) # i didn't know what to name this
-		@quests[hash[:quest]].start if hash[:quest]
-		@achievements[hash[:achievement]].unlock if hash[:achievement]
-
-		unless hash[:task].nil? || hash[:task].empty?
-			task = hash[:task]
-			quests[task[:quest]].complete(task[:task])
-		end
-	end
-
 	def pickup(key)
 		if item = item_in_room(key)
 			if item.can_pickup
 				stuff = @current_room.pickup_item(key)
 				@items[key.to_sym] = item
 
-				handle_stuff(stuff)
+				give_stuff(stuff)
 
 				if item.item_xp != 0 # 👻
 					give_xp(item.item_xp)

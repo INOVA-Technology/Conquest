@@ -41,9 +41,7 @@ class Person
 		good = "You killed #{@name.cyan}. How rude."
 		bad = "You have slain #{@name.red}!"
 		puts (@bad ? bad : good) % @name
-		$player.give_xp(@xp)
-		$player.give_gold(@gold)
-		$player.current_room.items.merge(@items)
+		{xp: @xp, gold: @gold, dropped_items: @items}
 	end
 
 	def is_alive
@@ -93,19 +91,21 @@ class Merchant < Person
 		end
 	end
 
-	def buy(input)
+	def buy(input, player_gold)
 		item = input.to_sym
-		if @stock[item]
-			if $player.gold >= (price = @stock[item].cost)
-				$player.items[item] = @stock.delete(item)
-				$player.gold -= price
-				puts "You bought #{item} for #{$player.items[item].cost} gold"
+		give_to_player = {}
+		if item = @stock[item]
+			if player_gold >= (price = item.cost)
+				give_to_player[:items] = @stock.delete(item)
+				give_to_player[:gold] = -price
+				puts "You bought #{item.name} for #{price} gold"
 			else
 				puts "u ain't got the cash, boy."
 			end
 		else
 			puts "That isn't sold here"
 		end
+		give_to_player
 	end
 
 end

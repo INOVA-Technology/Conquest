@@ -1,6 +1,6 @@
 class Delegate
 
-	attr_accessor :current_room
+	attr_accessor :player
 
 	def initialize
 		load_game
@@ -13,7 +13,7 @@ class Delegate
 		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
 
 		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
-		special_attacks = ($player.weapon.nil? ? "dontMakeAnAttackNamedThis" : $player.weapon.regex_attacks)
+		special_attacks = (@player.weapon.nil? ? "dontMakeAnAttackNamedThis" : @player.weapon.regex_attacks)
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
@@ -92,7 +92,7 @@ class Delegate
 		# have both an attack method and "attack" in the attacks variable
 		when /^attack( (?<enemy>[a-z ]+)?)?$/
 			enemy = convert_input($~[:enemy])
-			fight(enemy, $player.smack)
+			fight(enemy, @player.smack)
 			save_command = false
 		when /^i(nfo)?$/
 			info
@@ -103,7 +103,7 @@ class Delegate
 				puts "Who?"
 			end
 		when /^upgrade( weapon)?$/
-			$player.upgrade
+			@player.upgrade
 			save_command = false
 		when /^mine$/
 			mine
@@ -127,29 +127,29 @@ class Delegate
 				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
 					player_damage = $~[:player_damage].to_i
 					enemy_damage = $~[:enemy_damage].to_i
-					$player.take_damage(player_damage) if @enemy
+					@player.take_damage(player_damage) if @enemy
 					@enemy.take_damage(enemy_damage) if @enemy
 					@enemy = nil unless @enemy.nil?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
-					@enemy = $player.current_room.people[enemy.to_sym]
+					@enemy = @player.current_room.people[enemy.to_sym]
 				when /^name (?<name>.+)\s?$/
 					name = $~[:name]
-					$player.name = name
+					@player.name = name
 				when /^unlock (?<achievement>[a-z_]+)\s?$/
 					achievement = $~[:achievement]
-					$player.achievements[achievement.to_sym].unlock
+					@player.achievements[achievement.to_sym].unlock
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
 					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
-					$player.time = Hash[[:year, :month, :day, :hour, :minute].zip(t)]
+					@player.time = Hash[[:year, :month, :day, :hour, :minute].zip(t)]
 				when /^total_seconds (?<seconds>\d+)\s?$/
 					seconds = $~[:seconds].to_i
-					$player.total_seconds = seconds
+					@player.total_seconds = seconds
 				when /^upgrade (?<weapon>[a-z_ ]+)\s?$/
 					weapon = $~[:weapon]
-					$player.upgrade_weapon(weapon)
+					@player.upgrade_weapon(weapon)
 				when /^add_upgrade\s?$/
-					$player.upgrades += 1
+					@player.upgrades += 1
 				end
 			end
 		end
@@ -160,21 +160,21 @@ class Delegate
 		@timer = Thread.new do
 			loop do
 				sleep 2
-				$player.total_seconds += 2
-				$player.add_minute
+				@player.total_seconds += 2
+				@player.add_minute
 			end
 		end
 	end
 
 	def check_time
-		if $player.total_seconds >= 600
-			$player.achievements[:ten_minutes].unlock
+		if @player.total_seconds >= 600
+			@player.achievements[:ten_minutes].unlock
 			add_command_to_history("unlock ten_minutes")
 		end
 	end
 
 	def list_quests
-		started_quests = $player.quests.values.select { |i| (i.started) }
+		started_quests = @player.quests.values.select { |i| (i.started) }
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
@@ -188,7 +188,7 @@ class Delegate
 	end
 
 	def list_achievements
-		$player.achievements.each do |_, a|
+		@player.achievements.each do |_, a|
 			puts a.name if a.unlocked
 		end
 	end
@@ -208,16 +208,16 @@ class Delegate
 
 	def time
 		# this message seems awkwardly worded
-		puts $player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %p")
+		puts @player.get_time.strftime("It's the year of %Y, %b %d, %I:%M %p")
 	end
 
 	def walk(direction)
-		key = $player.walk(direction)
+		key = @player.walk(direction)
 		if key.nil?
 			puts "You can't go that way"
 		elsif key
-			$player.current_room = @rooms[key]
-			$player.handle_stuff($player.current_room.enter)
+			@player.current_room = @rooms[key]
+			@player.give_stuff(@player.current_room.enter)
 		end
 	end
 
@@ -225,25 +225,25 @@ class Delegate
 		if item_name.nil?
 			puts "Please supply an object to #{input}."
 		else
-			stuff = $player.pickup(item_name)
+			stuff = @player.pickup(item_name)
 		end
 	end
 
 	def inventory
-		$player.inventory
+		@player.inventory
 	end
 
 	def info
-		$player.info
+		@player.info
 		@enemy.info if @enemy
 	end
 
 	def eat(food)
-		$player.eat(food)
+		@player.eat(food)
 	end
 
 	def read(book)
-		if books = $player.items[book.to_sym]
+		if books = @player.items[book.to_sym]
 			books.read
 		else
 			puts "You can't read that."
@@ -259,7 +259,7 @@ class Delegate
 				puts "You aren't fighting anyone."
 			end
 		else
-			victim = $player.current_room.people[enemy.to_sym]
+			victim = @player.current_room.people[enemy.to_sym]
 			if victim
 				if @enemy
 					if victim.name.downcase != @enemy.name.downcase
@@ -281,23 +281,24 @@ class Delegate
 	end
 
 	def attack_enemy(attack)
-		weapon = $player.weapon
+		weapon = @player.weapon
 		damage = if weapon
 					rand(weapon.attacks[attack]) + weapon.upgrade
 				else
-					$player.smack
+					@player.smack
 				end
 		attack_phrases =[ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
 		puts attack_phrases.rand_choice
-		@enemy.take_damage(damage)
+		stuff = @enemy.take_damage(damage)
 
 		_damage = 0
 		if @enemy.is_alive
 			_damage = @enemy.attack
 			badguy_says = [ "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}", "#{@enemy.name} is on fire  #{"-".red + _damage.to_s.red}", "POW! That hurt.  #{"-".red + _damage.to_s.red}" ]
 			puts badguy_says.rand_choice
-			$player.take_damage(_damage)
+			@player.take_damage(_damage)
 		else
+			@player.give_stuff(stuff)
 			@enemy = nil
 		end
 		add_command_to_history("damage #{_damage} #{damage}")
@@ -305,15 +306,16 @@ class Delegate
 
 	def give(item, guy)
 		# Do I have this item?
-		if the_item = $player.items[item.to_sym]
+		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist? 👻
-			if $player.current_room.people[guy.to_sym]
+			if @player.current_room.people[guy.to_sym]
 				# awesome, we r not crazy... But does guy want this item?
-				if $player.current_room.people[guy.to_sym].item_wanted == item
-					puts $player.current_room.people[guy.to_sym].action
+				if @player.current_room.people[guy.to_sym].item_wanted == item
+					puts @player.current_room.people[guy.to_sym].action
 					# complete task?
-					if $player.current_room.people[guy.to_sym].task != nil
-						$player.quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
+					if @player.current_room.people[guy.to_sym].task != nil
+						xp = @player.quests[@player.current_room.people[guy.to_sym].task[:quest]].complete(@player.current_room.people[guy.to_sym].task[:task])
+						@player.give_stuff(xp)
 					end
 
 				else
@@ -329,13 +331,13 @@ class Delegate
 	end
 
 	def look
-		$player.current_room.look
+		@player.current_room.look
 	end
 
 	def equip(weapon_name)
-		if weapon = $player.items[weapon_name.to_sym]
+		if weapon = @player.items[weapon_name.to_sym]
 			if weapon.is_a?(Weapon)
-				$player.weapon = weapon
+				@player.weapon = weapon
 				puts "#{weapon_name} has been equipped!".cyan
 			else
 				puts "That's not a weapon, stupid.".red
@@ -346,22 +348,22 @@ class Delegate
 	end
 
 	def unequip
-		$player.weapon = nil
+		@player.weapon = nil
 	end
 
 	def inspect(item)
 		# this could be refactored
-		if the_item = $player.items[item.to_sym]
+		if the_item = @player.items[item.to_sym]
 			puts the_item.description
 			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
-		elsif the_item = $player.current_room.items[item.to_sym]
+		elsif the_item = @player.current_room.items[item.to_sym]
 			puts the_item.description
 			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
-		elsif the_item = $player.current_room.people[item.to_sym]
+		elsif the_item = @player.current_room.people[item.to_sym]
 			puts the_item.description
 			puts "Race: #{the_item.race}"
 		else
@@ -370,7 +372,7 @@ class Delegate
 	end
 
 	def talk(guy)
-		if dude = $player.current_room.people[guy.to_sym]
+		if dude = @player.current_room.people[guy.to_sym]
 			if dude.is_a?(Merchant)
 				dude.store
 			else
@@ -382,25 +384,25 @@ class Delegate
 	end
 
 	def buy(item)
-		merchant = $player.current_room.people.select { |_, p| p.is_a?(Merchant) }.first
+		merchant = @player.current_room.people.select { |_, p| p.is_a?(Merchant) }.first
 		if merchant
-			merchant[1].buy(item)
+			@player.give_stuff(merchant[1].buy(item, @player.gold))
 		else
 			puts "There is no one to buy from here."
 		end
 	end
 
 	def rub_sticks
-		if $player.items[:sticks]
+		if @player.items[:sticks]
 			# do something involving fire
 			puts "I need to implement this."
 		end
 	end
 
 	def mine
-		if $player.current_room.is_a?(Mountain)
-			if $player.items[:pickaxe]
-				$player.current_room.mine
+		if @player.current_room.is_a?(Mountain)
+			if @player.items[:pickaxe]
+				@player.give_stuff(@player.current_room.mine)
 			else
 				puts "You have nothing to mine with."
 			end
@@ -411,15 +413,15 @@ class Delegate
 
 	def climb(thing_name)
 		thing_name = convert_input(thing_name)
-		if 🌳 = $player.current_room.items[:tree]
+		if 🌳 = @player.current_room.items[:tree]
 			name = 🌳.name.downcase
 			if [nil, "tree"].include?(thing_name)
 				res = 🌳.climb
-				$player.handle_stuff(res)
+				@player.give_stuff(res)
 			else
 				puts "You can't climb that."
 			end
-		elsif @rooms[$player.current_room[:u]].is_a?(Mountain)
+		elsif @rooms[@player.current_room[:u]].is_a?(Mountain)
 			if [nil, "mountain"].include?(thing_name)
 				walk("u")
 			end
@@ -431,10 +433,10 @@ class Delegate
 	def load_game
 		File.delete($options[:save_file]) if File.file?($options[:save_file]) && $options[:reset]
 		room = :courtyard
-		$player = Player.new
+		@player = Player.new
 		@rooms = RoomList.rooms
-		$player.current_room = @rooms[room]
-		$player.quests[:main].start(false)
+		@player.current_room = @rooms[room]
+		@player.quests[:main].start(false)
 		@enemy = nil
 		if File.file?($options[:save_file])
 			old_stdout = $stdout
@@ -453,16 +455,16 @@ class Delegate
 
 	def get_name
 		puts "Wut b ur namez?"
-		$player.name = prompt
-		add_command_to_history("name #{$player.name}")
+		@player.name = prompt
+		add_command_to_history("name #{@player.name}")
 	end
 
 	def quit
 		puts "Come back when you can't stay so long!"
 		
-		t = $player.time.values * " "
+		t = @player.time.values * " "
 		add_command_to_history("time #{t}")
-		add_command_to_history("total_seconds #{$player.total_seconds}")
+		add_command_to_history("total_seconds #{@player.total_seconds}")
 		exit
 	end
 

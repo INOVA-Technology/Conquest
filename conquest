@@ -100,12 +100,12 @@ if __FILE__ == $0
 
 	delegate = Delegate.new
 
-	$player.current_room.enter
+	delegate.player.current_room.enter
 	
 	chance = 1000 # increase this number if more people start using this
 	if rand(1..chance) == 1
 		puts "Theres a 1 in #{chance} that this will be printed."
-		$player.achievements[:lucky].unlock
+		delegate.player.give_stuff(delegate.player.achievements[:lucky].unlock)
 	end
 
 	loop do

@@ -21,15 +21,16 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add installer
 * - add an updater
 * - you can only have one of each item
+* - fix the saving of any random numbers
+*   make a telnet server
+*   add tests
 *   add merge conflictia into map.txt
 *   consistant colors
 *   add conditional spawning (like time of virtual day, etc...)
-*   make the code more MVC
 *   add an ocean that goes to an island
 *   add windows support (we can use wine to test it)
 *   get beta testers to review the plot/playablity and find bugs
 *   add signal trapping
 *   refactor lots of stuff
 *   add rick astley easter egg
-*   add tests
 *   add some ? method aliases
