@@ -139,7 +139,7 @@ class Delegate
 					$player.name = name
 				when /^unlock (?<achievement>[a-z_]+)\s?$/
 					achievement = $~[:achievement]
-					$achievements[achievement.to_sym].unlock
+					$player.achievements[achievement.to_sym].unlock
 				when /^time (?<year>\d+) (?<month>\d+) (?<day>\d+) (?<hour>\d+) (?<minute>\d+)\s?$/
 					t = [$~[:year], $~[:month], $~[:day], $~[:hour], $~[:minute]].map(&:to_i)
 					$player.time = Hash[[:year, :month, :day, :hour, :minute].zip(t)]
@@ -169,13 +169,13 @@ class Delegate
 
 	def check_time
 		if $player.total_seconds >= 600
-			$achievements[:ten_minutes].unlock
+			$player.achievements[:ten_minutes].unlock
 			add_command_to_history("unlock ten_minutes")
 		end
 	end
 
 	def list_quests
-		started_quests = $quests.values.select { |i| (i.started) }
+		started_quests = $player.quests.values.select { |i| (i.started) }
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
@@ -189,7 +189,7 @@ class Delegate
 	end
 
 	def list_achievements
-		$achievements.each do |_, a|
+		$player.achievements.each do |_, a|
 			puts a.name if a.unlocked
 		end
 	end
@@ -225,7 +225,7 @@ class Delegate
 		if item_name.nil?
 			puts "Please supply an object to #{input}."
 		else
-			$player.pickup(item_name)
+			stuff = $player.pickup(item_name)
 		end
 	end
 
@@ -313,7 +313,7 @@ class Delegate
 					puts $player.current_room.people[guy.to_sym].action
 					# complete task?
 					if $player.current_room.people[guy.to_sym].task != nil
-						$quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
+						$player.quests[$player.current_room.people[guy.to_sym].task[:quest]].complete($player.current_room.people[guy.to_sym].task[:task])
 					end
 
 				else
@@ -432,7 +432,7 @@ class Delegate
 		room = :courtyard
 		$player = Player.new
 		$player.current_room = $rooms[room]
-		$quests[:main].start(false)
+		$player.quests[:main].start(false)
 		@enemy = nil
 		if File.file?($options[:save_file])
 			old_stdout = $stdout

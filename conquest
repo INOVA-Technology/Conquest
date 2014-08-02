@@ -72,9 +72,7 @@ end
 
 require_relative 'lib/colors'
 require_relative 'lib/quest'
-require_relative 'lib/quest_list'
 require_relative 'lib/achievement'
-require_relative 'lib/achievement_list'
 require_relative 'lib/person'
 require_relative 'lib/item'
 require_relative 'lib/room'
@@ -83,11 +81,7 @@ require_relative 'lib/player'
 require_relative 'lib/delegate'
 
 if __FILE__ == $0
-	chance = 1000 # increase this number if more people start using this
-	if rand(1..chance) == 1
-		puts "Theres a 1 in #{chance} that this will be printed."
-		$achievements[:lucky].unlock
-	end
+	
 	until ARGV.empty?
 		case o = ARGV.shift
 		when "--reset", "-r"
@@ -106,6 +100,12 @@ if __FILE__ == $0
 
 	$player.current_room.enter
 	
+	chance = 1000 # increase this number if more people start using this
+	if rand(1..chance) == 1
+		puts "Theres a 1 in #{chance} that this will be printed."
+		$player.achievements[:lucky].unlock
+	end
+
 	loop do
 		💬 = prompt
 		delegate.parse(💬)

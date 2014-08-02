@@ -15,11 +15,10 @@ class Item
 	end
 
 	def pickup
-		quest = @options[:starts_quest]
-		$quests[quest].start if quest
-		achievement = @options[:unlocks]
-		$achievements[achievement].unlock if achievement
-		self
+		hash = {}
+		hash[:quest] = @options[:starts_quest]
+		hash[:achievement] = @options[:unlocks]
+		hash
 	end
 
 	def add_info
@@ -83,7 +82,7 @@ class Tree < Prop
 		else
 			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
-		$quests[@task[:quest]].complete(@task[:task]) if @task
+		$player.quests[@task[:quest]].complete(@task[:task]) if @task
 	end
 end
 

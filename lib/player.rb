@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold
+	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold, :achievements, :quests
 	attr_reader :xp, :health, :weapon
 
 	def initialize
@@ -17,8 +17,29 @@ class Player
 		# the year, month, and day should be changed. Probably to the past
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
 		@time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
-		@total_seconds = 0
+		
 		# @total[:total] is in seconds
+		@total_seconds = 0
+
+		# eventualy, this needs to be put somewhere else
+		@achievements = {
+			peach:   Achievement.new(name: "Have a Peach!"),
+			mordor: Achievement.new(name: "From Mordor with Love"),
+			hex: Achievement.new(name: "Confused"),
+			ten_minutes: Achievement.new(name: "Play for 10 minutes!"),
+			over_9000: Achievement.new(name: "It's over 9000"),
+			lucky: Achievement.new(name: "Lucky"),
+			banker: Achievement.new(name: "Banker")
+		}
+		# this too
+		@quests = {
+			# consider whether you want the task name
+			# to give away what you have to do or not
+			main:   Quest.new(name: "Questalicious", tasks: [[:climb_tree, "Banyan"], [:go_to_village, "Go to the village"]]),
+			mordor: Quest.new(name: "Onward to Mordor", tasks: [[:read_scroll, "Figure out what the scroll says"], [:goto_mirkwood, "Go to Mirkwood to meet the Elves"], [:meet_elves, "Meet with Joey"]]),
+			hex:    Quest.new(name: "Escape from Merge Conflictia", tasks: [[:iphone, "69 70 68 6f 6e 65"], [:escape, "Escape from Merge Conflicia"]])
+		}
+
 		self
 	end
 
@@ -50,22 +71,22 @@ class Player
 	def give_xp(amount)
 		@xp += amount
 		puts "+#{amount}xp!".cyan
-		$achievements[:over_9000].unlock if @xp > 9000
+		@achievements[:over_9000].unlock if @xp > 9000
 		rank_up if @xp >= @max_xp
 	end
 
 	def give_gold(amount)
 		@gold += amount
 		puts "+#{amount} gold!".cyan
-		$achievements[:banker].unlock if @gold >= 500
+		@achievements[:banker].unlock if @gold >= 500
 	end
 
 	def rank_up
 		@rank += 1
 		puts "Rank up!".magenta
 		puts "Rank #{@rank}"
-		@xp -= @max_xp 
-		@max_xp += 50*(@rank*1)
+		# @xp -= @max_xp 
+		@max_xp += 50*(@rank+1)
 		@max_health += 10*@rank
 		puts "New upgrade available!".magenta
 		@upgrades += 1
@@ -176,11 +197,15 @@ class Player
 	def pickup(key)
 		if item = item_in_room(key)
 			if item.can_pickup
-				@current_room.pickup_item(key)
+				stuff = @current_room.pickup_item(key)
 				@items[key.to_sym] = item
+
+				@quests[stuff[:quest]].start if stuff[:quest]
+				@achievements[stuff[:achievement]].unlock if stuff[:achievement]
+
 				if item.item_xp != 0 # 👻
 					give_xp(item.item_xp)
-					puts "xp +#{item.item_xp}".cyan
+					# puts "xp +#{item.item_xp}".cyan
 				end
 			else
 				puts "You can't pick that up."

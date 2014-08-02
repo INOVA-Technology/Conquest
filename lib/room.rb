@@ -30,13 +30,13 @@ class Room
 			@visited = true
 
 			quest = options[:starts_quest]
-			$quests[quest].start if quest
+			$player.quests[quest].start if quest
 
 			achievement = options[:unlocks]
-			$achievements[achievement].unlock if achievement
+			$player.achievements[achievement].unlock if achievement
 
 			quest, task = options[:completes_task]
-			$quests[quest].complete(task) if quest && task
+			$player.quests[quest].complete(task) if quest && task
 		end
 		self
 	end
