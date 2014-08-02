@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+
+require "time"
+require "readline"
+require "stringio"
+require "socket"
+
+def prompt(_prompt = "> ")
+	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
+end
+
+def convert_input(input)
+	# it's assumed the input is already all lowercase
+	case input
+	when "banyan tree", "banyan"
+		"tree"
+	when "tall mountain"
+		"mountain"
+	when "axe"
+		"pickaxe"
+	else
+		input
+	end
+end
+
+$options = {:save_file => File.expand_path("~/.conquest_save")}
+
+def add_command_to_history(input)
+	open($options[:save_file], "a") { |file| file.puts input } unless $options[:no_save] || $options[:loading]
+end
+
+require_relative 'lib/colors'
+require_relative 'lib/quest'
+require_relative 'lib/quest_list'
+require_relative 'lib/achievement'
+require_relative 'lib/achievement_list'
+require_relative 'lib/person'
+require_relative 'lib/item'
+require_relative 'lib/room'
+require_relative 'lib/room_list'
+require_relative 'lib/player'
+require_relative 'lib/delegate'
+
+until ARGV.empty?
+	case o = ARGV.shift
+	when "--reset", "-r"
+		$options[:reset] = true
+	when "--no-save", "-n"
+		$options[:no_save] = true
+	when "--save-file", "-f"
+		$options[:save_file] = File.expand_path(ARGV.shift)
+	else
+		puts "unrecognized option: #{o}"
+		exit
+	end
+end
+
+server = TCPServer.open(45654)
+puts "Server started."
+
+loop do
+	Thread.start(server.accept) do |client|
+		p client
+		puts "Client connected"
+
+		def puts(*args)  client.puts(*args)  end
+		def print(*args) client.print(*args) end
+		def prompt(_prompt = "> ")
+			print _prompt
+			client.gets.chomp.squeeze(" ").strip.downcase
+		end
+
+		delegate = Delegate.new
+
+		chance = 1000 # increase this number if more people start using this
+		if rand(1..chance) == 1
+			puts "Theres a 1 in #{chance} that this will be printed."
+			delegate.player.give_stuff(delegate.player.achievements[:lucky].unlock)
+		end
+
+		loop do
+			💬 = prompt
+			delegate.parse(💬)
+		end
+	end
+end

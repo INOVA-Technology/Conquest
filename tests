@@ -75,3 +75,27 @@ describe Delegate do
 		end
 	end
 end
+
+describe Player do
+
+	before do
+		@out = StringIO.new
+		$stdout = @out
+		@player = Delegate.new.player
+		@out.truncate(0)
+	end
+
+	after do
+		$stdout = STDOUT
+	end
+
+	describe "new game" do
+		it "must have no unlocked achievements" do
+			$stderr.puts @player.total_seconds
+			$stderr.puts @player.achievements.map {|k, a| "#{k}: #{a.unlocked}"}
+			good = @player.achievements.none? { |_, a| a.unlocked }
+			assert(good)
+		end
+	end
+
+end
