@@ -29,7 +29,8 @@ def hex_to_str(hex)
 end
 
 # this shouldn't be in 1TBS, it's a weird variant of banner style
-$rooms = {
+module RoomList
+	ROOMS = {
 							chamber:
 								Room.new(name: "Chamber", desc: "You are underground, below the castle. It's very dark. There is a long\nhallway south, and the castle is back up stairs.",
 									paths: {u: :castle_main}
@@ -248,6 +249,13 @@ $rooms = {
 									unlocks: :hex
 									)
 }
+
+	def self.rooms
+		ROOMS
+	end
+
+end
+
 
 
 	

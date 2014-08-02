@@ -217,7 +217,7 @@ class Delegate
 		if key.nil?
 			puts "You can't go that way"
 		elsif key
-			$player.current_room = $rooms[key].enter
+			$player.current_room = @rooms[key].enter
 		end
 	end
 
@@ -418,7 +418,7 @@ class Delegate
 			else
 				puts "You can't climb that."
 			end
-		elsif $rooms[$player.current_room[:u]].is_a?(Mountain)
+		elsif @rooms[$player.current_room[:u]].is_a?(Mountain)
 			if [nil, "mountain"].include?(thing_name)
 				walk("u")
 			end
@@ -431,7 +431,8 @@ class Delegate
 		File.delete($options[:save_file]) if File.file?($options[:save_file]) && $options[:reset]
 		room = :courtyard
 		$player = Player.new
-		$player.current_room = $rooms[room]
+		@rooms = RoomList.rooms
+		$player.current_room = @rooms[room]
 		$player.quests[:main].start(false)
 		@enemy = nil
 		if File.file?($options[:save_file])
