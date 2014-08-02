@@ -1,4 +1,3 @@
-
 class Delegate
 
 	attr_accessor :current_room
@@ -217,7 +216,8 @@ class Delegate
 		if key.nil?
 			puts "You can't go that way"
 		elsif key
-			$player.current_room = @rooms[key].enter
+			$player.current_room = @rooms[key]
+			$player.handle_stuff($player.current_room.enter)
 		end
 	end
 
@@ -414,7 +414,8 @@ class Delegate
 		if 🌳 = $player.current_room.items[:tree]
 			name = 🌳.name.downcase
 			if [nil, "tree"].include?(thing_name)
-				🌳.climb
+				res = 🌳.climb
+				$player.handle_stuff(res)
 			else
 				puts "You can't climb that."
 			end

@@ -18,6 +18,7 @@ class Item
 		hash = {}
 		hash[:quest] = @options[:starts_quest]
 		hash[:achievement] = @options[:unlocks]
+		hash[:task] = @task if @task
 		hash
 	end
 
@@ -41,10 +42,6 @@ class Food < Item
 
 	def add_info
 		@restores = @options[:restores]
-	end
-
-	def eat
-		$player.heal(@restores)
 	end
 end
 
@@ -82,7 +79,11 @@ class Tree < Prop
 		else
 			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
-		$player.quests[@task[:quest]].complete(@task[:task]) if @task
+		hash = {}
+		hash[:quest] = @options[:starts_quest]
+		hash[:achievement] = @options[:unlocks]
+		hash[:task] = @task if @task
+		hash
 	end
 end
 

@@ -180,14 +180,23 @@ class Player
 		end
 	end
 
+	def handle_stuff(hash) # i didn't know what to name this
+		@quests[hash[:quest]].start if hash[:quest]
+		@achievements[hash[:achievement]].unlock if hash[:achievement]
+
+		unless hash[:task].nil? || hash[:task].empty?
+			task = hash[:task]
+			quests[task[:quest]].complete(task[:task])
+		end
+	end
+
 	def pickup(key)
 		if item = item_in_room(key)
 			if item.can_pickup
 				stuff = @current_room.pickup_item(key)
 				@items[key.to_sym] = item
 
-				@quests[stuff[:quest]].start if stuff[:quest]
-				@achievements[stuff[:achievement]].unlock if stuff[:achievement]
+				handle_stuff(stuff)
 
 				if item.item_xp != 0 # 👻
 					give_xp(item.item_xp)

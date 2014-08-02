@@ -8,7 +8,7 @@ class Room
 		@paths = (options[:paths] || {})
 		@items = (options[:items] || {})
 		@people = (options[:people] || {})
-		@task = (options[:tasks] || {})
+		@task = (options[:task] || {})
 		@options = options
 		@visited = false
 		add_info
@@ -24,21 +24,17 @@ class Room
 
 	def enter
 		puts @name.cyan
+		hash = {}
 		unless @visited
 			puts @description
 			list_items
 			@visited = true
 
-			quest = options[:starts_quest]
-			$player.quests[quest].start if quest
-
-			achievement = options[:unlocks]
-			$player.achievements[achievement].unlock if achievement
-
-			quest, task = options[:completes_task]
-			$player.quests[quest].complete(task) if quest && task
-		end
-		self
+			hash[:quest] = @options[:starts_quest]
+			hash[:achievement] = @options[:unlocks]
+			hash[:task] = @task if @task
+		end		
+		hash
 	end
 
 	def pickup_item(item)
