@@ -199,7 +199,7 @@ class Player
 
 	def pickup(key)
 		if item = item_in_room(key)
-			if item.can_pickup
+			if item.can_pickup?
 				stuff = @current_room.pickup_item(key)
 				@items[key.to_sym] = item
 

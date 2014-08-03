@@ -2,6 +2,8 @@ class Achievement
 
 	attr_accessor :name, :unlocked
 
+	alias_method :unlocked?, :unlocked
+
 	def initialize(options = {})
 		@name = options[:name]
 		

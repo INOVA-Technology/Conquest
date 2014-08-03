@@ -189,7 +189,7 @@ class Delegate
 
 	def list_achievements
 		@player.achievements.each do |_, a|
-			puts a.name if a.unlocked
+			puts a.name if a.unlocked?
 		end
 	end
 

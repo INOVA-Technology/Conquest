@@ -22,8 +22,8 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add an updater
 * - you can only have one of each item
 * - fix the saving of any random numbers
-*   make a telnet server
-*   add tests
+*   make a working telnet server
+*   finish tests
 *   add merge conflictia into map.txt
 *   consistant colors
 *   add conditional spawning (like time of virtual day, etc...)
@@ -33,4 +33,3 @@ Contributions are appreciated, but please create a new branch before you do so. 
 *   add signal trapping
 *   refactor lots of stuff
 *   add rick astley easter egg
-*   add some ? method aliases

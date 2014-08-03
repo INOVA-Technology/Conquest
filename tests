@@ -49,10 +49,10 @@ describe Delegate do
 
 		it "must give an achievement after 10 minutes" do
 			@player.total_seconds = 599
-			refute(@player.achievements[:ten_minutes].unlocked)
+			refute(@player.achievements[:ten_minutes].unlocked?)
 			@player.total_seconds = 601
 			@delegate.check_time
-			assert(@player.achievements[:ten_minutes].unlocked)
+			assert(@player.achievements[:ten_minutes].unlocked?)
 		end
 	end
 
@@ -92,8 +92,8 @@ describe Player do
 	describe "new game" do
 		it "must have no unlocked achievements" do
 			$stderr.puts @player.total_seconds
-			$stderr.puts @player.achievements.map {|k, a| "#{k}: #{a.unlocked}"}
-			good = @player.achievements.none? { |_, a| a.unlocked }
+			$stderr.puts @player.achievements.map {|k, a| "#{k}: #{a.unlocked?}"}
+			good = @player.achievements.none? { |_, a| a.unlocked? }
 			assert(good)
 		end
 	end

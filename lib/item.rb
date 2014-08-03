@@ -2,6 +2,9 @@ class Item
 
 	attr_reader :name, :description, :hidden, :can_pickup, :item_xp, :cost
 
+	alias_method :can_pickup?, :can_pickup
+	alias_method :hidden?, :hidden
+
 	def initialize(options = {})
 		@name = options[:name]
 		@description = options[:desc]

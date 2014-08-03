@@ -5,6 +5,9 @@ class Person
 
 	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold
 
+	alias_method :hidden?, :hidden
+	alias_method :can_pickup?, :can_pickup
+
 	def initialize(options = {})
 		# this seems to be getting cluttered
 

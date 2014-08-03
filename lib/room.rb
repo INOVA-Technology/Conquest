@@ -48,7 +48,7 @@ class Room
 	end
 
 	def list_items
-		visible_items = @items.values.select { |i| !i.hidden && i.can_pickup }
+		visible_items = @items.values.select { |i| !i.hidden? && i.can_pickup? }
 		unless visible_items.empty?
 
 			puts "Items that are here:".magenta
@@ -60,7 +60,7 @@ class Room
 			end
 		end
 
-		visible_people = @people.values.select { |i| !i.hidden && i.is_alive }
+		visible_people = @people.values.select { |i| !i.hidden? && i.is_alive }
 		unless visible_people.empty?
 
 			puts "People that are here:".magenta

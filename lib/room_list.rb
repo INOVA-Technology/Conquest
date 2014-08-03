@@ -169,7 +169,7 @@ module RoomList
 													gold: 10
 											)}),
 										mountains:
-											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. You can go back west. You hear something in the distance.",
+											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west. You hear something in the distance.",
 												paths: { u: :mountain, w: :valley },
 												has_mountain: true
 												),
