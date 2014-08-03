@@ -74,6 +74,23 @@ describe Delegate do
 			@out.string.must_match regex
 		end
 	end
+
+	describe "help command" do
+		it "must be kinda helpful" do
+			@delegate.parse("help")
+			regex = /( n,| ne,|achievements|quests)/mi
+			@out.string.must_match regex
+		end
+	end
+
+	describe "time command" do
+		it "must tell time" do
+			@delegate.parse("time")
+			regex = /\d{4}.+ \d{2}:\d{2} (A|P)M/
+			@out.string.must_match regex
+		end
+	end
+
 end
 
 describe Player do
