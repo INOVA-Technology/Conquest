@@ -215,6 +215,7 @@ class Player
 		else
 			puts "That item isn't here."
 		end
+		@items[key.to_sym] if item.is_a?(Weapon)
 	end
 
 	def inventory

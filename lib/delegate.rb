@@ -225,7 +225,9 @@ class Delegate
 		if item_name.nil?
 			puts "Please supply an object to #{input}."
 		else
-			stuff = @player.pickup(item_name)
+			@player.pickup(item_name)
+			item = @player.items[item_name.to_sym]
+			equip(item_name) if item.is_a?(Weapon)
 		end
 	end
 
