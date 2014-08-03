@@ -11,6 +11,9 @@ require "minitest/autorun"
 
 def prompt(*a) "name" end
 
+def add_command_to_history(input)
+end
+
 describe Delegate do
 	
 	before do
@@ -23,6 +26,7 @@ describe Delegate do
 
 	after do
 		$stdout = STDOUT
+		File.delete($options[:save_file]) if File.file?($options[:save_file])
 	end
 
 	describe "invalid command is entered" do
@@ -59,6 +63,7 @@ describe Delegate do
 	describe "quests command" do
 		it "must list quests" do
 			@player.quests[:mordor].start
+			@out.truncate(0)
 			@delegate.parse("quests")
 			regex = /started quests:.+current task:.+mordor/mi
 			@out.string.must_match regex
@@ -78,6 +83,7 @@ describe Delegate do
 	describe "help command" do
 		it "must be kinda helpful" do
 			@delegate.parse("help")
+			# improve the regex below, probably by using .split instead of a regex
 			regex = /( n,| ne,|achievements|quests)/mi
 			@out.string.must_match regex
 		end
@@ -91,14 +97,24 @@ describe Delegate do
 		end
 	end
 
-	# describe "directional commands" do
-	# 	it "must complete a task if necessary when entered" do
-	# 		@player.current_room = @delegate.rooms[:path_by_village]
-	# 		refute(@player.quests[:main][:go_to_village].completed)
-	# 		@delegate.parse("e")
-	# 		assert(@player.quests[:main][:go_to_village].completed)
-	# 	end
-	# end
+	describe "directional commands" do
+		it "must complete a task if necessary when entered" do
+			@player.current_room = @delegate.rooms[:path_to_village]
+			@player.quests[:main][:climb_tree][:completed] = true
+			refute(@player.quests[:main][:go_to_village][:completed])
+			@delegate.parse("e")
+			assert(@player.quests[:main][:go_to_village][:completed])
+		end
+	end
+
+	describe "pickup command" do
+		it "picks up the correct item" do
+			@player.current_room = @delegate.rooms[:village]
+			@delegate.parse("get pickaxe")
+			has_item = @player.items[:pickaxe]
+			assert(has_item)
+		end
+	end
 
 end
 
@@ -107,18 +123,18 @@ describe Player do
 	before do
 		@out = StringIO.new
 		$stdout = @out
-		@player = Delegate.new.player
+		@delegate = Delegate.new
+		@player = @delegate.player
 		@out.truncate(0)
 	end
 
 	after do
 		$stdout = STDOUT
+		File.delete($options[:save_file]) if File.file?($options[:save_file])
 	end
 
 	describe "new game" do
 		it "must have no unlocked achievements" do
-			$stderr.puts @player.total_seconds
-			$stderr.puts @player.achievements.map {|k, a| "#{k}: #{a.unlocked?}"}
 			good = @player.achievements.none? { |_, a| a.unlocked? }
 			assert(good)
 		end

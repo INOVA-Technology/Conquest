@@ -44,7 +44,7 @@ class Quest
 			@tasks_completed += 1
 			new_task = current_task
 			xp = 15
-			xp += complete(new_task) if new_task[:will_complete]
+			xp += complete(new_task)[:xp] if new_task[:will_complete]
 		end
 
 		{xp: xp}
