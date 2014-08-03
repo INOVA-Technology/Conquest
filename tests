@@ -91,6 +91,15 @@ describe Delegate do
 		end
 	end
 
+	# describe "directional commands" do
+	# 	it "must complete a task if necessary when entered" do
+	# 		@player.current_room = @delegate.rooms[:path_by_village]
+	# 		refute(@player.quests[:main][:go_to_village].completed)
+	# 		@delegate.parse("e")
+	# 		assert(@player.quests[:main][:go_to_village].completed)
+	# 	end
+	# end
+
 end
 
 describe Player do

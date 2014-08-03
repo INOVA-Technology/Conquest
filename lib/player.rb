@@ -88,7 +88,6 @@ class Player
 		@rank += 1
 		puts "Rank up!".magenta
 		puts "Rank #{@rank}"
-		# @xp -= @max_xp 
 		@max_xp += 50*(@rank+1)
 		@max_health += 10*@rank
 		puts "New upgrade available!".magenta
@@ -102,63 +101,41 @@ class Player
 			puts "You have no upgrades available."
 			return
 		end
-		# return if @items.none? { |k, v| v.is_a?(Weapon) }
-		puts "Upgrades available! Plz enter the desired upgrade or cancel to do it later.".magenta
-		puts "Weapon | Health "
-		input = prompt.downcase
-		if input == "weapon" || input == "w"
-			if @items.none? { |k, v| v.is_a?(Weapon) }
-				puts "You have no weapons :(".red
-			else
-				upgrade_weapon(nil)
-			end
-		elsif input == "health" || input == "h"
-			@max_health += 10
-			@health = @max_health
-			puts "Max Health upgraded! +10".magenta
+		if @items.none? { |k, v| v.is_a?(Weapon) }
+			puts "You have to weapons to upgrade. Upgrade saved for later"
 			return
-		elsif input == "cancel" || input == "c"
-			return
-		else
-			puts "Plz enter a valid input".red
-			upgrade
 		end
+
+		puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
+
+		puts "Weapons available for upgrade:"
+		@items.values.each do |item|
+			if item.is_a?(Weapon)
+				puts item.name.downcase
+				puts "  Upgrades: +#{item.upgrade} damage"
+			end
+		end
+		input = convert_input(prompt("choose a weapon: "))
+		upgrade_weapon(input) unless /^c(ancel)?$/ === input
 	end
 
 	def upgrade_weapon(item_name)
-		if item_name == nil
-			puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
-			
-			puts "Weapons available for upgrade:"
-			@items.values.each do |item|
-				if item.is_a?(Weapon)
-					puts item.name.downcase
-					puts "  Upgrades: +#{item.upgrade} damage"
-				end
-			end
-			input = convert_input(prompt("choose a weapon: "))
-			if input == "back" || input == "b"
-				upgrade
-			end
-			item_name = input
-		end
-
 		if item = @items[item_name.to_sym]
 			if item.is_a?(Weapon)
 				value = 3 # this value can change
 				item.upgrade += value
-				puts "#{item.name} upgraded! +#{value} damage".magenta
+				puts "#{item.name} upgraded! +#{value} damage"
 				@upgrades -= 1
 
 				cmd = "upgrade #{item_name}"
 				add_command_to_history(cmd)
 			else
 				puts "That isn't a weapon."
-				upgrade_weapon(nil)
+				upgrade
 			end
 		else
 			puts "You don't have that."
-			upgrade_weapon(nil)
+			upgrade
 		end
 	end
 

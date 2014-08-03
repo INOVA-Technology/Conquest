@@ -1,6 +1,6 @@
 class Delegate
 
-	attr_accessor :player, :timer
+	attr_accessor :player, :timer, :rooms
 
 	def initialize
 		load_game
@@ -113,9 +113,9 @@ class Delegate
 			help
 		when /^(quit|exit)$/
 			quit
-		# when /^- (?<code>.+)$/
-		# 	eval($~[:code])
-		# 	save_command = false
+		when /^- (?<code>.+)$/
+			eval($~[:code])
+			save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
