@@ -111,7 +111,7 @@ module RoomList
 										unlocks: :peach
 										)}),
 					a_path:
-						Room.new(name: "Small path", desc: "You are on a small. It looks like you can see a light up ahead. You can go west and south.",
+						Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south.",
 							paths: { s: :more_trees_1}),
 
 					more_trees_1:
