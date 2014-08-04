@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :current_room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold, :achievements, :quests
+	attr_accessor :items, :room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold, :achievements, :quests
 	attr_reader :xp, :health, :weapon
 
 	def initialize
@@ -60,7 +60,7 @@ class Player
 		give_stuff(@achievements[hash[:achievement]].unlock) if hash[:achievement]
 		give_xp(hash[:xp]) if hash[:xp]
 		give_gold(hash[:gold]) if hash[:gold]
-		@current_room.items.merge(hash[:dropped_items]) if hash[:dropped_items]
+		@room.items.merge(hash[:dropped_items]) if hash[:dropped_items]
 		@items.merge(hash[:items]) if hash[:items]
 		unless hash[:task].nil? || hash[:task].empty?
 			task = hash[:task]
@@ -179,7 +179,7 @@ class Player
 	def pickup(key)
 		if item = item_in_room(key)
 			if item.can_pickup?
-				stuff = @current_room.pickup_item(key)
+				stuff = @room.pickup_item(key)
 				@items[key.to_sym] = item
 
 				give_stuff(stuff)
@@ -251,12 +251,12 @@ class Player
 		elsif place == "to merge conflictia"
 			:merge_conflictia
 		else
-			@current_room[place.to_sym]
+			@room[place.to_sym]
 		end
 	end
 
 	def item_in_room(item)
-		@current_room.items[item.to_sym]
+		@room.items[item.to_sym]
 	end
 
 end

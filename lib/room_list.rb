@@ -94,7 +94,7 @@ module RoomList
 									paths: { n: :forest_1, e: :forest_again, s: :forest_3 }
 									),
 								forest_again:
-									Room.new(name: "Large forest", desc: "TODO: change this description",
+									Room.new(name: "Large forest", desc: "TODO: change this description. btw, west.",
 										paths: { w: :forest_2 }
 										),
 							forest_3:

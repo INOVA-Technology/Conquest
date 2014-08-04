@@ -84,7 +84,6 @@ class Merchant < Person
 		@gold = rand(20..100)
 		@damage = (rand1..rand2)
 		@talk = @options[:talk] || "Like to shop around a bit, eh?"
-
 		@stock = @options[:stock] || {}
 	end
 

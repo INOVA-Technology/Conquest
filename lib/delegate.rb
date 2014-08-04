@@ -132,7 +132,7 @@ class Delegate
 					@enemy = nil unless @enemy.nil?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
-					@enemy = @player.current_room.people[enemy.to_sym]
+					@enemy = @player.room.people[enemy.to_sym]
 				when /^name (?<name>.+)\s?$/
 					name = $~[:name]
 					@player.name = name
@@ -216,8 +216,8 @@ class Delegate
 		if key.nil?
 			puts "You can't go that way"
 		elsif key
-			@player.current_room = @rooms[key]
-			@player.give_stuff(@player.current_room.enter)
+			@player.room = @rooms[key]
+			@player.give_stuff(@player.room.enter)
 		end
 	end
 
@@ -261,7 +261,7 @@ class Delegate
 				puts "You aren't fighting anyone."
 			end
 		else
-			victim = @player.current_room.people[enemy.to_sym]
+			victim = @player.room.people[enemy.to_sym]
 			if victim
 				if @enemy
 					if victim.name.downcase != @enemy.name.downcase
@@ -310,13 +310,13 @@ class Delegate
 		# Do I have this item?
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist? 👻
-			if @player.current_room.people[guy.to_sym]
+			if @player.room.people[guy.to_sym]
 				# awesome, we r not crazy... But does guy want this item?
-				if @player.current_room.people[guy.to_sym].item_wanted == item
-					puts @player.current_room.people[guy.to_sym].action
+				if @player.room.people[guy.to_sym].item_wanted == item
+					puts @player.room.people[guy.to_sym].action
 					# complete task?
-					if @player.current_room.people[guy.to_sym].task != nil
-						xp = @player.quests[@player.current_room.people[guy.to_sym].task[:quest]].complete(@player.current_room.people[guy.to_sym].task[:task])
+					if @player.room.people[guy.to_sym].task != nil
+						xp = @player.quests[@player.room.people[guy.to_sym].task[:quest]].complete(@player.room.people[guy.to_sym].task[:task])
 						@player.give_stuff(xp)
 					end
 
@@ -333,7 +333,7 @@ class Delegate
 	end
 
 	def look
-		@player.current_room.look
+		@player.room.look
 	end
 
 	def equip(weapon_name)
@@ -360,12 +360,12 @@ class Delegate
 			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
-		elsif the_item = @player.current_room.items[item.to_sym]
+		elsif the_item = @player.room.items[item.to_sym]
 			puts the_item.description
 			if the_item.is_a?(Weapon)
 				puts "Damage: #{the_item.damage}"
 			end
-		elsif the_item = @player.current_room.people[item.to_sym]
+		elsif the_item = @player.room.people[item.to_sym]
 			puts the_item.description
 			puts "Race: #{the_item.race}"
 		else
@@ -374,7 +374,7 @@ class Delegate
 	end
 
 	def talk(guy)
-		if dude = @player.current_room.people[guy.to_sym]
+		if dude = @player.room.people[guy.to_sym]
 			if dude.is_a?(Merchant)
 				dude.store
 			else
@@ -386,7 +386,7 @@ class Delegate
 	end
 
 	def buy(item)
-		merchant = @player.current_room.living_people[:merchants].first
+		merchant = @player.room.living_people[:merchants].first
 		if merchant
 			@player.give_stuff(merchant[1].sell(item, @player.gold))
 		else
@@ -402,9 +402,9 @@ class Delegate
 	end
 
 	def mine
-		if @player.current_room.is_a?(Mountain)
+		if @player.room.is_a?(Mountain)
 			if @player.items[:pickaxe]
-				@player.give_stuff(@player.current_room.mine)
+				@player.give_stuff(@player.room.mine)
 			else
 				puts "You have nothing to mine with."
 			end
@@ -415,7 +415,7 @@ class Delegate
 
 	def climb(thing_name)
 		thing_name = convert_input(thing_name)
-		if 🌳 = @player.current_room.items[:tree]
+		if 🌳 = @player.room.items[:tree]
 			name = 🌳.name.downcase
 			if [nil, "tree"].include?(thing_name)
 				res = 🌳.climb
@@ -423,7 +423,7 @@ class Delegate
 			else
 				puts "You can't climb that."
 			end
-		elsif @rooms[@player.current_room[:u]].is_a?(Mountain)
+		elsif @rooms[@player.room[:u]].is_a?(Mountain)
 			if [nil, "mountain"].include?(thing_name)
 				walk("u")
 			end
@@ -437,7 +437,7 @@ class Delegate
 		room = :courtyard
 		@player = Player.new
 		@rooms = RoomList.rooms
-		@player.current_room = @rooms[room]
+		@player.room = @rooms[room]
 		@player.quests[:main].start(false)
 		@enemy = nil
 		if File.file?($options[:save_file])
@@ -453,7 +453,7 @@ class Delegate
 			look
 		else
 			get_name
-			@player.current_room.enter
+			@player.room.enter
 		end
 	end
 

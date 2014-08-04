@@ -99,7 +99,7 @@ describe Delegate do
 
 	describe "directional commands" do
 		it "must complete a task if necessary when entered" do
-			@player.current_room = @delegate.rooms[:path_to_village]
+			@player.room = @delegate.rooms[:path_to_village]
 			@player.quests[:main][:climb_tree][:completed] = true
 			refute(@player.quests[:main][:go_to_village][:completed])
 			@delegate.parse("e")
@@ -109,7 +109,7 @@ describe Delegate do
 
 	describe "pickup command" do
 		it "picks up the correct item" do
-			@player.current_room = @delegate.rooms[:village]
+			@player.room = @delegate.rooms[:village]
 			@delegate.parse("get pickaxe")
 			has_item = @player.items[:pickaxe]
 			assert(has_item)
