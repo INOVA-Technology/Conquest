@@ -17,10 +17,10 @@ class Delegate
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
-			direction = $~[:direction]
+			direction = convert_input($~[:direction])
 			walk(direction)
 		when /^(go|walk)( (?<direction>#{directions}|to mordor|to merge conflictia))?$/
-			if direction = $~[:direction]
+			if direction = convert_input($~[:direction])
 				walk(direction)
 			else
 				puts "#{input.capitalize} where?"
