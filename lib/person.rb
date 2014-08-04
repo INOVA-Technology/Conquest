@@ -32,12 +32,18 @@ class Person
 		@task = (options[:task] || nil)
 		# This was left in because some characters will be able to be picked up
 		@can_pickup = (options[:hidden] || true)
+		@on_talk = options[:on_talk] || {}
 
 		# never set in options
 		@is_alive = true
 		@bad = false
 		@merchant = false
 		add_info
+	end
+
+	def speak
+		puts @talk.yellow
+		{achievement: @on_talk[:achievement], task: @on_talk[:task]}
 	end
 
 	def die
@@ -58,8 +64,7 @@ class Person
 
 	def take_damage(amount)
 		@health -= amount
-		die unless is_alive
-	end
+		die unless is_alive	end
 
 	def attack
 		rand(@damage)
@@ -101,10 +106,10 @@ class Merchant < Person
 	
 	alias_method :sells?, :sells
 
-	def sell(input, player_gold)
-		item = input.to_sym
+	def sell(item_name, player_gold)
 		player_reward = {}
-		if item = @stock[item]
+		if sells(item_name)
+			item = @stock[item_name.to_sym]
 			if player_gold >= (price = item.cost)
 				player_reward[:items] = @stock.delete(item)
 				player_reward[:gold] = -price

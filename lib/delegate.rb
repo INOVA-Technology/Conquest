@@ -378,7 +378,7 @@ class Delegate
 			if dude.is_a?(Merchant)
 				dude.store
 			else
-				puts dude.talk.yellow
+				@player.give_stuff(dude.speak)
 			end
 		else
 			puts "#{guy} isn't in this room."
