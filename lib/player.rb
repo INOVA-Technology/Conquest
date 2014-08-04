@@ -248,7 +248,7 @@ class Player
 
 	def info
 		puts "Health: #@health/#@max_health"
-		puts "XP: #{@xp}/#{@max_xp} "
+		puts "XP: #{@xp}/#{@max_xp}"
 		puts "Rank: #{@rank}"
 		puts "Gold: #{@gold}"
 		puts "Equiped Weapon: #{(@weapon ? @weapon.name : "none")}"

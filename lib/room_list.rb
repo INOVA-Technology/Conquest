@@ -190,9 +190,9 @@ module RoomList
 															race: "Elf",
 															talk: "I can read elvish. Go figure.",
 															item_wanted: "scroll",
-															action: "Randy reads the scroll and gives you the gist of it: \nIt says to find the eagles to take you to Mordor so you may save the world.\nGo to the forest of mirkwood.  The elves there are my kin.  They will\nknow where to start.",
+															action: "Randy reads the scroll and gives you the gist of it: \nIt says to find the eagles to take you to Mordor so you may save the world.\nGo to the forest of mirkwood. The elves there are my kin. They will\nknow where to start.",
 															health: 200,
-															damage: 25,
+															damage: 25..25,
 															xp: 40,
 															task: { quest: :mordor, task: :read_scroll }
 															)}),

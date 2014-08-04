@@ -44,7 +44,7 @@ class Delegate
 			else
 				puts "Buy what?"
 			end
-		when /^give( (?<item>[a-z ]+)) to( (?<guy>[a-z ]+))?$/
+		when /^(give (?<item>[a-z]+) to (?<guy>[a-z ]+)|give( (?<guy>[a-z]+)?( (?<item>[a-z]+)?)?)?)$/
 			item = convert_input($~[:item])
 			guy = convert_input($~[:guy])
 			give(item, guy)
@@ -172,7 +172,7 @@ class Delegate
 	end
 
 	def list_quests
-		started_quests = @player.quests.values.select { |i| (i.started) }
+		started_quests = @player.quests.values.select { |i| i.started }
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|
@@ -224,7 +224,7 @@ class Delegate
 			puts "Please supply an object to pickup."
 		else
 			@player.pickup(item_name)
-			item = @player.items[item_name.to_sym]
+			item = @player.get_item(item_name)
 			equip(item_name) if item.is_a?(Weapon)
 		end
 	end
@@ -255,7 +255,7 @@ class Delegate
 				puts "You aren't fighting anyone."
 			end
 		else
-			victim = @player.room.people[enemy.to_sym]
+			victim = @player.room.get_person(enemy)
 			if victim
 				if @enemy
 					if victim.name.downcase != @enemy.name.downcase
@@ -302,9 +302,14 @@ class Delegate
 
 	def give(item, guy)
 		# Do I have this item?
+		unless item && guy
+			puts "Give who what?"
+			return
+		end
+
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist? 👻
-			if @player.room.people[guy.to_sym]
+			if @player.room.get_person(guy)
 				# awesome, we r not crazy... But does guy want this item?
 				if @player.room.people[guy.to_sym].item_wanted == item
 					puts @player.room.people[guy.to_sym].action
