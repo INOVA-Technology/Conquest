@@ -74,8 +74,6 @@ class Delegate
 			list_quests
 		when /^achievements$/
 			list_achievements
-		when /^inv(entory)?$/
-			inventory
 		when /^climb( (?<tree_name>[a-z ]+))?$/
 			# this regex needs to be cleaned up, just the tree part really
 			# nvm, the whole regex sucks
@@ -94,7 +92,7 @@ class Delegate
 			enemy = convert_input($~[:enemy])
 			fight(enemy, @player.smack)
 			save_command = false
-		when /^i(nfo)?$/
+		when /^(i|inv|inventory|info)?$/
 			info
 		when /^eat( (?<food>[a-z ]+)?)?$/
 			if food = convert_input($~[:food])
@@ -229,10 +227,6 @@ class Delegate
 			item = @player.items[item_name.to_sym]
 			equip(item_name) if item.is_a?(Weapon)
 		end
-	end
-
-	def inventory
-		@player.inventory
 	end
 
 	def info
