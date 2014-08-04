@@ -197,7 +197,7 @@ class Delegate
 		puts
 		puts "Here are some basic commands to help you out: n, e, s, w, ne, nw, ..."
 		puts "You get the point."
-		puts %q[You can also type stuff like "go north", "north", and "go n"]
+		puts %q[You can also type stuff like "go north", "north", and "go n", "walk north"]
 		puts
 		puts "Also, \"achievements\" views your unlocks achievements"
 		puts "and \"quests\" views the status on your started quests,"
