@@ -309,13 +309,13 @@ class Delegate
 
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist? 👻
-			if @player.room.get_person(guy)
+			if person = @player.room.get_person(guy)
 				# awesome, we r not crazy... But does guy want this item?
-				if @player.room.people[guy.to_sym].item_wanted == item
-					puts @player.room.people[guy.to_sym].action
+				if person.item_wanted == item
+					puts person.action
 					# complete task?
-					if @player.room.people[guy.to_sym].task != nil
-						xp = @player.quests[@player.room.people[guy.to_sym].task[:quest]].complete(@player.room.people[guy.to_sym].task[:task])
+					if person.task
+						xp = @player.quests[person.task[:quest]].complete(person.task[:task])
 						@player.give_stuff(xp)
 					end
 
@@ -336,7 +336,7 @@ class Delegate
 	end
 
 	def equip(weapon_name)
-		if weapon = @player.items[weapon_name.to_sym]
+		if weapon = @player.get_item(weapon_name)
 			if weapon.is_a?(Weapon)
 				@player.weapon = weapon
 				puts "#{weapon_name} has been equipped!".cyan
@@ -354,21 +354,14 @@ class Delegate
 
 	def inspect(item)
 		# this could be refactored
-		if the_item = @player.items[item.to_sym]
-			puts the_item.description
-			if the_item.is_a?(Weapon)
-				puts "Damage: #{the_item.damage}"
-			end
-		elsif the_item = @player.room.items[item.to_sym]
-			puts the_item.description
-			if the_item.is_a?(Weapon)
-				puts "Damage: #{the_item.damage}"
-			end
-		elsif the_item = @player.room.people[item.to_sym]
-			puts the_item.description
-			puts "Race: #{the_item.race}"
+		if the_item = @player.get_item(item)
+			the_item.info
+		elsif the_item = @player.room.get_item(item)
+			the_item.info
+		elsif person = @player.room.get_person(item)
+			person.info
 		else
-			puts "This item is not here or your inventory."
+			puts "#{item} is not here or your inventory."
 		end
 	end
 

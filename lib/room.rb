@@ -36,6 +36,10 @@ class Room
 		hash
 	end
 
+	def get_item(item)
+		@items[item.to_sym]
+	end
+
 	def get_person(name)
 		person = @people[name.to_sym]
 		if person

@@ -25,6 +25,14 @@ class Item
 		hash
 	end
 
+	def info
+		puts @description 
+		look_info
+	end
+
+	def look_info
+	end
+
 	def add_info
 	end
 
@@ -46,6 +54,10 @@ class Food < Item
 	def add_info
 		@restores = @options[:restores]
 	end
+
+	def look_info
+		puts "Restores #@restores health."
+	end
 end
 
 class Book < Item
@@ -65,20 +77,24 @@ end
 
 class Weapon < Item
 	attr_reader :upgrade
-	attr_accessor :damage, :attacks, :regex_attacks, :upgrade
+	attr_accessor :attacks, :regex_attacks, :upgrade
 
 	def add_info
 		@upgrade = 0
 		@attacks = @options[:attacks] # ex. {uppercut: 5..10, slash: 6..8, attack: 3..7} they all gotta be ranges, even 5..5 workss
 		@regex_attacks = @options[:regex_attacks] # ex. "uppercut|slash|attack"
 	end
+
+	def look_info
+		puts "Upgrades: +#{upgrade} damage"
+	end
 end
 
 class Tree < Prop
 
 	def climb
-		if @options[:can_climb]
-			puts @description
+		if @options[:on_climb]
+			puts @options[:on_climb]
 		else
 			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
@@ -88,5 +104,6 @@ class Tree < Prop
 		hash[:task] = @task if @task
 		hash
 	end
+	
 end
 

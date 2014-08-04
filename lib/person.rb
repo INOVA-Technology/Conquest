@@ -71,8 +71,9 @@ class Person
 	end
 
 	def info
-		puts "#{name}'s info"
+		puts "#@name's info"
 		puts "Health: #@health"
+		puts "Race: #@name"
 	end
 end
 

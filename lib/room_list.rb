@@ -85,8 +85,8 @@ module RoomList
 									Room.new(name: "Large banyan tree", desc: "There is a large banyan tree, with many twists and roots going up the tree.\nYou can go west.",
 										paths: { w: :forest_1 },
 										items: {
-											tree: Tree.new(name: "Banyan", desc: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.", # 👻
-												can_climb: true,
+											tree: Tree.new(name: "Banyan", desc: "What a nice, climable tree.", # 👻
+												on_climb: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
 												task: { quest: :main, task: :climb_tree}
 												)}),
 							forest_2:
