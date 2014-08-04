@@ -10,7 +10,7 @@ class Delegate
 	def parse(input)
 		check_time unless $options[:loading]
 		save_command = true
-		directions = "up|down|north|east|south|west|u|d|n|e|s|w"
+		directions = "up|down|north|east|south|west|u|d|n|e|s|w|ne|nw|se|sw"
 
 		# this would be part of a regex, like directions. ex. "uppercut|slash|attack"
 		special_attacks = (@player.weapon.nil? ? "dontMakeAnAttackNamedThis" : @player.weapon.regex_attacks)
