@@ -221,7 +221,7 @@ class Delegate
 
 	def pickup(item_name)
 		if item_name.nil?
-			puts "Please supply an object to #{input}."
+			puts "Please supply an object to pickup."
 		else
 			@player.pickup(item_name)
 			item = @player.items[item_name.to_sym]
@@ -238,9 +238,9 @@ class Delegate
 		@player.eat(food)
 	end
 
-	def read(book)
-		if books = @player.items[book.to_sym]
-			books.read
+	def read(title)
+		if book = @player.get_item(title)
+			book.read
 		else
 			puts "You can't read that."
 		end

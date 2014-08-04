@@ -109,12 +109,12 @@ class Player
 		puts "Choose a weapon to upgrade, or enter Cancel\nto save your upgrade for later"
 
 		puts "Weapons available for upgrade:"
-		@items.values.each do |item|
-			if item.is_a?(Weapon)
-				puts item.name.downcase
-				puts "  Upgrades: +#{item.upgrade} damage"
-			end
+		
+		get_items[:weapons].each do |_, item|
+			puts item.name.downcase
+			puts "  Upgrades: +#{item.upgrade} damage"
 		end
+
 		input = convert_input(prompt("choose a weapon: "))
 		upgrade_weapon(input) unless /^c(ancel)?$/ === input
 	end
@@ -233,6 +233,18 @@ class Player
 	end
 
 	alias_method :completed_task?, :completed_task
+
+	def get_items
+		{
+		all: @items,
+		weapons: @items.select { |_, p| p.is_a?(Weapon) },
+		food: @items.select { |_, p| p.is_a?(Food) }
+		}
+	end
+
+	def get_item(item)
+		@items[item.to_sym]
+	end
 
 	def info
 		puts "Health: #@health/#@max_health"
