@@ -180,7 +180,7 @@ class Delegate
 			started_quests.map do |quest|
 				percent = quest.tasks_completed.to_f/quest.tasks.length.to_f*100
 				puts "#{quest.name}: #{percent.round}%"
-				puts "  Current Task: #{quest.current_task[:description]}" \
+				puts "  Current Task: #{quest.current_task[1][:description]}" \
 					unless quest.completed
 				puts
 			end
@@ -386,7 +386,7 @@ class Delegate
 	end
 
 	def buy(item)
-		merchant = @player.current_room.visible_people[:merchants].first
+		merchant = @player.current_room.living_people[:merchants].first
 		if merchant
 			@player.give_stuff(merchant[1].sell(item, @player.gold))
 		else

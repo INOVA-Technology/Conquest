@@ -28,19 +28,19 @@ class Quest
 
 	def complete(task)
 		xp = 0
-		the_task = (task.is_a?(Hash) ? task : tasks[task])
+		the_task = tasks[task]
 
 		if the_task != current_task
 			the_task[:will_complete] = true
 		end
 
-		if !the_task[:completed] && the_task == current_task
+		if !the_task[:completed] && the_task == current_task[1]
 			the_task[:completed] = true
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			@tasks_completed += 1
 			new_task = current_task
 			xp = 15
-			xp += complete(new_task)[:xp] if new_task[:will_complete]
+			xp += complete(new_task[0])[:xp] if new_task[1][:will_complete]
 		end
 
 		{xp: xp}
@@ -48,7 +48,7 @@ class Quest
 	
 	def current_task
 		result = @tasks.detect { |_, task| !task[:completed] }
-		result.nil? ? {} : result[1]
+		result.nil? ? {} : result
 	end
 
 	def [](task)

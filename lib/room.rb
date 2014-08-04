@@ -36,8 +36,8 @@ class Room
 		hash
 	end
 
-	def visible_people
-		all = @people.select { |_, p| p.is_alive && !p.hidden }
+	def living_people(show_hidden = false)
+		all = @people.select { |_, p| p.is_alive }
 		{
 		all: all,
 		merchants: all.select { |_, p| p.is_a?(Merchant) },
@@ -68,10 +68,10 @@ class Room
 			end
 		end
 
-		unless visible_people[:all].empty?
+		unless living_people[:all].empty?
 
 			puts "People that are here:".magenta
-			visible_people[:all].map do |_, people|
+			living_people[:all].map do |_, people|
 				puts "#{people.name}"
 			end
 		end
