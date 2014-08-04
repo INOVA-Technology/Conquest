@@ -16,7 +16,7 @@ class Player
 		# its year, month, day, hour, minute
 		# the year, month, and day should be changed. Probably to the past
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
-		@time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
+		@time = @begining_of_time
 		
 		# @total[:total] is in seconds
 		@total_seconds = 0
@@ -213,6 +213,24 @@ class Player
 	def smack
 		rand(2..4)
 	end
+
+	def has_unlocked(achievement)
+		@achievements[achievement.to_sym].unlocked?
+	end
+
+	alias_method :has_unlocked?, :has_unlocked
+
+	def completed_quest(quest)
+		@quests[quest.to_sym].completed?
+	end
+
+	alias_method :completed_quest?, :completed_quest
+
+	def completed_task(task, quest)
+		@quests[quest.to_sym][task.to_sym][:completed]
+	end
+
+	alias_method :completed_task?, :completed_task
 
 	def info
 		puts "Health: #@health/#@max_health"
