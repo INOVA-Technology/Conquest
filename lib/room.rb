@@ -36,8 +36,14 @@ class Room
 		hash
 	end
 
+	def get_person(name)
+		person = @people[name.to_sym]
+		(person.is_alive? ? person : nil)
+	end
+
 	def living_people(show_hidden = false)
 		all = @people.select { |_, p| p.is_alive }
+		all = all.reject { |_, p| p.hidden }
 		{
 		all: all,
 		merchants: all.select { |_, p| p.is_a?(Merchant) },

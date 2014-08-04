@@ -374,7 +374,7 @@ class Delegate
 	end
 
 	def talk(guy)
-		if dude = @player.room.people[guy.to_sym]
+		if dude = @player.room.get_person(guy)
 			if dude.is_a?(Merchant)
 				dude.store
 			else
