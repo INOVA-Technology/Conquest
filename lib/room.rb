@@ -38,7 +38,11 @@ class Room
 
 	def get_person(name)
 		person = @people[name.to_sym]
-		(person.is_alive? ? person : nil)
+		if person
+			(person.is_alive? ? person : nil)
+		else
+			nil
+		end
 	end
 
 	def living_people(show_hidden = false)
