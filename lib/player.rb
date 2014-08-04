@@ -149,6 +149,8 @@ class Player
 		@health > 0
 	end
 
+	alias_method :is_alive?, :is_alive
+
 	def heal(amount)
 		old_health = @health
 		@health += amount

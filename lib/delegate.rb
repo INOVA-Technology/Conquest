@@ -269,7 +269,7 @@ class Delegate
 						return
 					end
 				end
-				if victim.is_alive
+				if victim.is_alive?
 					@enemy = victim
 					add_command_to_history("enemy #{enemy}")
 					attack_enemy(attack)
@@ -294,7 +294,7 @@ class Delegate
 		stuff = @enemy.take_damage(damage)
 
 		_damage = 0
-		if @enemy.is_alive
+		if @enemy.is_alive?
 			_damage = @enemy.attack
 			badguy_says = [ "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}", "#{@enemy.name} is on fire  #{"-".red + _damage.to_s.red}", "POW! That hurt.  #{"-".red + _damage.to_s.red}" ]
 			puts badguy_says.rand_choice
@@ -386,9 +386,9 @@ class Delegate
 	end
 
 	def buy(item)
-		merchant = @player.current_room.people.select { |_, p| p.is_a?(Merchant) }.first
+		merchant = @player.current_room.living_people[:merchants].first
 		if merchant
-			@player.give_stuff(merchant[1].buy(item, @player.gold))
+			@player.give_stuff(merchant[1].sell(item, @player.gold))
 		else
 			puts "There is no one to buy from here."
 		end

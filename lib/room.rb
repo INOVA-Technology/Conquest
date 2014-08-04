@@ -15,7 +15,6 @@ class Room
 	end
 
 	def add_info
-
 	end
 
 	def [](direction)
@@ -35,6 +34,14 @@ class Room
 			hash[:task] = @task if @task
 		end		
 		hash
+	end
+
+	def living_people
+		{
+		all: @people,
+		merchants: @people.select { |_, p| p.is_a?(Merchant) },
+		enemies: @people.select { |_, p| p.is_a?(Enemy) }
+		}
 	end
 
 	def pickup_item(item)

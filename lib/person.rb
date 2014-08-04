@@ -51,6 +51,8 @@ class Person
 		@health > 0
 	end
 
+	alias_method :is_alive?, :is_alive
+
 	def add_info
 	end
 
@@ -94,13 +96,17 @@ class Merchant < Person
 		end
 	end
 
-	def buy(input, player_gold)
+	def sells(item)
+		!!@stock[item.to_sym]
+	end
+
+	def sell(input, player_gold)
 		item = input.to_sym
-		give_to_player = {}
+		player_reward = {}
 		if item = @stock[item]
 			if player_gold >= (price = item.cost)
-				give_to_player[:items] = @stock.delete(item)
-				give_to_player[:gold] = -price
+				player_reward[:items] = @stock.delete(item)
+				player_reward[:gold] = -price
 				puts "You bought #{item.name} for #{price} gold"
 			else
 				puts "u ain't got the cash, boy."
@@ -108,7 +114,7 @@ class Merchant < Person
 		else
 			puts "That isn't sold here"
 		end
-		give_to_player
+		player_reward
 	end
 
 end
