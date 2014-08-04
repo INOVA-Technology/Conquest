@@ -386,7 +386,7 @@ class Delegate
 	end
 
 	def buy(item)
-		merchant = @player.current_room.living_people[:merchants].first
+		merchant = @player.current_room.visible_people[:merchants].first
 		if merchant
 			@player.give_stuff(merchant[1].sell(item, @player.gold))
 		else

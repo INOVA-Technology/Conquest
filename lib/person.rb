@@ -99,6 +99,8 @@ class Merchant < Person
 	def sells(item)
 		!!@stock[item.to_sym]
 	end
+	
+	alias_method :sells?, :sells
 
 	def sell(input, player_gold)
 		item = input.to_sym

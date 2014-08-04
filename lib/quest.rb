@@ -28,11 +28,7 @@ class Quest
 
 	def complete(task)
 		xp = 0
-		the_task = if task.is_a?(Hash)
-					task
-				else
-					tasks[task]
-				end
+		the_task = (task.is_a?(Hash) ? task : tasks[task])
 
 		if the_task != current_task
 			the_task[:will_complete] = true
