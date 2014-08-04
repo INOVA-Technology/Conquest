@@ -39,8 +39,10 @@ class Quest
 			puts "Task '#{the_task[:description]}' completed!".cyan
 			@tasks_completed += 1
 			new_task = current_task
-			xp = 15
-			xp += complete(new_task[0])[:xp] if new_task[1][:will_complete]
+			xp += 15
+			unless new_task.empty?
+				xp += complete(new_task[0])[:xp] if new_task[1][:will_complete]
+			end
 		end
 
 		{xp: xp}
