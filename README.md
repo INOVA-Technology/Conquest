@@ -21,7 +21,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add installer
 * - add an updater
 * - you can only have one of each item
-* - fix the saving of any random numbers
+*   make a better way to save the game
 *   make a working telnet server
 *   finish tests
 *   add merge conflictia into map.txt

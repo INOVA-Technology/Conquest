@@ -106,6 +106,7 @@ if __FILE__ == $0
 	if rand(1..chance) == 1
 		puts "Theres a 1 in #{chance} that this will be printed."
 		delegate.player.give_stuff(delegate.player.achievements[:lucky].unlock)
+		add_command_to_history("unlock lucky")
 	end
 
 	loop do

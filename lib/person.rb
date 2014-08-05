@@ -22,8 +22,8 @@ class Person
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
 		@items = (@options[:items] || {})
-		@xp = (@options[:xp] || rand(0..5)) # make this small for good guys
-		@gold = (@options[:gold] || rand(0..10))
+		@xp = (@options[:xp] || 3) # make this small for good guys
+		@gold = (@options[:gold] || 3)
 
 		# not required: 
 		@action = options[:action].to_s.yellow
@@ -85,10 +85,8 @@ end
 
 class Merchant < Person
 	def add_info
-		rand1 = rand(0..10)
-		rand2 = rand(10..30)
-		@gold = rand(20..100)
-		@damage = (rand1..rand2)
+		@gold = 45
+		@damage = 15..30
 		@talk = @options[:talk] || "Like to shop around a bit, eh?"
 		@stock = @options[:stock] || {}
 	end

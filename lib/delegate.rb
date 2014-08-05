@@ -84,7 +84,7 @@ class Delegate
 			attack = $~[:attack].to_sym
 			enemy = convert_input($~[:enemy])
 			fight(enemy, attack)
-			# save_command = false
+			save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
 		# have both an attack method and "attack" in the attacks variable
