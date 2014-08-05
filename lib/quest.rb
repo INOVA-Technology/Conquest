@@ -12,8 +12,8 @@ class Quest
 		end
 		# then @tasks will be this:
 		# { 
-		# find_ring: {description: "My Precious", completed: false},
-		# melt_ring: {description: "Idk", completed: false}
+		# find_ring: {description: "My Precious", completed: false, etc...},
+		# melt_ring: {description: "Idk", completed: false, etc...}
 		# }
 		@started = false
 		@options = options

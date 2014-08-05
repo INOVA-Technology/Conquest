@@ -199,16 +199,8 @@ class Player
 
 	def inventory
 		@items.values.each do |item|
-			a_or_an = %w[a e i o u].include?(item.name[0].downcase) \
-				? "an " : "a "
-			a_or_an = "" if item.name[-1] == "s"
-			if item.is_a?(Weapon)
-				puts "#{a_or_an}#{item.name.downcase}"
-				# puts "  " + (@weapon == item ? "Equiped" : "Not equiped")
-				puts "  Upgrades: +#{item.upgrade} damage"
-			else
-				puts "#{a_or_an}#{item.name.downcase}"
-			end
+			puts item.name_with_prefix
+			puts "  Upgrades: +#{item.upgrade} damage" if item.is_a?(Weapon)
 		end
 	end
 

@@ -75,10 +75,7 @@ class Room
 
 			puts "Items that are here:".magenta
 			visible_items.map do |item|
-				a_or_an = %w[a e i o u].include?(item.name[0]) \
-					? "an " : "a "
-				a_or_an = "" if item.name[-1] == "s"
-				puts "#{a_or_an}#{item.name.downcase}"
+				puts item.name_with_prefix
 			end
 		end
 

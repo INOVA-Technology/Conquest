@@ -47,7 +47,7 @@ module RoomList
 									Room.new(name: "Dinning hall", desc: "The dinning hall. There is a door to the east.",
 										paths: { e: :hallway },
 										items: { 
-											apple: Food.new(name: "Apple", desc: "A juicy macintosh apple.",
+											apple: Food.new(name: "Apple", prefix: "an", desc: "A juicy macintosh apple.",
 												restores: 7)
 										}),
 							castle:
@@ -85,7 +85,7 @@ module RoomList
 									Room.new(name: "Large banyan tree", desc: "There is a large banyan tree, with many twists and roots going up the tree.\nYou can go west.",
 										paths: { w: :forest_1 },
 										items: {
-											tree: Tree.new(name: "Banyan", desc: "What a nice, climable tree.", # 👻
+											tree: Tree.new(name: "Banyan", prefix: "a", desc: "What a nice, climable tree.", # 👻
 												on_climb: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
 												task: { quest: :main, task: :climb_tree}
 												)}),
@@ -106,7 +106,7 @@ module RoomList
 								paths: { e: :forest_3, w: :more_trees_1 },
 								items: {
 									# a peach: 🍑
-									peach: Food.new(name: "Peach", desc: "A delicious peach",
+									peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach",
 										restores: 5,
 										unlocks: :peach
 										)}),
@@ -135,7 +135,7 @@ module RoomList
 									Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
 										paths: { w: :path_to_village, s: :forest_by_village },
 										items: { 
-											pickaxe: Weapon.new(name: "Pickaxe", desc: "Be careful, it looks sharp.",
+											pickaxe: Weapon.new(name: "Pickaxe", prefix: "a", desc: "Be careful, it looks sharp.",
 												attacks: { chop: 5..8, attack: 5..5 },
 												regex_attacks: "chop|attack"
 												)},
@@ -148,7 +148,7 @@ module RoomList
 												race: "Human",
 												talk: "Let's see what we've got in the trailer for you...",
 												stock: {
-													peach: Food.new(name: "Peach", desc: "A delicious peach", restores: 5, cost: 5),
+													peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", restores: 5, cost: 5),
 													ice: Food.new(name: "Ice", desc: "Just some ice", restores: 1, cost: 2)
 												})},
 										task: { quest: :main, task: :go_to_village}),
@@ -179,7 +179,7 @@ module RoomList
 
 													# the scroll and Randy should be moved to mountain_3 once it exists
 													items: {
-														scroll: Book.new(name: "Scroll", desc: "Its some kind of elvish... You can't read it.",
+														scroll: Book.new(name: "Scroll", prefix: "a", desc: "Its some kind of elvish... You can't read it.",
 															title: "Parma od Osto",
 															print: "hirsornë an tululyë an Mordor san polendraith kemen",
 															starts_quest: :mordor,
@@ -220,7 +220,7 @@ module RoomList
 								Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You can go south and east"),
 									paths: { s: :merge_conflictia, e: :abyss2 },
 									items: {
-										iphone: Item.new(name: str_to_hex("iphone"), desc: str_to_hex("The perfect smart phone"))
+										iphone: Item.new(name: str_to_hex("iphone"), prefix: str_to_hex("an"), desc: str_to_hex("The perfect smart phone"))
 									}
 								),
 								abyss2:
@@ -231,7 +231,7 @@ module RoomList
 								Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
 									paths: { n: :abyss1 },
 									items: {
-										staff: Weapon.new(name: "Staff", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.",
+										staff: Weapon.new(name: "Staff", prefix: "a", desc: "This appears to be the legendary staff of confusion.  It can be used as a \ndeadly weapon in combat.",
 											attacks: { attack: 22..26, jab: 20..40, demolish: 10..50 },
 											regex_attacks: "attack|jab|demolish"
 										)},

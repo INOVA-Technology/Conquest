@@ -6,8 +6,12 @@ class Item
 	alias_method :hidden?, :hidden
 
 	def initialize(options = {})
+		# required:
 		@name = options[:name]
 		@description = options[:desc]
+		@prefix = options[:prefix] || "" # not need when the item is plural
+		@prefix += " " unless @prefix.empty?
+
 		@options = options
 		@hidden = options[:hidden] || false
 		@can_pickup = !options[:hidden] || true
@@ -23,6 +27,10 @@ class Item
 		hash[:achievement] = @options[:unlocks]
 		hash[:task] = @task if @task
 		hash
+	end
+
+	def name_with_prefix
+		@prefix + @name.downcase
 	end
 
 	def info
@@ -76,7 +84,6 @@ class Book < Item
 end
 
 class Weapon < Item
-	attr_reader :upgrade
 	attr_accessor :attacks, :regex_attacks, :upgrade
 
 	def add_info
