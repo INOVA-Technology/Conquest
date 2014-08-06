@@ -92,7 +92,7 @@ class Delegate
 			enemy = convert_input($~[:enemy])
 			fight(enemy, @player.smack)
 			save_command = false
-		when /^(i|inv|inventory|info)?$/
+		when /^(i|inv|inventory|info)$/
 			info
 		when /^eat( (?<food>[a-z ]+)?)?$/
 			if food = convert_input($~[:food])
@@ -152,6 +152,9 @@ class Delegate
 			end
 		end
 		add_command_to_history(input) if !$options[:loading] && save_command
+
+		# remove lines in readline history containing only white space
+		Readline::HISTORY.pop if Readline::HISTORY.to_a[-1].to_s.match(/^\s*$/)
 	end
 
 	def keep_time
@@ -172,7 +175,8 @@ class Delegate
 	end
 
 	def list_quests
-		started_quests = @player.quests.values.select { |i| i.started }
+		started_quests = @player.started_quests.values
+
 		unless started_quests.empty?
 			puts "Started Quests:".magenta
 			started_quests.map do |quest|

@@ -17,13 +17,11 @@ class Player
 		# the year, month, and day should be changed. Probably to the past
 		@begining_of_time = {year: 2000, month: 1, day: 1, hour: 6, minute: 30}
 		@time = @begining_of_time
-		
+
 		# @total[:total] is in seconds
 		@total_seconds = 0
 
-		# eventualy, this needs to be put somewhere else
 		@achievements = AchievementList.achievements
-		# this too
 		@quests = QuestList.quests
 
 		self
@@ -55,6 +53,19 @@ class Player
 	end
 
 	def give_stuff(hash) # i didn't know what to name this
+
+		# this method accepts these symbols for keys, leave any values you don't need nil:
+			# :die            if this is true, die will be called
+			# :quest          a symbol that is a key in @quests for the quest to be started
+			# :achievements   a symbol that is a key in @achievements for the achievement to be unlocked
+			# :xp             the amount of xp the player will get
+			# :gold           the amount of gold the player will get
+			# :dropped_items  any items in this will be merged into @room
+			# :items          any items in this will be merged into @items
+			# :task           a hash with a :quest key, and a :task key,
+							  # where :task's value is the key for the task in the quest,
+							  # and :quest is the key for the quest.
+
 		die if hash[:die] # this must be first
 		@quests[hash[:quest]].start if hash[:quest]
 		give_stuff(@achievements[hash[:achievement]].unlock) if hash[:achievement]
@@ -225,6 +236,14 @@ class Player
 	end
 
 	alias_method :completed_task?, :completed_task
+
+	def started_quests
+		@quests.select { |_, i| i.started? }
+	end
+
+	def completed_quests
+		@quests.select { |_, i| i.completed? }
+	end
 
 	def get_items
 		{

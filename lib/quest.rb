@@ -19,6 +19,8 @@ class Quest
 		@options = options
 	end
 
+	alias_method :started?, :started
+
 	def start(message = true)
 		unless @started
 			puts "#{'Quest started!'.cyan} - #{@name}" if message
