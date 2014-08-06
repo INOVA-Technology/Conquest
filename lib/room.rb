@@ -11,10 +11,6 @@ class Room
 		@task = (options[:task] || {})
 		@options = options
 		@visited = false
-		add_info
-	end
-
-	def add_info
 	end
 
 	def [](direction)

@@ -18,7 +18,6 @@ class Item
 		@task = options[:task]
 		@item_xp = options[:xp] || 0
 		@cost = options[:cost] || 0
-		add_info
 	end
 
 	def pickup
@@ -41,13 +40,11 @@ class Item
 	def look_info
 	end
 
-	def add_info
-	end
-
 end
 
 class Prop < Item
-	def add_info
+	def initialize(options = {})
+		super
 		@hidden = true
 		@can_pickup = false
 	end
@@ -59,7 +56,8 @@ class Food < Item
 
 	attr_accessor :restores
 
-	def add_info
+	def initialize(options = {})
+		super
 		@restores = @options[:restores]
 	end
 
@@ -71,7 +69,8 @@ end
 class Book < Item
 	#attr_accessor :print
 	
-	def add_info
+	def initialize(options = {})
+		super
 		@title = @options[:title]
 		@print = @options[:print]
 	end
@@ -86,7 +85,8 @@ end
 class Weapon < Item
 	attr_accessor :attacks, :regex_attacks, :upgrade
 
-	def add_info
+	def initialize(options = {})
+		super
 		@upgrade = 0
 		@attacks = @options[:attacks] # ex. {uppercut: 5..10, slash: 6..8, attack: 3..7} they all gotta be ranges, even 5..5 workss
 		@regex_attacks = @options[:regex_attacks] # ex. "uppercut|slash|attack"

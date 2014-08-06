@@ -42,7 +42,6 @@ class Person
 		@is_alive = true
 		@bad = false
 		@merchant = false
-		add_info
 	end
 
 	def speak
@@ -63,9 +62,6 @@ class Person
 
 	alias_method :is_alive?, :is_alive
 
-	def add_info
-	end
-
 	def take_damage(amount)
 		@health -= amount
 		die unless is_alive	end
@@ -82,13 +78,15 @@ class Person
 end
 
 class Enemy < Person
-	def add_info
+	def initialize(options = {})
+		super
 		@bad = true
 	end
 end
 
 class Merchant < Person
-	def add_info
+	def initialize(options = {})
+		super
 		@gold = 45
 		@damage = 15..30
 		@talk = @options[:talk] || "Like to shop around a bit, eh?"
