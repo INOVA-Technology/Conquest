@@ -221,7 +221,7 @@ class Player
 	alias_method :completed_quest?, :completed_quest
 
 	def completed_task(task, quest)
-		@quests[quest.to_sym][task.to_sym][:completed]
+		@quests[quest.to_sym].completed?(task)
 	end
 
 	alias_method :completed_task?, :completed_task

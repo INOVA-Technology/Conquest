@@ -34,6 +34,10 @@ class Person
 		@can_pickup = (options[:hidden] || true)
 		@on_talk = options[:on_talk] || {}
 
+		# not yet in use but will be:
+		@on_talk = options[:on_talk] || {} # ex. {task: ..., xp: ..., achievement...}
+		@on_death = options[:on_death]
+
 		# never set in options
 		@is_alive = true
 		@bad = false

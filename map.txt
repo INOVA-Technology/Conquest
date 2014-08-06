@@ -5,8 +5,6 @@
 #                               #
 #  @ = you start here           #
 #  ! = not in room_list.rb yet  #
-#  ^ = up                       #
-#  , = down                     #
 #                               #
 #################################
 
@@ -32,9 +30,9 @@ Map Starts Here:
                                                   +                         +                                   +      
                                             more_trees_2                  forest_4                          mountian_1 
                                                   +                                                             +      
-                                            more_trees_3 ++ path_to_^illage ++ ^illage                      mountian   
+                                            more_trees_3 ++ path_to_village ++ village                      mountian   
                                                                                   +                             +      
-                                                                            forest_by_^illage ++ ^alley ++  mountians  
+                                                                            forest_by_village ++ valley ++  mountians  
 
 
 

@@ -57,8 +57,14 @@ class Quest
 		@tasks[task]
 	end
 
-	def completed
-		@tasks.all? { |_, task| task[:completed] }
+	def completed(task = nil)
+		if task
+			@tasks[task.to_sym][:completed]
+		else
+			@tasks.all? { |_, task| task[:completed] }			
+		end
 	end
+
+	alias_method :completed?, :completed
 
 end

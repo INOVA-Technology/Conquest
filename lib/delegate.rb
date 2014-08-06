@@ -301,12 +301,12 @@ class Delegate
 	end
 
 	def give(item, guy)
-		# Do I have this item?
 		unless item && guy
 			puts "Give who what?"
 			return
 		end
 
+		# Do I have this item?
 		if the_item = @player.items[item.to_sym]
 			# Does this guy even exist? 👻
 			if person = @player.room.get_person(guy)
