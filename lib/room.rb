@@ -96,3 +96,8 @@ class Mountain < Room
 	end
 
 end
+
+# add way for player to drown in here if they dont have a boat or something
+class BodyOfWater < Room
+
+end

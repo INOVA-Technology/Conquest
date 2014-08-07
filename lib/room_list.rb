@@ -169,10 +169,18 @@ module RoomList
 													gold: 10
 											)}),
 										mountains:
-											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west. You hear something in the distance.",
-												paths: { u: :mountain, w: :valley },
+											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west, and east to the lake.\nYou hear something in the distance.",
+												paths: { u: :mountain, e: :lake, w: :valley},
 												has_mountain: true
 												),
+											lake: 
+												BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall east.",
+												paths: { e: :cove, w: :mountains }
+												),
+												cove: 
+													Room.new(name: "Cove behind waterfall", desc: "The lake is to the west.",
+													paths: { w: :lake }
+													),
 											mountain:
 												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
 													paths: { d: :mountains, u: :mountain_1 },

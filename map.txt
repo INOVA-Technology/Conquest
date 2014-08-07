@@ -32,7 +32,7 @@ Map Starts Here:
                                                   +                                                             +      
                                             more_trees_3 ++ path_to_village ++ village                      mountian   
                                                                                   +                             +      
-                                                                            forest_by_village ++ valley ++  mountians  
+                                                                            forest_by_village ++ valley ++  mountians ++ lake ++ cove
 
 
 
