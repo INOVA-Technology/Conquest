@@ -270,11 +270,14 @@ class Player
 	def walk(place)
 		if place == "to mordor"
 			puts "One does not simply walk to Mordor... You need to find the eagles.\nThey will take you to Mordor."
-			false
 		elsif place == "to merge conflictia"
 			:merge_conflictia
-		else
+		elsif @room.path_locked?(place)
+			puts "That room is locked."
+		elsif @room[place.to_sym]
 			@room[place.to_sym]
+		else
+			puts "You can't go that way"
 		end
 	end
 

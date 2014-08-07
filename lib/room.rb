@@ -9,6 +9,7 @@ class Room
 		@items = (options[:items] || {})
 		@people = (options[:people] || {})
 		@task = (options[:task] || {})
+		@locked_paths = (options[:locked_paths] || [])
 		@options = options
 		@visited = false
 	end
@@ -30,6 +31,10 @@ class Room
 			hash[:task] = @task if @task
 		end		
 		hash
+	end
+
+	def path_locked?(path)
+		@locked_paths.include?(path.to_sym)
 	end
 
 	def get_item(item)

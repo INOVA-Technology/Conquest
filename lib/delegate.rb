@@ -215,9 +215,7 @@ class Delegate
 
 	def walk(direction)
 		key = @player.walk(direction)
-		if key.nil?
-			puts "You can't go that way"
-		elsif key
+		if key
 			@player.room = @rooms[key]
 			@player.give_stuff(@player.room.enter)
 		end
@@ -259,8 +257,7 @@ class Delegate
 				puts "You aren't fighting anyone."
 			end
 		else
-			victim = @player.room.get_person(enemy)
-			if victim
+			if victim = @player.room.get_person(enemy)
 				if @enemy
 					if victim.name.downcase != @enemy.name.downcase
 						puts "You are already fighting someone else."
@@ -311,7 +308,7 @@ class Delegate
 		end
 
 		# Do I have this item?
-		if the_item = @player.items[item.to_sym]
+		if the_item = @player.get_item(item)
 			# Does this guy even exist? 👻
 			if person = @player.room.get_person(guy)
 				# awesome, we r not crazy... But does guy want this item?
