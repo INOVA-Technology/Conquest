@@ -18,14 +18,12 @@ class Item
 		@task = options[:task]
 		@item_xp = options[:xp] || 0
 		@cost = options[:cost] || 0
+
+		@on_pickup = options[:on_pickup] || {}
 	end
 
 	def pickup
-		hash = {}
-		hash[:quest] = @options[:starts_quest]
-		hash[:achievement] = @options[:unlocks]
-		hash[:task] = @task if @task
-		hash
+		@on_pickup
 	end
 
 	def name_with_prefix
@@ -73,11 +71,13 @@ class Book < Item
 		super
 		@title = options[:title]
 		@print = options[:print]
+		@on_read = options[:on_read] || {}
 	end
 
 	def read
 		puts @title.yellow
 		puts @print.yellow
+		@on_read
 	end
 
 end
@@ -99,17 +99,19 @@ end
 
 class Tree < Prop
 
+	def initialize(options = {})
+		super
+		@on_climb = options[:on_climb] || {}
+		@message = options[:message]
+	end
+
 	def climb
-		if @options[:on_climb]
-			puts @options[:on_climb]
+		if @message
+			puts @message
 		else
 			puts "You start climbing the tree, but you don't get far before you fall down." # 👻
 		end
-		hash = {}
-		hash[:quest] = @options[:starts_quest]
-		hash[:achievement] = @options[:unlocks]
-		hash[:task] = @task if @task
-		hash
+		@on_climb
 	end
 	
 end

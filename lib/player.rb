@@ -167,7 +167,7 @@ class Player
 		@health += amount
 		@health = @max_health if @health > @max_health
 		diff = @health - old_health
-		puts "+#{diff} health!" if diff > 0
+		puts "+#{diff} health!".cyan if diff > 0
 	end
 
 	def take_damage(amount)

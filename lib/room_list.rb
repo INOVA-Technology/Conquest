@@ -91,8 +91,8 @@ module RoomList
 										paths: { w: :forest_1 },
 										items: {
 											tree: Tree.new(name: "Banyan", prefix: "a", desc: "What a nice, climable tree.", # 👻
-												on_climb: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
-												task: { quest: :main, task: :climb_tree}
+												message: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
+												on_climb: { task: { quest: :main, task: :climb_tree }}
 												)}),
 							forest_2:
 								Room.new(name: "Large forest", desc: "Just some more forest. The forest continues north, east, and south.",
@@ -113,7 +113,7 @@ module RoomList
 									# a peach: 🍑
 									peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach",
 										restores: 5,
-										unlocks: :peach
+										on_pickup: { achievement: :peach }
 										)}),
 					a_path:
 						Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south.",
@@ -145,7 +145,7 @@ module RoomList
 												regex_attacks: "chop|attack"
 												)},
 										people: {
-											gus: Person.new(name: "gus", desc: "He's a poor villager about the age of 56",
+											gus: Person.new(name: "Gus", desc: "He's a poor villager about the age of 56",
 												race: "Human",
 												talk: "People tell me I look like Morgan Freeman."
 												),
@@ -194,8 +194,7 @@ module RoomList
 														scroll: Book.new(name: "Scroll", prefix: "a", desc: "Its some kind of elvish... You can't read it.",
 															title: "Parma od Osto",
 															print: "hirsornë an tululyë an Mordor san polendraith kemen",
-															starts_quest: :mordor,
-															unlocks: :mordor
+															on_pickup: { quest: :mordor, achievement: :mordor }
 															)},
 													people: {
 														randy: Person.new(name: "Randy", desc: "He's just an elf",

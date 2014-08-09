@@ -248,7 +248,10 @@ class Delegate
 
 	def info
 		@player.info
-		@enemy.info if @enemy
+		if @enemy
+			puts
+			@enemy.info
+		end
 	end
 
 	def eat(food)
@@ -258,7 +261,7 @@ class Delegate
 	def read(title)
 		if book = @player.get_item(title)
 			if book.is_a?(Book)
-				book.read
+				@player.give_stuff(book.read)
 			else
 				puts "You can't read that."
 			end
