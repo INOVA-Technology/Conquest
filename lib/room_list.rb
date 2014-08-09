@@ -37,15 +37,15 @@ module RoomList
 									),
 							armory:
 								Room.new(name: "Armory", desc: "They are lots of weapons here.",
-									paths: { s: :castle_main }
+									paths: { s: :castle_main },
+									locked: true
 									),
 							castle_main:
 								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down.", 
 									paths: { n: :armory, s: :hallway, d: :chamber},
-									locked_paths: [:n],
 									items: {
 										key: Item.new(name: "Key", desc: "Will addd this.",
-										unlocks_path: :n)
+										unlocks_path: :armory)
 									}),
 							hallway:
 								Room.new(name: "Hallway", desc: "This castle has a long hallway. There is a door to the west and\na large room north.",

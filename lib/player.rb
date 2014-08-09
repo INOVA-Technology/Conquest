@@ -257,10 +257,10 @@ class Player
 		@items[item.to_sym]
 	end
 
-	def unlock_path(path)
-		if @room.path_locked?(path)
+	def unlock_path(room, path)
+		if room.locked?
 			if key = @items.delete(:key)
-				@room.unlock_path(path)
+				room.unlock
 				puts "Unlocked!"
 				true
 			else
@@ -284,14 +284,11 @@ class Player
 	def walk(place)
 		if place == "to mordor"
 			puts "One does not simply walk to Mordor... You need to find the eagles.\nThey will take you to Mordor."
+			false
 		elsif place == "to merge conflictia"
 			:merge_conflictia
-		elsif @room.path_locked?(place)
-			walk(place) if unlock_path(place)
-		elsif @room[place.to_sym]
-			@room[place.to_sym]
 		else
-			puts "You can't go that way"
+			@room[place.to_sym]
 		end
 	end
 

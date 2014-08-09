@@ -218,9 +218,16 @@ class Delegate
 
 	def walk(direction)
 		key = @player.walk(direction)
-		if key
-			@player.room = @rooms[key]
-			@player.give_stuff(@player.room.enter)
+		if key.nil?
+			puts "You can't go that way"
+		elsif key
+			room = @rooms[key]
+			if room.locked?
+				puts "That room is locked"
+			else
+				@player.room = room
+				@player.give_stuff(@player.room.enter)
+			end
 		end
 	end
 
@@ -359,7 +366,8 @@ class Delegate
 	end
 
 	def unlock_path(path)
-		@player.unlock_path(path)
+		room = @rooms[@player.room[path.to_sym]]
+		@player.unlock_path(room, path)
 	end
 
 	def inspect(item)
