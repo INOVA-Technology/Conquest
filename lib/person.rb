@@ -9,7 +9,6 @@ class Person
 	alias_method :can_pickup?, :can_pickup
 
 	def initialize(options = {})
-		# this seems to be getting cluttered
 
 		# required: 
 		@name = options[:name]
@@ -21,8 +20,6 @@ class Person
 		@talk = (options[:talk] || "#@name doesn't want to talk right now.")
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
-		@xp = (@options[:xp] || 3) # make this small for good guys
-		@gold = (@options[:gold] || 3)
 
 		# not required: 
 		@action = options[:action].to_s.yellow
@@ -32,7 +29,7 @@ class Person
 		# This was left in because some characters will be able to be picked up
 		@can_pickup = (options[:hidden] || true)
 
-		@on_talk = options[:on_talk] || {} # ex. {task: ..., xp: ..., achievement...}
+		@on_talk = options[:on_talk] || {} # ex. {task: ..., xp: ..., achievement: ..., dropped_items: ...}
 		@on_action = options[:on_action] || {}
 		@on_death = options[:on_death] || {}
 		@on_death = {xp: 3, gold: 3}.merge(@on_death)
@@ -45,7 +42,7 @@ class Person
 
 	def speak
 		puts @talk.yellow
-		{achievement: @on_talk[:achievement], task: @on_talk[:task]}
+		@on_talk
 	end
 
 	def do_action
