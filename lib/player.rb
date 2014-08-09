@@ -192,7 +192,7 @@ class Player
 	end
 
 	def pickup(key)
-		if item = item_in_room(key)
+		if item = @room.get_item(key)
 			if item.can_pickup?
 				stuff = @room.pickup_item(key)
 				@items[key.to_sym] = item
@@ -209,7 +209,7 @@ class Player
 		else
 			puts "That item isn't here."
 		end
-		@items[key.to_sym] if item.is_a?(Weapon)
+		item
 	end
 
 	def list_inventory
@@ -302,10 +302,6 @@ class Player
 		else
 			@room[place.to_sym]
 		end
-	end
-
-	def item_in_room(item)
-		@room.items[item.to_sym]
 	end
 
 end

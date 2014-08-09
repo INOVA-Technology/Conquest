@@ -241,8 +241,7 @@ class Delegate
 		elsif @player.get_item(item_name)
 			puts "You already have this."
 		else
-			@player.pickup(item_name)
-			item = @player.get_item(item_name)
+			item = @player.pickup(item_name)
 			equip(item_name) if item.is_a?(Weapon)
 		end
 	end
