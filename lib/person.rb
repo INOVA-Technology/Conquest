@@ -89,8 +89,8 @@ class Merchant < Person
 		super
 		@gold = 45
 		@damage = 15..30
-		@talk = @options[:talk] || "Like to shop around a bit, eh?"
-		@stock = @options[:stock] || {}
+		@talk = options[:talk] || "Like to shop around a bit, eh?"
+		@stock = options[:stock] || {}
 	end
 
 	def store

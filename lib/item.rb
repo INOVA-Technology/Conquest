@@ -58,7 +58,7 @@ class Food < Item
 
 	def initialize(options = {})
 		super
-		@restores = @options[:restores]
+		@restores = options[:restores]
 	end
 
 	def look_info
@@ -71,8 +71,8 @@ class Book < Item
 	
 	def initialize(options = {})
 		super
-		@title = @options[:title]
-		@print = @options[:print]
+		@title = options[:title]
+		@print = options[:print]
 	end
 
 	def read
@@ -88,8 +88,8 @@ class Weapon < Item
 	def initialize(options = {})
 		super
 		@upgrade = 0
-		@attacks = @options[:attacks] # ex. {uppercut: 5..10, slash: 6..8, attack: 3..7} they all gotta be ranges, even 5..5 workss
-		@regex_attacks = @options[:regex_attacks] # ex. "uppercut|slash|attack"
+		@attacks = options[:attacks] # ex. {uppercut: 5..10, slash: 6..8, attack: 3..7} they all gotta be ranges, even 5..5 workss
+		@regex_attacks = options[:regex_attacks] # ex. "uppercut|slash|attack"
 	end
 
 	def look_info

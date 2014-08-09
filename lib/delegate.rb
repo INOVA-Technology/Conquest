@@ -257,7 +257,11 @@ class Delegate
 
 	def read(title)
 		if book = @player.get_item(title)
-			book.read
+			if book.is_a?(Book)
+				book.read
+			else
+				puts "You can't read that."
+			end
 		else
 			puts "You can't read that."
 		end
