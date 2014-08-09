@@ -71,8 +71,8 @@ class Player
 		give_stuff(@achievements[hash[:achievement]].unlock) if hash[:achievement]
 		give_xp(hash[:xp]) if hash[:xp]
 		give_gold(hash[:gold]) if hash[:gold]
-		@room.items.merge(hash[:dropped_items]) if hash[:dropped_items]
-		@items.merge(hash[:items]) if hash[:items]
+		@room.items.merge!(hash[:dropped_items]) if hash[:dropped_items]
+		@items.merge!(hash[:items]) if hash[:items]
 		unless hash[:task].nil? || hash[:task].empty?
 			task = hash[:task]
 			give_stuff(quests[task[:quest]].complete(task[:task]))

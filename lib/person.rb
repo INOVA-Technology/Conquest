@@ -21,7 +21,6 @@ class Person
 		@talk = (options[:talk] || "#@name doesn't want to talk right now.")
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
-		@items = (@options[:items] || {})
 		@xp = (@options[:xp] || 3) # make this small for good guys
 		@gold = (@options[:gold] || 3)
 
@@ -32,11 +31,11 @@ class Person
 		@task = (options[:task] || nil)
 		# This was left in because some characters will be able to be picked up
 		@can_pickup = (options[:hidden] || true)
-		@on_talk = options[:on_talk] || {}
 
-		# not yet in use but will be:
 		@on_talk = options[:on_talk] || {} # ex. {task: ..., xp: ..., achievement...}
-		@on_death = options[:on_death]
+		@on_action = options[:on_action] || {}
+		@on_death = options[:on_death] || {}
+		@on_death = {xp: 3, gold: 3}.merge(@on_death)
 
 		# never set in options
 		@is_alive = true
@@ -49,11 +48,17 @@ class Person
 		{achievement: @on_talk[:achievement], task: @on_talk[:task]}
 	end
 
+	def do_action
+		puts @action
+		@on_action
+	end
+
 	def die
 		good = "You killed #{@name.cyan}. How rude."
 		bad = "You have slain #{@name.red}!"
 		puts (@bad ? bad : good) % @name
-		{xp: @xp, gold: @gold, dropped_items: @items}
+		@on_death
+		# {xp: @xp, gold: @gold, dropped_items: @items}
 	end
 
 	def is_alive
@@ -64,7 +69,8 @@ class Person
 
 	def take_damage(amount)
 		@health -= amount
-		die unless is_alive	end
+		die unless is_alive
+	end
 
 	def attack
 		rand(@damage)
@@ -87,10 +93,11 @@ end
 class Merchant < Person
 	def initialize(options = {})
 		super
-		@gold = 45
+		@on_death[:gold] = 45
 		@damage = 15..30
 		@talk = options[:talk] || "Like to shop around a bit, eh?"
 		@stock = options[:stock] || {}
+		@on_death[:dropped_items] = @stock.merge(@on_death[:dropped_items] || {})
 	end
 
 	def store
@@ -114,6 +121,7 @@ class Merchant < Person
 			if player_gold >= (price = item.cost)
 				player_reward[:items] = @stock.delete(item)
 				player_reward[:gold] = -price
+				@on_death[:gold] += price
 				puts "You bought #{item.name} for #{price} gold"
 			else
 				puts "u ain't got the cash, boy."

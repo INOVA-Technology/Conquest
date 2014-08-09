@@ -118,9 +118,9 @@ class Delegate
 			help
 		when /^(quit|exit)$/
 			quit
-		when /^- (?<code>.+)$/
-			eval($~[:code])
-			save_command = false
+		# when /^- (?<code>.+)$/
+		# 	eval($~[:code])
+		# 	save_command = false
 			# useful for debugging, ALWAYS RE-COMMENT BEFORE A COMMIT
 		when /^\s?$/
 		else
@@ -328,19 +328,12 @@ class Delegate
 
 		# Do I have this item?
 		if the_item = @player.get_item(item)
-			# Does this guy even exist? 👻
 			if person = @player.room.get_person(guy)
-				# awesome, we r not crazy... But does guy want this item?
 				if person.item_wanted == item
-					puts person.action
-					# complete task?
-					if person.task
-						xp = @player.quests[person.task[:quest]].complete(person.task[:task])
-						@player.give_stuff(xp)
-					end
-
+					stuff = person.do_action
+					@player.give_stuff(stuff)
 				else
-					puts "hmmm... it seems #{guy} doesn't know what to do with that..."
+					puts "Hmmm... it seems #{guy} doesn't know what to do with that..." # 👻
 				end
 			else
 				puts "Ummmm... That person doesn't seem to be here."

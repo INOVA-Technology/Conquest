@@ -170,8 +170,7 @@ module RoomList
 													talk: "Give me your milk money.",
 													damage: 3..7,
 													health: 10,
-													xp: 10,
-													gold: 10
+													on_death: { xp: 10, gold: 10 }
 											)}),
 										mountains:
 											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west, and east to the lake.\nYou hear something in the distance.",
@@ -206,8 +205,8 @@ module RoomList
 															action: "Randy reads the scroll and gives you the gist of it: \nIt says to find the eagles to take you to Mordor so you may save the world.\nGo to the forest of mirkwood. The elves there are my kin. They will\nknow where to start.",
 															health: 200,
 															damage: 25..25,
-															xp: 40,
-															task: { quest: :mordor, task: :read_scroll }
+															on_death: {xp: 40},
+															on_action: { task: { quest: :mordor, task: :read_scroll } }
 															)}),
 											mountain_1:
 												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
@@ -256,8 +255,8 @@ module RoomList
 											action: "Finally!  Now I can talk. I love this translator app.  Unfortunately, I am the only\none in Merge Conflictia that still has the brains to use it.  You must save us \nfrom the... #{str_to_hex('Great Merge Conflict')}",
 											damage: 40..70,
 											health: 200,
-											xp: 400,
-											task: { quest: :hex, task: :iphone}
+											on_death: { xp: 400 },
+											on_action: { task: { quest: :hex, task: :iphone } }
 										)},
 									starts_quest: :hex,
 									unlocks: :hex
