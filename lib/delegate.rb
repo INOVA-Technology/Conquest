@@ -203,16 +203,16 @@ class Delegate
 	end
 
 	def help
-		puts
-		puts "Here are some basic commands to help you out: n, e, s, w, ne, nw, ..."
-		puts "You get the point."
-		puts %q[You can also type stuff like "go north", "north", and "go n", "walk north"]
-		puts
-		puts "Also, \"achievements\" views your unlocks achievements"
-		puts "and \"quests\" views the status on your started quests,"
-		puts "but there are more quest to start. But remember, have fun, and explore."
-		puts "Of course, there are more commands, but you'll have to figure those out."
-		puts
+		puts <<-EOT
+Here are some basic commands to help you out: n, e, s, w, ne, nw, ...
+You get the point.
+You can also type stuff like "go north", "north", and "go n", "walk north"
+
+Also, "achievements" views your unlocks achievements
+and "quests" views the status on your started quests,
+but there are more quest to start. But remember, have fun, and explore.
+Of course, there are more commands, but you'll have to figure those out.
+		EOT
 	end
 
 	def time
