@@ -63,7 +63,7 @@ class Quest
 		if task
 			@tasks[task.to_sym][:completed]
 		else
-			@tasks.all? { |_, task| task[:completed] }			
+			@tasks.all? { |_, task| task[:completed] }
 		end
 	end
 

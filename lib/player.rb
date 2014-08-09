@@ -112,7 +112,7 @@ class Player
 			puts "You have no upgrades available."
 			return
 		end
-		if @items.none? { |k, v| v.is_a?(Weapon) }
+		if get_items[:weapons].empty?
 			puts "You have to weapons to upgrade. Upgrade saved for later"
 			return
 		end
@@ -121,7 +121,7 @@ class Player
 
 		puts "Weapons available for upgrade:"
 		
-		get_items[:weapons].each do |_, item|
+		get_items[:weapons].values.each do |item|
 			puts item.name.downcase
 			puts "  Upgrades: +#{item.upgrade} damage"
 		end
@@ -131,7 +131,7 @@ class Player
 	end
 
 	def upgrade_weapon(item_name)
-		if item = @items[item_name.to_sym]
+		if item = get_item(item_name)
 			if item.is_a?(Weapon)
 				value = 3 # this value can change
 				item.upgrade += value
@@ -176,12 +176,16 @@ class Player
 	end
 
 	def eat(food)
-		if the_food = @items[food.to_sym]
-			old_health = @health
-			heal(the_food.restores)
+		if the_food = get_item(food)
+			if the_food.is_a?(Food)
+				old_health = @health
+				heal(the_food.restores)
 
-			the_food.restores -= (@health - old_health)
-			@items.delete(food.to_sym) if the_food.restores == 0
+				the_food.restores -= (@health - old_health)
+				@items.delete(food.to_sym) if the_food.restores == 0
+			else
+				puts "I don't suggest eating that."
+			end
 		else
 			puts "You don't have that food."
 		end
@@ -250,7 +254,8 @@ class Player
 		all: @items,
 		weapons: @items.select { |_, p| p.is_a?(Weapon) },
 		food: @items.select { |_, p| p.is_a?(Food) },
-		keys: @items.select { |_, p| p.is_a?(Key) }
+		keys: @items.select { |_, p| p.is_a?(Key) },
+		books: @items.select { |_, p| p.is_a?(Book) }
 		}
 	end
 
