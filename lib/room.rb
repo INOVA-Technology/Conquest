@@ -54,7 +54,7 @@ class Room
 
 	def living_people(show_hidden = false)
 		all = @people.select { |_, p| p.is_alive }
-		all = all.reject { |_, p| p.hidden }
+		all = all.reject { |_, p| p.hidden } unless show_hidden
 		{
 		all: all,
 		merchants: all.select { |_, p| p.is_a?(Merchant) },

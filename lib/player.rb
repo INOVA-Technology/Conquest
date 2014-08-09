@@ -212,7 +212,7 @@ class Player
 		@items[key.to_sym] if item.is_a?(Weapon)
 	end
 
-	def inventory
+	def list_inventory
 		@items.values.each do |item|
 			puts item.name_with_prefix
 			puts "  Upgrades: +#{item.upgrade} damage" if item.is_a?(Weapon)
@@ -285,12 +285,12 @@ class Player
 
 	def info
 		puts "Health: #@health/#@max_health"
-		puts "XP: #{@xp}/#{@max_xp}"
-		puts "Rank: #{@rank}"
-		puts "Gold: #{@gold}"
+		puts "XP: #@xp/#@max_xp"
+		puts "Rank: #@rank"
+		puts "Gold: #@gold"
 		puts "Equiped Weapon: #{(@weapon ? @weapon.name : "none")}"
 		puts "Inventory:"
-		inventory
+		list_inventory
 	end
 
 	def walk(place)
