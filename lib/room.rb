@@ -1,6 +1,6 @@
 class Room
 
-	attr_reader :items, :options, :people
+	attr_reader :items, :options, :people, :locked_paths
 
 	def initialize(options = {})
 		@name = options[:name]
@@ -33,8 +33,14 @@ class Room
 		hash
 	end
 
-	def path_locked?(path)
+	def path_locked(path)
 		@locked_paths.include?(path.to_sym)
+	end
+
+	alias_method :path_locked?, :path_locked
+
+	def unlock_path(path)
+		@locked_paths.delete(path.to_sym)
 	end
 
 	def get_item(item)

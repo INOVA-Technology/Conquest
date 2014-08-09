@@ -74,6 +74,9 @@ class Delegate
 			list_quests
 		when /^achievements$/
 			list_achievements
+		when /^unlock( (?<path>#{directions}))?$/
+			path = $~[:path]
+			unlock_path(path)
 		when /^climb( (?<tree_name>[a-z ]+))?$/
 			# this regex needs to be cleaned up, just the tree part really
 			# nvm, the whole regex sucks
@@ -224,6 +227,8 @@ class Delegate
 	def pickup(item_name)
 		if item_name.nil?
 			puts "Please supply an object to pickup."
+		elsif @player.get_item(item_name)
+			puts "You already have this."
 		else
 			@player.pickup(item_name)
 			item = @player.get_item(item_name)
@@ -351,6 +356,10 @@ class Delegate
 
 	def unequip
 		@player.weapon = nil
+	end
+
+	def unlock_path(path)
+		@player.unlock_path(path)
 	end
 
 	def inspect(item)

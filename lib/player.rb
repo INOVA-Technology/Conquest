@@ -257,6 +257,20 @@ class Player
 		@items[item.to_sym]
 	end
 
+	def unlock_path(path)
+		if @room.path_locked?(path)
+			if key = @items.delete(:key)
+				@room.unlock_path(path)
+				puts "Unlocked!"
+				true
+			else
+				puts "That room is locked."
+			end
+		else
+			puts "Its not locked."
+		end
+	end
+
 	def info
 		puts "Health: #@health/#@max_health"
 		puts "XP: #{@xp}/#{@max_xp}"
@@ -273,7 +287,7 @@ class Player
 		elsif place == "to merge conflictia"
 			:merge_conflictia
 		elsif @room.path_locked?(place)
-			puts "That room is locked."
+			walk(place) if unlock_path(place)
 		elsif @room[place.to_sym]
 			@room[place.to_sym]
 		else
