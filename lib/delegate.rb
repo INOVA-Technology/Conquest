@@ -75,8 +75,12 @@ class Delegate
 		when /^achievements$/
 			list_achievements
 		when /^unlock( (?<path>#{directions}))?$/
-			path = $~[:path]
-			unlock_path(path)
+			path = convert_input($~[:path])
+			if path
+				unlock_path(path)
+			else
+				puts "usage: unlock direction"
+			end
 		when /^climb( (?<tree_name>[a-z ]+))?$/
 			# this regex needs to be cleaned up, just the tree part really
 			# nvm, the whole regex sucks

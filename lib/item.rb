@@ -114,3 +114,13 @@ class Tree < Prop
 	
 end
 
+class Key < Item
+
+	attr_accessor :unlocks_room
+
+	def initialize(options = {})
+		super
+		@unlocks_room = options[:unlocks_room]
+	end
+
+end

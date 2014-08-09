@@ -249,7 +249,8 @@ class Player
 		{
 		all: @items,
 		weapons: @items.select { |_, p| p.is_a?(Weapon) },
-		food: @items.select { |_, p| p.is_a?(Food) }
+		food: @items.select { |_, p| p.is_a?(Food) },
+		keys: @items.select { |_, p| p.is_a?(Key) }
 		}
 	end
 
@@ -257,14 +258,20 @@ class Player
 		@items[item.to_sym]
 	end
 
+	def remove_item(item)
+		@items.delete(item.to_sym)
+	end
+
+	# merge this into Delegate#unlock_path
 	def unlock_path(room, path)
 		if room.locked?
-			if key = @items.delete(:key)
+			room_sym = @room[path.to_sym]
+			if key = get_items[:keys].select { |_, k| k.unlocks_room == room_sym }.first
+				remove_item(key[0])
 				room.unlock
 				puts "Unlocked!"
-				true
 			else
-				puts "That room is locked."
+				puts "You need a key/you're key doesn't fit."
 			end
 		else
 			puts "Its not locked."
