@@ -53,7 +53,7 @@ module RoomList
 										paths: { e: :hallway },
 										items: { 
 											apple: Food.new(name: "Apple", prefix: "an", desc: "A juicy macintosh apple.",
-												restores: 7)
+												on_eat: { health: 7 })
 										}),
 							castle:
 								Room.new(name: "Castle", desc: "You are in the castle. There's a long hallway to the north, and\nthe courtyard is to the south.",
@@ -112,7 +112,7 @@ module RoomList
 								items: {
 									# a peach: 🍑
 									peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach",
-										restores: 5,
+										on_eat: { health: 5},
 										on_pickup: { achievement: :peach }
 										)}),
 					a_path:
@@ -153,8 +153,8 @@ module RoomList
 												race: "Human",
 												talk: "Let's see what we've got in the trailer for you...",
 												stock: {
-													peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", restores: 5, cost: 5),
-													ice: Food.new(name: "Ice", desc: "Just some ice", restores: 1, cost: 2)
+													peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
+													ice: Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2)
 												})},
 										task: { quest: :main, task: :go_to_village}),
 								forest_by_village:

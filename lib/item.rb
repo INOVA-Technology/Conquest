@@ -9,7 +9,7 @@ class Item
 		# required:
 		@name = options[:name]
 		@description = options[:desc]
-		@prefix = options[:prefix] || "" # not need when the item is plural
+		@prefix = options[:prefix] || "" # not needed when the item is plural
 		@prefix += " " unless @prefix.empty?
 
 		@options = options
@@ -52,15 +52,21 @@ end
 
 class Food < Item
 
-	attr_accessor :restores
+	attr_accessor :restores, :on_eat
 
 	def initialize(options = {})
 		super
-		@restores = options[:restores]
+		# @restores = options[:restores]
+		@on_eat = options[:on_eat] || {}
+		# @on_eat[:health] = @restores
 	end
 
 	def look_info
-		puts "Restores #@restores health."
+		puts "Restores #{@on_eat[:health]} health."
+	end
+
+	def eat
+		@on_eat
 	end
 end
 

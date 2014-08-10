@@ -58,6 +58,7 @@ class Player
 			# :die            if this is true, die will be called
 			# :quest          a symbol that is a key in @quests for the quest to be started
 			# :achievements   a symbol that is a key in @achievements for the achievement to be unlocked
+			# :health         gives health
 			# :xp             the amount of xp the player will get
 			# :gold           the amount of gold the player will get
 			# :dropped_items  any items in this will be merged into @room
@@ -70,6 +71,7 @@ class Player
 		@quests[hash[:quest]].start if hash[:quest]
 		give_stuff(@achievements[hash[:achievement]].unlock) if hash[:achievement]
 		give_xp(hash[:xp]) if hash[:xp]
+		heal(hash[:health]) if hash[:health]
 		give_gold(hash[:gold]) if hash[:gold]
 		@room.items.merge!(hash[:dropped_items]) if hash[:dropped_items]
 		@items.merge!(hash[:items]) if hash[:items]
@@ -183,10 +185,10 @@ class Player
 		if the_food = get_item(food)
 			if the_food.is_a?(Food)
 				old_health = @health
-				heal(the_food.restores)
+				give_stuff(the_food.eat)
 
-				the_food.restores -= (@health - old_health)
-				@items.delete(food.to_sym) if the_food.restores == 0
+				the_food.on_eat[:health] -= (@health - old_health)
+				@items.delete(food.to_sym) if the_food.on_eat[:health] == 0
 			else
 				puts "I don't suggest eating that."
 			end

@@ -116,7 +116,8 @@ class Merchant < Person
 		if sells(item_name)
 			item = @stock[item_name.to_sym]
 			if player_gold >= (price = item.cost)
-				player_reward[:items] = @stock.delete(item)
+				player_reward[:items] = {}
+				player_reward[:items][item_name.to_sym] = @stock.delete(item_name.to_sym)
 				player_reward[:gold] = -price
 				@on_death[:gold] += price
 				puts "You bought #{item.name} for #{price} gold"
