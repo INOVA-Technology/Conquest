@@ -276,7 +276,7 @@ class Player
 				room.unlock
 				puts "Unlocked!"
 			else
-				puts "You need a key/you're key doesn't fit."
+				puts "You need a key that fits the lock."
 			end
 		else
 			puts "Its not locked."

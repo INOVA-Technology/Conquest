@@ -178,12 +178,12 @@ module RoomList
 												has_mountain: true
 												),
 											lake: 
-												BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall east.",
-												paths: { e: :cove, w: :mountains }
+												BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall northeast.",
+												paths: { ne: :cove, w: :mountains }
 												),
 												cove: 
-													Room.new(name: "Cove behind waterfall", desc: "The lake is to the west.",
-													paths: { w: :lake }
+													Room.new(name: "Cove behind waterfall", desc: "The lake is southwest.",
+													paths: { sw: :lake }
 													),
 											mountain:
 												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",

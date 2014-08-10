@@ -20,7 +20,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - add some kind of plot
 * - add installer
 * - add an updater
-* - you can only have one of each item
+* - you can only have one of each item (fix that)
 *   make a better way to save the game
 *   make a working telnet server
 *   improve text output (auto line breaks)

@@ -60,6 +60,14 @@ def convert_input(input)
 		"pickaxe"
 	when "north", "east", "south", "west"
 		input[0]
+	when /north ?east/
+		"ne"
+	when /north ?west/
+		"nw"
+	when /south ?east/
+		"se"
+	when /south ?west/
+		"sw"
 	else
 		input
 	end
