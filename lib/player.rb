@@ -107,6 +107,10 @@ class Player
 		rank_up if @xp >= @max_xp
 	end
 
+	def drop_item(item)
+		@room.items[item.to_sym] = remove_item(item)
+	end
+
 	def upgrade
 		if @upgrades.zero?
 			puts "You have no upgrades available."

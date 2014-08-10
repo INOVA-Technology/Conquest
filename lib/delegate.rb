@@ -25,7 +25,7 @@ class Delegate
 			else
 				puts "#{input.capitalize} where?"
 			end
-		when /^(get|take|pickup|pick up)( (?<item>[a-z ]+))?$/
+		when /^(get|take|pick ?up)( (?<item>[a-z ]+))?$/
 			item = convert_input($~[:item])
 			pickup(item)
 		when /^look( (at )?(?<item>[a-z]+))?$/
@@ -68,6 +68,9 @@ class Delegate
 			else
 				puts "Please supply an weapon to equip."
 			end
+		when /^drop( (?<item>[a-z ]+))?$/
+			item = convert_input($~[:item])
+			drop(item)
 		when /^unequip?$/
 			unequip
 		when /^quests$/
@@ -256,6 +259,10 @@ Of course, there are more commands, but you'll have to figure those out.
 
 	def eat(food)
 		@player.eat(food)
+	end
+
+	def drop(item)
+		@player.drop_item(item)
 	end
 
 	def read(title)
