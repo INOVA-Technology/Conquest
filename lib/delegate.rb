@@ -377,7 +377,17 @@ Of course, there are more commands, but you'll have to figure those out.
 
 	def unlock_path(path)
 		room = @rooms[@player.room[path.to_sym]]
-		@player.unlock_path(room, path)
+		if room.locked?
+			if key = @player.get_items[:keys].select { |_, k| k.unlocks_room == @player.room[path.to_sym] }.first
+				@player.remove_item(key[0])
+				room.unlock
+				puts "Unlocked!"
+			else
+				puts "You need a key that fits the lock."
+			end
+		else
+			puts "Its not locked."
+		end
 	end
 
 	def inspect(item)

@@ -273,22 +273,6 @@ class Player
 		@items.delete(item.to_sym)
 	end
 
-	# merge this into Delegate#unlock_path
-	def unlock_path(room, path)
-		if room.locked?
-			room_sym = @room[path.to_sym]
-			if key = get_items[:keys].select { |_, k| k.unlocks_room == room_sym }.first
-				remove_item(key[0])
-				room.unlock
-				puts "Unlocked!"
-			else
-				puts "You need a key that fits the lock."
-			end
-		else
-			puts "Its not locked."
-		end
-	end
-
 	def info
 		puts "Health: #@health/#@max_health"
 		puts "XP: #@xp/#@max_xp"
