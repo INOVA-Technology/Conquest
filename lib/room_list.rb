@@ -28,6 +28,9 @@ def hex_to_str(hex)
 	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
 end
 
+# this needs to be somewhere:
+# Key.new(name: "Key", desc: "bla", unlocks_room: :armory)
+
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 module RoomList
 	ROOMS = {
@@ -38,12 +41,15 @@ module RoomList
 							armory:
 								Room.new(name: "Armory", desc: "They are lots of weapons here.",
 									paths: { s: :castle_main },
-									locked: true
-									),
+									locked: true,
+									items: {
+										sword: Weapon.new(name: "Sword", desc: "It looks very sharp.",
+											attacks: { attack: 7..11, slash: 9..14 },
+											regex_attacks: "attack|slash"
+									)}),
 							castle_main:
 								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down.", 
-									paths: { n: :armory, s: :hallway, d: :chamber},
-									items: { key: Key.new(name: "Key", desc: "bla", unlocks_room: :armory) }
+									paths: { n: :armory, s: :hallway, d: :chamber}
 									),
 							hallway:
 								Room.new(name: "Hallway", desc: "This castle has a long hallway. There is a door to the west and\na large room north.",
