@@ -58,7 +58,7 @@ def convert_input(input)
 		"mountain"
 	when "axe"
 		"pickaxe"
-	when "north", "east", "south", "west"
+	when "north", "east", "south", "west", "up", "down"
 		input[0]
 	when /north ?east/
 		"ne"

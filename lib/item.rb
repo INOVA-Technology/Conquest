@@ -103,6 +103,18 @@ class Weapon < Item
 	end
 end
 
+class Armour < Item
+	attr_accessor :protects, :type
+
+	def initialize(options = {})
+		super
+		@protects = options[:protects]
+		@type = options[:type]
+		# type must be one of the following: :helmet, :chestplate, :pants, :boots, :shield
+		# but feel free to add other kinds to this list
+	end
+end
+
 class Tree < Prop
 
 	def initialize(options = {})

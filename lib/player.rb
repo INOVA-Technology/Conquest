@@ -1,6 +1,6 @@
 class Player
 
-	attr_accessor :items, :room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold, :achievements, :quests
+	attr_accessor :items, :room, :weapon, :time, :begining_of_time, :name, :upgrades, :total_seconds, :gold, :achievements, :quests, :armour
 	attr_reader :xp, :health, :weapon
 
 	def initialize
@@ -23,6 +23,8 @@ class Player
 
 		@achievements = AchievementList.achievements
 		@quests = QuestList.quests
+
+		@armour = {}
 
 		self
 	end
@@ -222,6 +224,10 @@ class Player
 		@items.values.each do |item|
 			puts item.name_with_prefix
 			puts "  Upgrades: +#{item.upgrade} damage" if item.is_a?(Weapon)
+			if item.is_a?(Armour)
+				puts "  Protects: #{item.protects} damage"
+				puts "  #{(@armour[item.type] == item ? "Equiped" : "Not equiped")}"
+			end
 		end
 	end
 

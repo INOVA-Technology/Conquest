@@ -66,13 +66,17 @@ class Delegate
 			if weapon = convert_input($~[:weapon])
 				equip(weapon)
 			else
-				puts "Please supply an weapon to equip."
+				puts "Please supply an item to equip."
 			end
 		when /^drop( (?<item>[a-z ]+))?$/
 			item = convert_input($~[:item])
 			drop(item)
-		when /^unequip?$/
-			unequip
+		when /^unequip( (?<item>[a-z ]+))??$/
+			if item = convert_input($~[:item])
+				unequip(item)
+			else
+				puts "Please supply an item to unequip."
+			end
 		when /^quests$/
 			list_quests
 		when /^achievements$/
@@ -306,6 +310,7 @@ Of course, there are more commands, but you'll have to figure those out.
 		end
 	end
 
+	# this needs refactoring
 	def attack_enemy(attack)
 		weapon = @player.weapon
 		damage = if weapon
@@ -313,13 +318,17 @@ Of course, there are more commands, but you'll have to figure those out.
 				else
 					@player.smack
 				end
-		attack_phrases =[ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
+		attack_phrases = [ "You just ultimately destroyed the #{@enemy.name} #{"-".red + damage.to_s.red}", "My goodness gracious, that was impressive #{"-".red + damage.to_s.red}", "#{@enemy.name} just ate dirt #{"-".red + damage.to_s.red}" ]
 		puts attack_phrases.rand_choice
 		stuff = @enemy.take_damage(damage)
 
 		_damage = 0
 		if @enemy.is_alive?
 			_damage = @enemy.attack
+			protection = @player.armour.values.reject(&:nil?).map(&:protects).inject(&:+)
+			_damage -= protection if protection
+			_damage = 0 if _damage < 0
+
 			badguy_says = [ "The #{@enemy.name} attacked you! #{"-".red + _damage.to_s.red}", "#{@enemy.name} is on fire  #{"-".red + _damage.to_s.red}", "POW! That hurt.  #{"-".red + _damage.to_s.red}" ]
 			puts badguy_says.rand_choice
 			@player.take_damage(_damage)
@@ -358,11 +367,16 @@ Of course, there are more commands, but you'll have to figure those out.
 		@player.room.look
 	end
 
-	def equip(weapon_name)
-		if weapon = @player.get_item(weapon_name)
-			if weapon.is_a?(Weapon)
-				@player.weapon = weapon
-				puts "#{weapon_name} has been equipped!".cyan
+	# move this to lib/player.rb
+	def equip(item_name)
+		if item = @player.get_item(item_name)
+			if item.is_a?(Weapon)
+				@player.weapon = item
+				puts "#{item_name} has been equipped!".cyan
+			elsif item.is_a?(Armour)
+				armour = item_name
+				@player.armour[item.type] = item
+				puts "#{item_name} has been equipped!".cyan
 			else
 				puts "That's not a weapon, stupid.".red
 			end
@@ -371,8 +385,15 @@ Of course, there are more commands, but you'll have to figure those out.
 		end
 	end
 
-	def unequip
-		@player.weapon = nil
+	# move this to lib/player.rb
+	def unequip(item_name)
+		if item_name == "weapon"
+			@player.weapon = nil
+		elsif @player.armour.keys.include?(item_name.to_sym)
+			@player.armour[item_name.to_sym] = nil
+		else
+			puts "usage: unequip (weapon or piece of armour)"
+		end
 	end
 
 	def unlock_path(path)

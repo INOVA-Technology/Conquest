@@ -31,6 +31,9 @@ end
 # this needs to be somewhere:
 # Key.new(name: "Key", desc: "bla", unlocks_room: :armory)
 
+# and this:
+# 
+
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 module RoomList
 	ROOMS = {
@@ -43,10 +46,12 @@ module RoomList
 									paths: { s: :castle_main },
 									locked: true,
 									items: {
-										sword: Weapon.new(name: "Sword", desc: "It looks very sharp.",
+										sword: Weapon.new(name: "Sword", prefix: "a", desc: "It looks very sharp.",
 											attacks: { attack: 7..11, slash: 9..14 },
 											regex_attacks: "attack|slash"
-									)}),
+										),
+										shield: Armour.new(name: "Shield", prefix: "a", desc: "blablabla", protects: 5, type: :shield)
+								}),
 							castle_main:
 								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down.", 
 									paths: { n: :armory, s: :hallway, d: :chamber}
@@ -150,7 +155,7 @@ module RoomList
 											pickaxe: Weapon.new(name: "Pickaxe", prefix: "a", desc: "Be careful, it looks sharp.",
 												attacks: { chop: 5..8, attack: 5..5 },
 												regex_attacks: "chop|attack"
-												)},
+											)},
 										people: {
 											gus: Person.new(name: "Gus", desc: "He's a poor villager about the age of 56",
 												race: "Human",
