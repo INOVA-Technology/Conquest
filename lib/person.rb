@@ -3,7 +3,7 @@ class Person
 	# its a lot like an item, but I like that it's in a separate file
 	# I'll probably add that in or you can idc
 
-	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold
+	attr_accessor :name, :description, :race, :hidden, :can_pickup, :talk, :action, :item_wanted, :health, :task, :gold, :alt_names
 
 	alias_method :hidden?, :hidden
 	alias_method :can_pickup?, :can_pickup
@@ -20,6 +20,10 @@ class Person
 		@talk = (options[:talk] || "#@name doesn't want to talk right now.")
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
+		@alt_names = options[:alt_names] || []
+		
+		@alt_names << @name.downcase unless @alt_names.include?(@name.downcase)
+
 
 		# not required: 
 		@action = options[:action].to_s.yellow

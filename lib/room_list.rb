@@ -31,11 +31,22 @@ end
 # this needs to be somewhere:
 # Key.new(name: "Key", desc: "bla", unlocks_room: :armory)
 
-# and this:
-# 
-
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 module RoomList
+
+	people = [Person.new(name: "Gus", desc: "He's a poor villager about the age of 56",
+						 race: "Human",
+						 talk: "People tell me I look like Morgan Freeman."),
+			  Merchant.new(name: "Merchant", desc: "He sells food and equipment.",
+						  race: "Human",
+						  talk: "Let's see what we've got in the trailer for you...",
+						  stock: {
+						  	peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
+							ice: Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2)
+						  })
+			]
+	PEOPLE = ObjectManager.new(people)
+
 	ROOMS = {
 							chamber:
 								Room.new(name: "Chamber", desc: "You are underground, below the castle. It's very dark. There is a long\nhallway south, and the castle is back up stairs.",
@@ -156,18 +167,7 @@ module RoomList
 												attacks: { chop: 5..8, attack: 5..5 },
 												regex_attacks: "chop|attack"
 											)},
-										people: {
-											gus: Person.new(name: "Gus", desc: "He's a poor villager about the age of 56",
-												race: "Human",
-												talk: "People tell me I look like Morgan Freeman."
-												),
-											merchant: Merchant.new(name: "Merchant", desc: "He sells food and equipment.",
-												race: "Human",
-												talk: "Let's see what we've got in the trailer for you...",
-												stock: {
-													peach: Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
-													ice: Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2)
-												})},
+										people: [PEOPLE["gus"], PEOPLE["merchant"]],
 										task: { quest: :main, task: :go_to_village}),
 								forest_by_village:
 									Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east",

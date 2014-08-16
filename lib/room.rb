@@ -9,7 +9,7 @@ class Room
 		@description = options[:desc]
 		@paths = (options[:paths] || {})
 		@items = (options[:items] || {})
-		@people = (options[:people] || {})
+		@people = ObjectManager.new(options[:people] || [])
 		@task = (options[:task] || {})
 		@locked = (options[:locked] || false)
 		@options = options
@@ -44,7 +44,7 @@ class Room
 	end
 
 	def get_person(name)
-		person = @people[name.to_sym]
+		person = @people[name]
 		if person
 			(person.is_alive? ? person : nil)
 		else
@@ -53,12 +53,12 @@ class Room
 	end
 
 	def living_people(show_hidden = false)
-		all = @people.select { |_, p| p.is_alive }
-		all = all.reject { |_, p| p.hidden } unless show_hidden
+		all = @people.select(&:is_alive)
+		all = all.reject(&:hidden) unless show_hidden
 		{
 		all: all,
-		merchants: all.select { |_, p| p.is_a?(Merchant) },
-		enemies: all.select { |_, p| p.is_a?(Enemy) }
+		merchants: all.select { |p| p.is_a?(Merchant) },
+		enemies: all.select { |p| p.is_a?(Enemy) }
 		}
 	end
 
@@ -85,7 +85,7 @@ class Room
 		unless living_people[:all].empty?
 
 			puts "People that are here:".magenta
-			living_people[:all].map do |_, people|
+			living_people[:all].map do |people|
 				puts "#{people.name}"
 			end
 		end

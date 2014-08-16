@@ -44,6 +44,7 @@
 require "time"
 require "readline"
 require "stringio"
+# require "yaml"
 
 def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
@@ -80,7 +81,7 @@ def add_command_to_history(input)
 end
 
 require_relative 'lib/colors'
-# require_relative 'lib/object_manager'
+require_relative 'lib/object_manager'
 require_relative 'lib/quest'
 require_relative 'lib/quest_list'
 require_relative 'lib/achievement'
@@ -90,7 +91,7 @@ require_relative 'lib/item'
 require_relative 'lib/room'
 require_relative 'lib/room_list'
 require_relative 'lib/player'
-require_relative 'lib/object_manager'
+# require_relative 'lib/object_manager'
 require_relative 'lib/delegate'
 
 if __FILE__ == $0

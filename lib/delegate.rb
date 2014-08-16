@@ -141,7 +141,7 @@ class Delegate
 					enemy_damage = $~[:enemy_damage].to_i
 					@player.take_damage(player_damage) if @enemy
 					@enemy.take_damage(enemy_damage) if @enemy
-					@enemy = nil unless @enemy.nil?
+					@enemy = nil unless @enemy.is_alive?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
 					@enemy = @player.room.people[enemy.to_sym]
