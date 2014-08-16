@@ -1,6 +1,6 @@
 class Item
 
-	attr_reader :name, :description, :hidden, :can_pickup, :item_xp, :cost
+	attr_reader :name, :description, :hidden, :can_pickup, :item_xp, :cost, :alt_names
 
 	alias_method :can_pickup?, :can_pickup
 	alias_method :hidden?, :hidden
@@ -20,6 +20,9 @@ class Item
 		@cost = options[:cost] || 0
 
 		@on_pickup = options[:on_pickup] || {}
+
+		@alt_names = options[:alt_names] || []
+		@alt_names << @name.downcase unless @alt_names.include?(@name.downcase)
 	end
 
 	def pickup

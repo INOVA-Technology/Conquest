@@ -30,9 +30,9 @@ Map Starts Here:
                                                   +                         +                                   +      
                                             more_trees_2                  forest_4                          mountian_1 
                                                   +                                                             +      
-                                            more_trees_3 ++ path_to_village ++ village                      mountian   
-                                                                                  +                             +      
-                                                                            forest_by_village ++ valley ++  mountians ++ lake ++ cove
+                                            more_trees_3 ++ path_to_village ++ village                      mountian            cove ++ !more_cove
+                                                                                  +                             +             /
+                                                                            forest_by_village ++ valley ++  mountians ++ lake
 
 
 

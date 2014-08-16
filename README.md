@@ -18,6 +18,7 @@ Contributions are appreciated, but please create a new branch before you do so. 
 * - have at least 100 different rooms
 * - add directions like nw
 * - add some kind of plot
+* - add a mermaid into/near the cove
 * - add installer
 * - add an updater
 * - you can only have one of each item (fix that)
