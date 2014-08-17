@@ -140,7 +140,8 @@ class Delegate
 					player_damage = $~[:player_damage].to_i
 					enemy_damage = $~[:enemy_damage].to_i
 					@player.take_damage(player_damage) if @enemy
-					@enemy.take_damage(enemy_damage) if @enemy
+					stuff = @enemy.take_damage(enemy_damage) if @enemy
+					@player.give_stuff(stuff) unless @enemy.is_alive?
 					@enemy = nil unless @enemy.is_alive?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
 					enemy = $~[:enemy]
@@ -400,7 +401,7 @@ Of course, there are more commands, but you'll have to figure those out.
 		room = @rooms[@player.room[path.to_sym]]
 		if room.locked?
 			if key = @player.get_items[:keys].select { |k| k.unlocks_room == @player.room[path.to_sym] }.first
-				@player.remove_item(key[0])
+				@player.remove_item(key)
 				room.unlock
 				puts "Unlocked!"
 			else

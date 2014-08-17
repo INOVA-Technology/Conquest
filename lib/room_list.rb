@@ -28,9 +28,6 @@ def hex_to_str(hex)
 	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
 end
 
-# this needs to be somewhere:
-# Key.new(name: "Key", desc: "bla", unlocks_room: :armory)
-
 # this shouldn't be in 1TBS, it's a weird variant of banner style
 module RoomList
 
@@ -62,7 +59,8 @@ module RoomList
 			attacks: { attack: 22..26, jab: 20..40, demolish: 10..50 },
 			regex_attacks: "attack|jab|demolish"),
 		Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
-		Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2)
+		Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2),
+		Key.new(name: "Key", prefix: "a", desc: "idk", unlocks_room: :armory, alt_names: ["armory key"])
 	])
 
 
@@ -74,7 +72,8 @@ module RoomList
 		Merchant.new(name: "Merchant", desc: "He sells food and equipment.",
 			race: "Human",
 			talk: "Let's see what we've got in the trailer for you...",
-			stock: [ITEMS["peach 2"], ITEMS["ice"]]),
+			stock: [ITEMS["peach 2"], ITEMS["ice"]],
+			health: 300),
 		Person.new(name: "Randy", desc: "He's just an elf",
 			race: "Elf",
 			talk: "I can read elvish. Go figure.",
@@ -104,7 +103,12 @@ module RoomList
 			talk: "Give me your milk money.",
 			damage: 3..7,
 			health: 10,
-			on_death: { xp: 10, gold: 10 })
+			on_death: { xp: 10, gold: 10 }),
+		Person.new(name: "Paula", desc: "I'm a mermaid", race: "mermaid",
+			health: 400,
+			damage: 18..23,
+			on_death: { items: ObjectManager.new([ITEMS["armory key"]]) },
+			alt_names: "mermaid")
 		])
 
 	ROOMS = {
@@ -223,9 +227,13 @@ module RoomList
 												paths: { ne: :cove, w: :mountains }
 												),
 												cove: 
-													Room.new(name: "Cove behind waterfall", desc: "The lake is southwest.",
-													paths: { sw: :lake }
+													Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east.",
+													paths: { sw: :lake, e: :more_cove }
 													),
+												more_cove: 
+													Room.new(name: "Cove", desc: "(add this). Go west. Just do it. (remove that)",
+													paths: { w: :cove },
+													people: [PEOPLE["paula"]]),
 											mountain:
 												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
 													paths: { d: :mountains, u: :mountain_1 },
