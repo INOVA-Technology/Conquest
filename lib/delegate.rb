@@ -139,8 +139,8 @@ class Delegate
 				when /^damage (?<player_damage>\d+) (?<enemy_damage>\d+)\s?$/
 					player_damage = $~[:player_damage].to_i
 					enemy_damage = $~[:enemy_damage].to_i
-					@player.take_damage(player_damage) if @enemy
-					stuff = @enemy.take_damage(enemy_damage) if @enemy
+					@player.take_damage(player_damage)
+					stuff = @enemy.take_damage(enemy_damage)
 					@player.give_stuff(stuff) unless @enemy.is_alive?
 					@enemy = nil unless @enemy.is_alive?
 				when /^enemy (?<enemy>[a-z_]+)\s?$/
