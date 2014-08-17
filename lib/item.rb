@@ -11,18 +11,17 @@ class Item
 		@description = options[:desc]
 		@prefix = options[:prefix] || "" # not needed when the item is plural
 		@prefix += " " unless @prefix.empty?
-
 		@options = options
-		@hidden = options[:hidden] || false
+
+		# not required:
 		@can_pickup = !options[:hidden] || true
-		@task = options[:task]
-		@item_xp = options[:xp] || 0
-		@cost = options[:cost] || 0
-
+		@hidden = options[:hidden] || false
 		@on_pickup = options[:on_pickup] || {}
-
 		@alt_names = options[:alt_names] || []
 		@alt_names << @name.downcase unless @alt_names.include?(@name.downcase)
+
+		# only for merchants:
+		@cost = options[:cost] || 0
 	end
 
 	def pickup

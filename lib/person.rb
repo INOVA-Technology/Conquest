@@ -21,7 +21,6 @@ class Person
 		@health = (options[:health] || 15)
 		@damage = (@options[:damage] || (3..6))
 		@alt_names = options[:alt_names] || []
-		
 		@alt_names << @name.downcase unless @alt_names.include?(@name.downcase)
 
 		# not required: 

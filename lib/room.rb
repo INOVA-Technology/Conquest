@@ -5,14 +5,20 @@ class Room
 	alias_method :locked?, :locked
 
 	def initialize(options = {})
+
+		# required:
 		@name = options[:name]
 		@description = options[:desc]
 		@paths = (options[:paths] || {})
+		@options = options
+		
+		# not required
 		@items = ObjectManager.new(options[:items] || [])
 		@people = ObjectManager.new(options[:people] || [])
 		@task = (options[:task] || {})
 		@locked = (options[:locked] || false)
-		@options = options
+
+		# never set in options:
 		@visited = false
 	end
 
