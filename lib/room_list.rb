@@ -239,7 +239,7 @@ module RoomList
 													paths: { d: :mountains, u: :mountain_1 },
 
 													# the scroll and Randy should be moved to mountain_3 once it exists
-													items: [ITEMS["scroll"]],
+													items: [ITEMS["scroll 1"]],
 													people: [PEOPLE["randy"]]),
 											mountain_1:
 												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",

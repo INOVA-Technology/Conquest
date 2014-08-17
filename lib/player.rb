@@ -207,11 +207,6 @@ class Player
 				@items << item
 
 				give_stuff(stuff)
-
-				if item.item_xp != 0 # 👻
-					give_xp(item.item_xp)
-					# puts "xp +#{item.item_xp}".cyan
-				end
 			else
 				puts "You can't pick that up."
 			end
