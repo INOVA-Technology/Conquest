@@ -135,7 +135,7 @@ class Player
 			puts "  Upgrades: +#{item.upgrade} damage"
 		end
 
-		input = convert_input(prompt("choose a weapon: "))
+		input = prompt("choose a weapon: ")
 		upgrade_weapon(input) unless /^c(ancel)?$/ === input
 	end
 

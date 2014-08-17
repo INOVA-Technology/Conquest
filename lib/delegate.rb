@@ -17,39 +17,39 @@ class Delegate
 		# input will always be converted to lower case before getting here
 		case input
 		when /^(?<direction>(#{directions}))$/
-			direction = convert_input($~[:direction])
+			direction = shorten_path($~[:direction])
 			walk(direction)
 		when /^(go|walk)( (?<direction>#{directions}|to mordor|to merge conflictia))?$/
-			if direction = convert_input($~[:direction])
+			if direction = shorten_path($~[:direction])
 				walk(direction)
 			else
 				puts "#{input.capitalize} where?"
 			end
 		when /^(get|take|pick ?up)( (?<item>[a-z ]+))?$/
-			item = convert_input($~[:item])
+			item = $~[:item]
 			pickup(item)
 		when /^look( (at )?(?<item>[a-z]+))?$/
-			item = convert_input($~[:item])
+			item = $~[:item]
 			item.nil? ? look : inspect(item)
 		when /^(talk|speak)( to)?( (?<guy>[a-z ]+))?$/
-			if guy = convert_input($~[:guy])
+			if guy = $~[:guy]
 				talk(guy)
 			else
 				puts "Who?"
 			end
 		when /^buy( (?<item>[a-z ]+)?)?$/
-			item = convert_input($~[:item])
+			item = $~[:item]
 			if item
 				buy(item)
 			else
 				puts "Buy what?"
 			end
 		when /^(give (?<item>[a-z]+) to (?<guy>[a-z ]+)|give( (?<guy>[a-z]+)?( (?<item>[a-z]+)?)?)?)$/
-			item = convert_input($~[:item])
-			guy = convert_input($~[:guy])
+			item = $~[:item]
+			guy = $~[:guy]
 			give(item, guy)
 		when /^inspect( (?<item>[a-z ]+))?$/
-			if item = convert_input($~[:item])
+			if item = $~[:item]
 				inspect(item)
 			else
 				puts "Please supply an object to inspect."
@@ -57,22 +57,22 @@ class Delegate
 		when /^rub sticks( together)?$/
 			rub_sticks
 		when /^read( (?<book>[a-z ]+))?$/
-			if book = convert_input($~[:book])
+			if book = $~[:book]
 				read(book)
 			else
 				puts "Please supply an book to read."
 			end
 		when /^equip( (?<weapon>[a-z ]+))?$/
-			if weapon = convert_input($~[:weapon])
+			if weapon = $~[:weapon]
 				equip(weapon)
 			else
 				puts "Please supply an item to equip."
 			end
 		when /^drop( (?<item>[a-z ]+))?$/
-			item = convert_input($~[:item])
+			item = $~[:item]
 			drop(item)
 		when /^unequip( (?<item>[a-z ]+))??$/
-			if item = convert_input($~[:item])
+			if item = $~[:item]
 				unequip(item)
 			else
 				puts "Please supply an item to unequip."
@@ -82,7 +82,7 @@ class Delegate
 		when /^achievements$/
 			list_achievements
 		when /^unlock( (?<path>#{directions}))?$/
-			path = convert_input($~[:path])
+			path = shorten_path($~[:path])
 			if path
 				unlock_path(path)
 			else
@@ -96,20 +96,20 @@ class Delegate
 			# doesn't have to be a tree...
 		when /^(?<attack>(#{special_attacks}))( (?<enemy>[a-z ]+)?)?$/
 			attack = $~[:attack].to_sym
-			enemy = convert_input($~[:enemy])
+			enemy = $~[:enemy]
 			fight(enemy, attack)
 			save_command = false
 
 		# this'll run if they don't have a weapon or their weapon doesn't 
 		# have both an attack method and "attack" in the attacks variable
 		when /^attack( (?<enemy>[a-z ]+)?)?$/
-			enemy = convert_input($~[:enemy])
+			enemy = $~[:enemy]
 			fight(enemy, @player.smack)
 			save_command = false
 		when /^(i|inv|inventory|info)$/
 			info
 		when /^eat( (?<food>[a-z ]+)?)?$/
-			if food = convert_input($~[:food])
+			if food = $~[:food]
 				eat(food)
 			else
 				puts "Who?"
@@ -466,7 +466,7 @@ Of course, there are more commands, but you'll have to figure those out.
 	end
 
 	def climb(thing_name)
-		thing_name = convert_input(thing_name)
+		thing_name = thing_name
 		if 🌳 = @player.room.items[:tree]
 			name = 🌳.name.downcase
 			if [nil, "tree"].include?(thing_name)

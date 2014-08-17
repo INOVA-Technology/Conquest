@@ -49,11 +49,9 @@ def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
-def convert_input(input)
+def shorten_path(input)
 	# it's assumed the input is already all lowercase
 	case input
-	when "tall mountain"
-		"mountain"
 	when "north", "east", "south", "west", "up", "down"
 		input[0]
 	when /north ?east/
