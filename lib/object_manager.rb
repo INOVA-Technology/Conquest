@@ -50,3 +50,14 @@ class ObjectManager
 	end
 
 end
+
+# an_object_manager["peach"] would get a peach
+# if there were two peaches, it'd return nil and ask "Which peach?"
+# if there were two, the following lines would pick one:
+#   an_object_manager["peach 1"]
+#   and an_object_manager["peach 2"]
+# 
+# thats pretty much it. It "includes" enumerable to you can use any
+# "reject", "select", "reduce", or other enum methods on it
+#
+
