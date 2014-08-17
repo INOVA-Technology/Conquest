@@ -24,7 +24,6 @@ class Person
 		
 		@alt_names << @name.downcase unless @alt_names.include?(@name.downcase)
 
-
 		# not required: 
 		@action = options[:action].to_s.yellow
 		@item_wanted = options[:item_wanted]
@@ -59,7 +58,6 @@ class Person
 		bad = "You have slain #{@name.red}!"
 		puts (@bad ? bad : good) % @name
 		@on_death
-		# {xp: @xp, gold: @gold, dropped_items: @items}
 	end
 
 	def is_alive
@@ -97,20 +95,20 @@ class Merchant < Person
 		@on_death[:gold] = 45
 		@damage = 15..30
 		@talk = options[:talk] || "Like to shop around a bit, eh?"
-		@stock = options[:stock] || {}
-		@on_death[:dropped_items] = @stock.merge(@on_death[:dropped_items] || {})
+		@stock = ObjectManager.new(options[:stock] || [])
+		@on_death[:dropped_items] = @stock + (@on_death[:dropped_items] || ObjectManager.new([]))
 	end
 
 	def store
 		puts @talk
 		puts "Items for sale:".magenta
-		@stock.values.each do |item|
+		@stock.each do |item|
 			puts "#{item.name}: #{(item.cost.to_s + ' gold').yellow}"
 		end
 	end
 
 	def sells(item)
-		!!@stock[item.to_sym]
+		!!@stock[item]
 	end
 	
 	alias_method :sells?, :sells

@@ -44,7 +44,6 @@
 require "time"
 require "readline"
 require "stringio"
-# require "yaml"
 
 def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
@@ -53,12 +52,8 @@ end
 def convert_input(input)
 	# it's assumed the input is already all lowercase
 	case input
-	when "banyan tree", "banyan"
-		"tree"
 	when "tall mountain"
 		"mountain"
-	when "axe"
-		"pickaxe"
 	when "north", "east", "south", "west", "up", "down"
 		input[0]
 	when /north ?east/

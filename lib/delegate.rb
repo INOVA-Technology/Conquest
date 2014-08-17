@@ -399,7 +399,7 @@ Of course, there are more commands, but you'll have to figure those out.
 	def unlock_path(path)
 		room = @rooms[@player.room[path.to_sym]]
 		if room.locked?
-			if key = @player.get_items[:keys].select { |_, k| k.unlocks_room == @player.room[path.to_sym] }.first
+			if key = @player.get_items[:keys].select { |k| k.unlocks_room == @player.room[path.to_sym] }.first
 				@player.remove_item(key[0])
 				room.unlock
 				puts "Unlocked!"
@@ -439,7 +439,7 @@ Of course, there are more commands, but you'll have to figure those out.
 	def buy(item)
 		merchant = @player.room.living_people[:merchants].first
 		if merchant
-			@player.give_stuff(merchant[1].sell(item, @player.gold))
+			@player.give_stuff(merchant.sell(item, @player.gold))
 		else
 			puts "There is no one to buy from here."
 		end

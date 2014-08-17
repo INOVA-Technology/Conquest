@@ -5,7 +5,7 @@ class Player
 
 	def initialize
 		@upgrades = 0
-		@items = {}
+		@items = ObjectManager.new([])
 		@xp = 10
 		@max_xp = 100
 		@rank = 0
@@ -75,8 +75,9 @@ class Player
 		give_xp(hash[:xp]) if hash[:xp]
 		heal(hash[:health]) if hash[:health]
 		give_gold(hash[:gold]) if hash[:gold]
-		@room.items.merge!(hash[:dropped_items]) if hash[:dropped_items]
-		@items.merge!(hash[:items]) if hash[:items]
+
+		@room.items += hash[:dropped_items] if hash[:dropped_items]
+		@items += hash[:items] if hash[:items]
 		unless hash[:task].nil? || hash[:task].empty?
 			task = hash[:task]
 			give_stuff(quests[task[:quest]].complete(task[:task]))
@@ -203,7 +204,7 @@ class Player
 		if item = @room.get_item(key)
 			if item.can_pickup?
 				stuff = @room.pickup_item(key)
-				@items[key.to_sym] = item
+				@items << item
 
 				give_stuff(stuff)
 
@@ -221,7 +222,7 @@ class Player
 	end
 
 	def list_inventory
-		@items.values.each do |item|
+		@items.each do |item|
 			puts item.name_with_prefix
 			puts "  Upgrades: +#{item.upgrade} damage" if item.is_a?(Weapon)
 			if item.is_a?(Armour)
@@ -264,19 +265,19 @@ class Player
 	def get_items
 		{
 		all: @items,
-		weapons: @items.select { |_, p| p.is_a?(Weapon) },
-		food: @items.select { |_, p| p.is_a?(Food) },
-		keys: @items.select { |_, p| p.is_a?(Key) },
-		books: @items.select { |_, p| p.is_a?(Book) }
+		weapons: @items.select { |p| p.is_a?(Weapon) },
+		food: @items.select { |p| p.is_a?(Food) },
+		keys: @items.select { |p| p.is_a?(Key) },
+		books: @items.select { |p| p.is_a?(Book) }
 		}
 	end
 
 	def get_item(item)
-		@items[item.to_sym]
+		@items[item]
 	end
 
 	def remove_item(item)
-		@items.delete(item.to_sym)
+		@items.delete(item)
 	end
 
 	def info

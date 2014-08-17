@@ -1,6 +1,6 @@
 class Room
 
-	attr_reader :items, :options, :people, :locked
+	attr_accessor :items, :options, :people, :locked
 
 	alias_method :locked?, :locked
 
@@ -8,7 +8,7 @@ class Room
 		@name = options[:name]
 		@description = options[:desc]
 		@paths = (options[:paths] || {})
-		@items = (options[:items] || {})
+		@items = ObjectManager.new(options[:items] || [])
 		@people = ObjectManager.new(options[:people] || [])
 		@task = (options[:task] || {})
 		@locked = (options[:locked] || false)
@@ -40,7 +40,7 @@ class Room
 	end
 
 	def get_item(item)
-		@items[item.to_sym]
+		@items[item]
 	end
 
 	def get_person(name)
@@ -63,7 +63,7 @@ class Room
 	end
 
 	def pickup_item(item)
-		@items.delete(item.to_sym).pickup
+		@items.delete(item).pickup
 	end
 
 	def look
@@ -73,7 +73,7 @@ class Room
 	end
 
 	def list_items
-		visible_items = @items.values.select { |i| !i.hidden? && i.can_pickup? }
+		visible_items = @items.select { |i| !i.hidden? && i.can_pickup? }
 		unless visible_items.empty?
 
 			puts "Items that are here:".magenta

@@ -1,5 +1,7 @@
 class ObjectManager
 
+	attr_accessor :objects
+
 	include Enumerable
 
 	def initialize(objects)
@@ -35,24 +37,16 @@ class ObjectManager
 		@objects
 	end
 
+	def +(other)
+		ObjectManager.new(@objects + other.objects)
+	end
+
+	def <<(other)
+		@objects << other
+	end
+
+	def delete(key)
+		@objects.delete(self[key])
+	end
+
 end
-
-# list = [Item.new(name: "Peach", desc: "just a peach 1", alt_names: ["fruit"]),
-# 		Item.new(name: "Peach", desc: "just a peach 2", alt_names: ["fruit"]),
-# 		Item.new(name: "idk", desc: "idkidkdik"),
-# 		Person.new(name: "Gus", desc: "im gus")]
-
-# items = ObjectManager.new(list)
-# p items["idk"]
-# puts
-# p items["peach"]
-# puts
-# p items["peach 1"]
-# puts
-# p items["peach 2"]
-# puts
-# p items["peach 3"]
-# puts
-# p items["gus"]
-
-# exit
