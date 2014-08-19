@@ -232,8 +232,12 @@ module RoomList
 													),
 												more_cove: 
 													Room.new(name: "Cove", desc: "(add this). Go west. Just do it. (remove that)",
-													paths: { w: :cove },
+													paths: { w: :cove, e: :more_cove_1 },
 													people: [PEOPLE["paula"]]),
+													more_cove_1:
+														Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south", 
+															paths: { w: :more_cove_1 }
+													),
 											mountain:
 												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
 													paths: { d: :mountains, u: :mountain_1 },

@@ -84,7 +84,6 @@ require_relative 'lib/item'
 require_relative 'lib/room'
 require_relative 'lib/room_list'
 require_relative 'lib/player'
-# require_relative 'lib/object_manager'
 require_relative 'lib/delegate'
 
 if __FILE__ == $0
