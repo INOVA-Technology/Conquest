@@ -1,6 +1,6 @@
 class Room
 
-	attr_accessor :items, :options, :people, :locked
+	attr_accessor :items, :options, :people, :locked, :paths
 
 	alias_method :locked?, :locked
 

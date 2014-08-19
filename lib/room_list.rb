@@ -112,171 +112,141 @@ module RoomList
 		])
 
 	ROOMS = {
-							chamber:
-								Room.new(name: "Chamber", desc: "You are underground, below the castle. It's very dark. There is a long\nhallway south, and the castle is back up stairs.",
-									paths: {u: :castle_main}
-									),
-							armory:
-								Room.new(name: "Armory", desc: "They are lots of weapons here.",
-									paths: { s: :castle_main },
-									locked: true,
-									items: [ITEMS["sword 1"], ITEMS["shield 1"]]),
-							castle_main:
-								Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down.", 
-									paths: { n: :armory, s: :hallway, d: :chamber}
-									),
-							hallway:
-								Room.new(name: "Hallway", desc: "This castle has a long hallway. There is a door to the west and\na large room north.",
-									paths: { n: :castle_main, s: :castle, w: :dinning_hall }
-									),
-								dinning_hall:
-									Room.new(name: "Dinning hall", desc: "The dinning hall. There is a door to the east.",
-										paths: { e: :hallway },
-										items: [ITEMS["apple 1"]]),
-							castle:
-								Room.new(name: "Castle", desc: "You are in the castle. There's a long hallway to the north, and\nthe courtyard is to the south.",
-									paths: { n: :hallway, s: :courtyard }
-									),
-							courtyard:
-								Room.new(name: "Castle courtyard", desc: "You are at the castle courtyard. There's a nice fountain in the center.\nThe castle entrance is north. There is a forest south.",
-									paths: { n: :castle, s: :forest
-									}),
-							forest:
-								Room.new(name: "Large forest", desc: "This forest is very dense. There is a nice courtyard north.\nThe forest continues west and south.",
-									paths: { n: :courtyard, s: :forest_1, w: :forest__1 }
-									),
-						forest__1:
-							Room.new(name: "Large forest", desc: "This forest is very nice. You can go north, east and west into\nsome more forest.", 
-								paths: { n: :forest__2, e: :forest, w: :sticks }
-								),
-					sticks:
-						Room.new(name: "Large forest", desc: "This forest is getting boring, but hey, who knows what you'll find here!\nYou can go east.",
-							paths: { e: :forest__1 },
-							items: [ITEMS["sticks"]]),
-						forest__2:
-							Room.new(name: "Large forest", desc: "You are in a large forest. There looks like theres a grand building over\neast, but you can't quite get to it from here. You can go south.",
-								paths: { s: :forest__1 }
-								),
-							forest_1:
-								Room.new(name: "Large forest", desc: "There is a large, magnificent tree east. The forest continues\nnorth and south.",
-									paths: { n: :forest, e: :banyan_tree, s: :forest_2 }
-									),
-								banyan_tree:
-									# http://en.wikipedia.org/wiki/Banyan
-									Room.new(name: "Large banyan tree", desc: "There is a large banyan tree, with many twists and roots going up the tree.\nYou can go west.",
-										paths: { w: :forest_1 },
-										items: [ITEMS["banyan"]]),
-							forest_2:
-								Room.new(name: "Large forest", desc: "Just some more forest. The forest continues north, east, and south.",
-									paths: { n: :forest_1, e: :forest_again, s: :forest_3 }
-									),
-								forest_again:
-									Room.new(name: "Large forest", desc: "TODO: change this description. btw, west.",
-										paths: { w: :forest_2 }
-										),
-							forest_3:
-								Room.new(name: "Large forest", desc: "Dang, how many trees are in this forest? You can go north, south, and west.",
-									paths: { n: :forest_2, s: :forest_4, w: :more_trees }
-									),
-						more_trees:
-							Room.new(name: "Large forest", desc: "You can go east and west.",
-								paths: { e: :forest_3, w: :more_trees_1 },
-								items: [ITEMS["peach 1"]]),
-					a_path:
-						Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south.",
-							paths: { s: :more_trees_1}),
+		chamber:
+			Room.new(name: "Chamber", desc: "You are underground, below the castle. It's very dark. There is a long\nhallway south, and the castle is back up stairs."),
+		armory:
+			Room.new(name: "Armory", desc: "They are lots of weapons here.",
+			locked: true,
+			items: [ITEMS["sword 1"], ITEMS["shield 1"]]),
+		castle_main:
+			Room.new(name: "Main room", desc: "This is the main room of the castle. It needs a better description\nand name. Theres a hallway south, and a small hole going down."),
+		hallway:
+			Room.new(name: "Hallway", desc: "This castle has a long hallway. There is a door to the west and\na large room north."),
+		dinning_hall:
+			Room.new(name: "Dinning hall", desc: "The dinning hall. There is a door to the east.",
+			items: [ITEMS["apple 1"]]),
+		castle:
+			Room.new(name: "Castle", desc: "You are in the castle. There's a long hallway to the north, and\nthe courtyard is to the south."),
+		courtyard:
+			Room.new(name: "Castle courtyard", desc: "You are at the castle courtyard. There's a nice fountain in the center.\nThe castle entrance is north. There is a forest south."),
+		forest:
+			Room.new(name: "Large forest", desc: "This forest is very dense. There is a nice courtyard north.\nThe forest continues west and south."),
+		forest__1:
+			Room.new(name: "Large forest", desc: "This forest is very nice. You can go north, east and west into\nsome more forest."),
+		sticks:
+			Room.new(name: "Large forest", desc: "This forest is getting boring, but hey, who knows what you'll find here!\nYou can go east.",
+			items: [ITEMS["sticks"]]),
+		forest__2:
+			Room.new(name: "Large forest", desc: "You are in a large forest. There looks like theres a grand building over\neast, but you can't quite get to it from here. You can go south."),
+		forest_1:
+			Room.new(name: "Large forest", desc: "There is a large, magnificent tree east. The forest continues\nnorth and south."),
+		banyan_tree:
+			# http://en.wikipedia.org/wiki/Banyan
+			Room.new(name: "Large banyan tree", desc: "There is a large banyan tree, with many twists and roots going up the tree.\nYou can go west.",
+			items: [ITEMS["banyan"]]),
+		forest_2:
+			Room.new(name: "Large forest", desc: "Just some more forest. The forest continues north, east, and south."),
+		forest_again:
+			Room.new(name: "Large forest", desc: "TODO: change this description. btw, west."),
+		forest_3:
+			Room.new(name: "Large forest", desc: "Dang, how many trees are in this forest? You can go north, south, and west."),
+		more_trees:
+			Room.new(name: "Large forest", desc: "You can go east and west.",
+			items: [ITEMS["peach 1"]]),
+		a_path:
+			Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south."),
+		more_trees_1:
+			Room.new(name: "Large forest", desc: "You can go north, east, and south."),
+		more_trees_2:
+			Room.new(name: "Large forest", desc: "You can go north and south."),
+		more_trees_3:
+			Room.new(name: "Large forest", desc: "You can go north and east"),
+		path_to_village:
+			Room.new(name: "Large forest", desc: "Its hard to see because of all these trees, but you think you see a small\nhut to the east. You can also go back west"),
+		village:
+			Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
+			items: [ITEMS["pickaxe 1"]],
+			people: [PEOPLE["gus"], PEOPLE["merchant"]],
+			task: { quest: :main, task: :go_to_village}),
+		forest_by_village:
+			Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east"),
+		valley:
+			Room.new(name: "Valley", desc: "It's a beautiful valley, with some gigantic mountains east, with some\nsnow on the tops. There is a forest to the west",
+			people: [PEOPLE["orc"]]),
+		mountains:
+			Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west, and east to the lake.\nYou hear something in the distance.",
+			has_mountain: true),
+		lake: 
+			BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall northeast."),
+		cove: 
+			Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east."),
+		more_cove: 
+			Room.new(name: "Cove", desc: "(add this). Go west. Just do it. (remove that)",
+			people: [PEOPLE["paula"]]),
+		more_cove_1:
+			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south"),
+		mountain:
+			Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
+			# the scroll and Randy should be moved to mountain_3 once it exists
+			items: [ITEMS["scroll 1"]],
+			people: [PEOPLE["randy"]]),
+		mountain_1:
+			Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
+			people: [PEOPLE["rick"]]),
+		forest_4:
+			Room.new(name: "Large forest", desc: "There is a lot of trees here. It's very shady in this area.\nThe forest continues north."),
+		
+		# HIDDEN PASSAGES BELOW:
+		abyss1:
+			Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You can go south and east"),
+			items: [ITEMS["iphone"]]),
+		abyss2:
+			Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You continue into the never ending abyss. You can go west.")),
+		# eventually there will be a hex translator.
+		merge_conflictia:
+			Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
+			items: [ITEMS["staff"]],
+			people: [PEOPLE["hex"]],
+			starts_quest: :hex,
+			unlocks: :hex)
+	}
 
-					more_trees_1:
-						Room.new(name: "Large forest", desc: "You can go north, east, and south.", 
-							paths: { n: :a_path, e: :more_trees, s: :more_trees_2 }
-							),
-					more_trees_2:
-						Room.new(name: "Large forest", desc: "You can go north and south.",
-							paths: { n: :more_trees_1, s: :more_trees_3 }
-							),
-					more_trees_3:
-						Room.new(name: "Large forest", desc: "You can go north and east",
-							paths: { n: :more_trees_2, e: :path_to_village }
-							),
-							path_to_village:
-								Room.new(name: "Large forest", desc: "Its hard to see because of all these trees, but you think you see a small\nhut to the east. You can also go back west",
-									paths: { e: :village, w: :more_trees_3 }
-									),
-								village:
-									# add an item or 2 here
-									Room.new(name: "Abandoned village", desc: "There are a bunch of huts here, some people must have lived here before.\nThere is some more forest down south. You can go back west into the forest.",
-										paths: { w: :path_to_village, s: :forest_by_village },
-										items: [ITEMS["pickaxe 1"]],
-										people: [PEOPLE["gus"], PEOPLE["merchant"]],
-										task: { quest: :main, task: :go_to_village}),
-								forest_by_village:
-									Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east",
-										paths: { n: :village, e: :valley }
-										),
-									valley:
-										Room.new(name: "Valley", desc: "It's a beautiful valley, with some gigantic mountains east, with some\nsnow on the tops. There is a forest to the west",
-											paths: { e: :mountains, w: :forest_by_village },
-											people: [PEOPLE["orc"]]),
-										mountains:
-											Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west, and east to the lake.\nYou hear something in the distance.",
-												paths: { u: :mountain, e: :lake, w: :valley},
-												has_mountain: true
-												),
-											lake: 
-												BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall northeast.",
-												paths: { ne: :cove, w: :mountains }
-												),
-												cove: 
-													Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east.",
-													paths: { sw: :lake, e: :more_cove }
-													),
-												more_cove: 
-													Room.new(name: "Cove", desc: "(add this). Go west. Just do it. (remove that)",
-													paths: { w: :cove, e: :more_cove_1 },
-													people: [PEOPLE["paula"]]),
-													more_cove_1:
-														Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south", 
-															paths: { w: :more_cove_1 }
-													),
-											mountain:
-												Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
-													paths: { d: :mountains, u: :mountain_1 },
-
-													# the scroll and Randy should be moved to mountain_3 once it exists
-													items: [ITEMS["scroll 1"]],
-													people: [PEOPLE["randy"]]),
-											mountain_1:
-												Mountain.new(name: "Tall mountain", desc: "Climbing this mountain is very tiring. You can continue climbing\nor go back down. Holy Toledo, that sound is very loud... It sounds like... Music...",
-													paths: { d: :mountain },
-													people: [PEOPLE["rick"]]
-													),
-							forest_4:
-								Room.new(name: "Large forest", desc: "There is a lot of trees here. It's very shady in this area.\nThe forest continues north.", 
-									paths: { n: :forest_3 }
-									),
-
-
-
-							# hidden passages below:
-
-							abyss1:
-								Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You can go south and east"),
-									paths: { s: :merge_conflictia, e: :abyss2 },
-									items: [ITEMS["iphone"]]
-								),
-								abyss2:
-									Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You continue into the never ending abyss. You can go west."),
-										paths: { w: :abyss1 }),
-							# eventually there will be a hex translator.
-							merge_conflictia:
-								Room.new(name: "Merge Conflictia", desc: "Welcome to Merge Conflictia, the never ending abyss of raw anger.\nBeyond this point, all descriptions will be in hexadecimal.\nThere is a road to the north.",
-									paths: { n: :abyss1 },
-									items: [ITEMS["staff"]],
-									people: [PEOPLE["hex"]],
-									starts_quest: :hex,
-									unlocks: :hex
-									)
-}
+	ROOMS[:chamber].paths           = { u: :castle_main }
+	ROOMS[:armory].paths            = { s: :castle_main }
+	ROOMS[:castle_main].paths       = { n: :armory, s: :hallway, d: :chamber}
+	ROOMS[:hallway].paths           = { n: :castle_main, s: :castle, w: :dinning_hall }
+	ROOMS[:dinning_hall].paths      = { e: :hallway }
+	ROOMS[:castle].paths            = { n: :hallway, s: :courtyard }
+	ROOMS[:courtyard].paths         = { n: :castle, s: :forest }
+	ROOMS[:forest].paths            = { n: :courtyard, s: :forest_1, w: :forest__1 }
+	ROOMS[:forest__1].paths         = { n: :forest__2, e: :forest, w: :sticks }
+	ROOMS[:sticks].paths            = { e: :forest__1 }
+	ROOMS[:forest__2].paths         = { s: :forest__1 }
+	ROOMS[:forest_1].paths          = { n: :forest, e: :banyan_tree, s: :forest_2 }
+	ROOMS[:banyan_tree].paths       = { w: :forest_1 }
+	ROOMS[:forest_2].paths          = { n: :forest_1, e: :forest_again, s: :forest_3 }
+	ROOMS[:forest_again].paths      = { w: :forest_2 }
+	ROOMS[:forest_3].paths          = { n: :forest_2, s: :forest_4, w: :more_trees }
+	ROOMS[:more_trees].paths        = { e: :forest_3, w: :more_trees_1 }
+	ROOMS[:a_path].paths            = { s: :more_trees_1 }
+	ROOMS[:more_trees_1].paths      = { n: :a_path, e: :more_trees, s: :more_trees_2 }
+	ROOMS[:more_trees_2].paths      = { n: :more_trees_1, s: :more_trees_3 }
+	ROOMS[:more_trees_3].paths      = { n: :more_trees_2, e: :path_to_village }
+	ROOMS[:path_to_village].paths   = { e: :village, w: :more_trees_3 }
+	ROOMS[:village].paths           = { w: :path_to_village, s: :forest_by_village }
+	ROOMS[:forest_by_village].paths = { n: :village, e: :valley }
+	ROOMS[:valley].paths            = { e: :mountains, w: :forest_by_village }
+	ROOMS[:mountains].paths         = { u: :mountain, e: :lake, w: :valley}
+	ROOMS[:lake].paths              = { ne: :cove, w: :mountains }
+	ROOMS[:cove].paths              = { sw: :lake, e: :more_cove }
+	ROOMS[:more_cove].paths         = { w: :cove, e: :more_cove_1 }
+	ROOMS[:more_cove_1].paths       = { w: :more_cove }
+	ROOMS[:mountain].paths          = { d: :mountains, u: :mountain_1 }
+	ROOMS[:mountain_1].paths        = { d: :mountain }
+	ROOMS[:forest_4].paths          = { n: :forest_3 }
+	ROOMS[:abyss1].paths            = { s: :merge_conflictia, e: :abyss2 }
+	ROOMS[:abyss2].paths            = { w: :abyss1 }
+	ROOMS[:merge_conflictia].paths  = { n: :abyss1 }
 
 	def self.rooms
 		ROOMS
