@@ -38,10 +38,10 @@ module RoomList
 		Armour.new(name: "Shield", prefix: "a", desc: "blablabla", protects: 5, type: :shield),
 		Food.new(name: "Apple", prefix: "an", desc: "A juicy macintosh apple.", on_eat: { health: 7 }),
 		Item.new(name: "Sticks", desc: "Just a couple of sticks. They like they are cedar wood."),
-		Tree.new(name: "Banyan", prefix: "a", desc: "What a nice, climable tree.", # 👻
+		Tree.new(name: "Banyan tree", prefix: "a", desc: "What a nice, climable tree.", # 👻
 			message: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
 			on_climb: { task: { quest: :main, task: :climb_tree }},
-			alt_names: ["banyan tree", "tree"]),
+			alt_names: ["banyan", "tree"]),
 		Food.new(name: "Peach", prefix: "a", desc: "A delicious peach",
 			on_eat: { health: 5},
 			on_pickup: { achievement: :peach }),
@@ -244,6 +244,8 @@ module RoomList
 	ROOMS[:mountain].paths          = { d: :mountains, u: :mountain_1 }
 	ROOMS[:mountain_1].paths        = { d: :mountain }
 	ROOMS[:forest_4].paths          = { n: :forest_3 }
+
+	# merge conflictia
 	ROOMS[:abyss1].paths            = { s: :merge_conflictia, e: :abyss2 }
 	ROOMS[:abyss2].paths            = { w: :abyss1 }
 	ROOMS[:merge_conflictia].paths  = { n: :abyss1 }
