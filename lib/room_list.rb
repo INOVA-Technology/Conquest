@@ -108,7 +108,11 @@ module RoomList
 			health: 400,
 			damage: 18..23,
 			on_death: { items: ObjectManager.new([ITEMS["armory key"]]) },
-			alt_names: "mermaid")
+			alt_names: ["mermaid"]),
+		# http://gizmodo.com/swimming-manta-rays-look-like-sci-fi-underwater-space-s-1625948639
+		Person.new(name: "Manta Ray", desc: "What a interesting manta ray...", race: "Manta Ray",
+			talk: "(bubbles)", # this message needs help
+			alt_names: ["manta", "ray"])
 		])
 
 	ROOMS = {
@@ -180,6 +184,9 @@ module RoomList
 			has_mountain: true),
 		lake: 
 			BodyOfWater.new(name: "Lake", desc: "A large lake. There are some mountains west, and\na beautiful waterfall northeast."),
+		under_lake:
+			BodyOfWater.new(name: "Under the lake", desc: "You are swimming under water.",
+			people: [PEOPLE["manta"]]),
 		cove: 
 			Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east."),
 		more_cove: 
@@ -240,7 +247,8 @@ module RoomList
 	ROOMS[:forest_by_village].paths = { n: :village, e: :valley }
 	ROOMS[:valley].paths            = { e: :mountains, w: :forest_by_village }
 	ROOMS[:mountains].paths         = { u: :mountain, e: :lake, w: :valley}
-	ROOMS[:lake].paths              = { ne: :cove, w: :mountains }
+	ROOMS[:lake].paths              = { ne: :cove, w: :mountains, d: :under_lake }
+	ROOMS[:under_lake].paths        = { u: :lake }
 	ROOMS[:cove].paths              = { sw: :lake, e: :more_cove }
 	ROOMS[:more_cove].paths         = { w: :cove, e: :more_cove_1 }
 	ROOMS[:more_cove_1].paths       = { w: :more_cove }
