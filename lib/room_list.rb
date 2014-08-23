@@ -155,6 +155,8 @@ module RoomList
 			items: [ITEMS["peach 1"]]),
 		a_path:
 			Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south."),
+		a_path_1:
+			Room.new(name: "Small path", desc: "This is quite the path. You can go east and west"),
 		more_trees_1:
 			Room.new(name: "Large forest", desc: "You can go north, east, and south."),
 		more_trees_2:
@@ -195,7 +197,7 @@ module RoomList
 			people: [PEOPLE["rick"]]),
 		forest_4:
 			Room.new(name: "Large forest", desc: "There is a lot of trees here. It's very shady in this area.\nThe forest continues north."),
-		
+
 		# HIDDEN PASSAGES BELOW:
 		abyss1:
 			Room.new(name: str_to_hex("Abyss"), desc: str_to_hex("You can go south and east"),
@@ -228,7 +230,8 @@ module RoomList
 	ROOMS[:forest_again].paths      = { w: :forest_2 }
 	ROOMS[:forest_3].paths          = { n: :forest_2, s: :forest_4, w: :more_trees }
 	ROOMS[:more_trees].paths        = { e: :forest_3, w: :more_trees_1 }
-	ROOMS[:a_path].paths            = { s: :more_trees_1 }
+	ROOMS[:a_path].paths            = { s: :more_trees_1, w: :a_path_1 }
+	ROOMS[:a_path_1].paths          = { e: :a_path }
 	ROOMS[:more_trees_1].paths      = { n: :a_path, e: :more_trees, s: :more_trees_2 }
 	ROOMS[:more_trees_2].paths      = { n: :more_trees_1, s: :more_trees_3 }
 	ROOMS[:more_trees_3].paths      = { n: :more_trees_2, e: :path_to_village }
