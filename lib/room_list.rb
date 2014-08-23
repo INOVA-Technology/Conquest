@@ -1,14 +1,7 @@
 # Please update map.txt after adding any rooms. Thank you.
 
-# Also, please order paths by: U, D, N, E, S, W, NE, SE, SW, NW, its clockwise
-# U = up, D = down
-
 # Add a \n if the description gets too long,
 # like if it gets spit up in a terminal width of 75
-
-# And keep it oganized in a way
-# Right now, the indention follows the map directions in a way
-
 
 ############################################
 #                                          #
@@ -38,6 +31,7 @@ module RoomList
 		Armour.new(name: "Shield", prefix: "a", desc: "blablabla", protects: 5, type: :shield),
 		Food.new(name: "Apple", prefix: "an", desc: "A juicy macintosh apple.", on_eat: { health: 7 }),
 		Item.new(name: "Sticks", desc: "Just a couple of sticks. They like they are cedar wood."),
+		# http://en.wikipedia.org/wiki/Banyan
 		Tree.new(name: "Banyan tree", prefix: "a", desc: "What a nice, climable tree.", # 👻
 			message: "You climb up the top of the tree, and see lots of trees and a\ncastle somewhere around north. It looks like there is a small\nvillage some where south east. You climb back down.",
 			on_climb: { task: { quest: :main, task: :climb_tree }},
@@ -145,7 +139,6 @@ module RoomList
 		forest_1:
 			Room.new(name: "Large forest", desc: "There is a large, magnificent tree east. The forest continues\nnorth and south."),
 		banyan_tree:
-			# http://en.wikipedia.org/wiki/Banyan
 			Room.new(name: "Large banyan tree", desc: "There is a large banyan tree, with many twists and roots going up the tree.\nYou can go west.",
 			items: [ITEMS["banyan"]]),
 		forest_2:
@@ -190,7 +183,7 @@ module RoomList
 		cove: 
 			Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east."),
 		more_cove: 
-			Room.new(name: "Cove", desc: "(add this). Go west. Just do it. (remove that)",
+			Room.new(name: "Cove", desc: "(add this). Go west. Just do it. Or east (remove that)",
 			people: [PEOPLE["paula"]]),
 		more_cove_1:
 			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south"),
