@@ -151,7 +151,7 @@ module RoomList
 			Room.new(name: "Large forest", desc: "You can go east and west.",
 			items: [ITEMS["peach 1"]]),
 		a_path:
-			Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west. You can go west and south."),
+			Room.new(name: "Small path", desc: "You are on a small path. It looks like you can see a light over west.\nYou can go west and south."),
 		a_path_1:
 			Room.new(name: "Small path", desc: "This is quite the path. You can go east and west"),
 		more_trees_1:
