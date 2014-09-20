@@ -14,11 +14,11 @@
 
 # helps with the merge conflictia area
 def str_to_hex(str)
-	str.chars.map { |c| c.ord.to_s(16) } * " "
+	str.unpack("H*").first
 end
 
 def hex_to_str(hex)
-	hex.split(" ").each {|n| print n.to_i(16).chr }; puts
+	[hex].pack("H*")
 end
 
 # this shouldn't be in 1TBS, it's a weird variant of banner style
