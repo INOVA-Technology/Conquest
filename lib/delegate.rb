@@ -428,7 +428,7 @@ Of course, there are more commands, but you'll have to figure those out.
 	def talk(guy)
 		if dude = @player.room.get_person(guy)
 			if dude.is_a?(Merchant)
-				dude.store
+				dude.store(@player.gold)
 			else
 				@player.give_stuff(dude.speak)
 			end

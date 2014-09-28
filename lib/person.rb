@@ -98,12 +98,14 @@ class Merchant < Person
 		@on_death[:dropped_items] = @stock + (@on_death[:dropped_items] || ObjectManager.new([]))
 	end
 
-	def store
+	def store(goldylocks)
 		puts @talk
 		puts "Items for sale:".magenta
 		@stock.each do |item|
 			puts "#{item.name}: #{(item.cost.to_s + ' gold').yellow}"
 		end
+		puts "\n"
+		puts "Your gold: #{goldylocks}"
 	end
 
 	def sells(item)
