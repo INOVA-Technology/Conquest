@@ -42,7 +42,7 @@ module RoomList
 		Weapon.new(name: "Pickaxe", prefix: "a", desc: "Be careful, it looks sharp.",
 			attacks: { chop: 5..8, attack: 5..5 },
 			regex_attacks: "chop|attack",
-			alt_names: ["axe"]),
+			alt_names: ["pick"]),
 		Book.new(name: "Scroll", prefix: "a", desc: "Its some kind of elvish... You can't read it.",
 			title: "Parma od Osto",
 			print: "hirsornë an tululyë an Mordor san polendraith kemen",

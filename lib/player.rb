@@ -96,7 +96,12 @@ class Player
 	def give_gold(amount)
 		old = @gold
 		@gold += amount
-		puts "+#{amount} gold!".cyan unless old == @gold
+		if amount >= 0
+			puts "+#{amount} gold!".cyan unless old == @gold
+		else
+			puts "#{amount} gold!".cyan unless old == @gold
+		end
+		
 		give_xp(@achievements[:banker].unlock) if @gold >= 500
 	end
 
