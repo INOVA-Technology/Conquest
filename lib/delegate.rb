@@ -387,12 +387,11 @@ Of course, there are more commands, but you'll have to figure those out.
 	end
 
 	# move this to lib/player.rb
-	def unequip(item_name)		
+	def unequip(item_name)
 		if item_name == "weapon"
 			@player.weapon = nil
-		elsif item_name.downcase == @player.weapon.name.downcase
-			puts "test"
-			#@player.weapon = nil     This crashes for some reason
+		elsif @player.weapon && item_name.downcase == @player.weapon.name.downcase
+			@player.weapon = nil
 		elsif @player.armour.keys.include?(item_name.to_sym)
 			@player.armour[item_name.to_sym] = nil
 		else
