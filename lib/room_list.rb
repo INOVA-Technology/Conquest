@@ -54,7 +54,8 @@ module RoomList
 			regex_attacks: "attack|jab|demolish"),
 		Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
 		Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2),
-		Key.new(name: "Key", prefix: "a", desc: "idk", unlocks_room: :armory, alt_names: ["armory key"])
+		Key.new(name: "Key", prefix: "a", desc: "idk", unlocks_room: :armory, alt_names: ["armory key"]),
+		Ship.new(name: "The Holy Ship", prefix: "", desc: "They don't call it Holy for nuttin'. It's a great starter ship", cost: 1000)
 	])
 
 
@@ -106,7 +107,15 @@ module RoomList
 		# http://gizmodo.com/swimming-manta-rays-look-like-sci-fi-underwater-space-s-1625948639
 		Person.new(name: "Manta Ray", desc: "What a interesting manta ray...", race: "Manta Ray",
 			talk: "(bubbles)", # this message needs help
-			alt_names: ["manta", "ray"])
+			alt_names: ["manta", "ray"]),
+		Merchant.new(name: "Ship Salesman", desc: "I sell ships and I lift weights, big weights.",
+			race: "Icelandic Human",
+			talk: "I don't talk, but money does. I take cash only.",
+			stock: [ITEMS["The Holy Ship"]],
+			health: 200,
+			damage: 40..50,
+			on_death: { xp: 50, gold: 4000 },
+			alt_names: ["Cornelius"]),
 		])
 
 	ROOMS = {
@@ -187,6 +196,9 @@ module RoomList
 			people: [PEOPLE["paula"]]),
 		more_cove_1:
 			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south"),
+		beach:
+			Room.new(name: "Beach", desc: "Oh! Lookie there! Its a beach!",
+				people: [PEOPLE["Ship Salesman"]]),
 		mountain:
 			Mountain.new(name: "Tall mountain", desc: "This mountain is very steep. You can continue climbing or go back down.\nThe sound has gotten louder.",
 			# the scroll and Randy should be moved to mountain_3 once it exists
@@ -244,7 +256,8 @@ module RoomList
 	ROOMS[:under_lake].paths        = { u: :lake }
 	ROOMS[:cove].paths              = { sw: :lake, e: :more_cove }
 	ROOMS[:more_cove].paths         = { w: :cove, e: :more_cove_1 }
-	ROOMS[:more_cove_1].paths       = { w: :more_cove }
+	ROOMS[:more_cove_1].paths       = { w: :more_cove, e: :beach }
+	ROOMS[:beach].paths				= { w: :more_cove_1 }
 	ROOMS[:mountain].paths          = { d: :mountains, u: :mountain_1 }
 	ROOMS[:mountain_1].paths        = { d: :mountain }
 	ROOMS[:forest_4].paths          = { n: :forest_3 }

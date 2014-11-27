@@ -77,7 +77,7 @@ class Person
 	def info
 		puts "#@name's info:"
 		puts "Health: #@health"
-		puts "Race: #@name"
+		puts "Race: #@race"
 	end
 end
 
@@ -99,7 +99,7 @@ class Merchant < Person
 	end
 
 	def store(goldylocks)
-		puts @talk
+		puts @talk.yellow
 		puts "Items for sale:".magenta
 		@stock.each do |item|
 			puts "#{item.name}: #{(item.cost.to_s + ' gold').yellow}"

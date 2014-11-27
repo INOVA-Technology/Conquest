@@ -146,3 +146,7 @@ class Key < Item
 	end
 
 end
+
+class Ship < Item
+	
+end
