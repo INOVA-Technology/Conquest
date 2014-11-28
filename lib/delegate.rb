@@ -121,6 +121,8 @@ class Delegate
 			mine
 		when /^time$/
 			time
+		when /^supercalifragilisticexpialidocious$/
+			@player.give_stuff(@player.achievements[:commitment].unlock)
 		when /^(h|help|\?)$/
 			help
 		when /^(quit|exit)$/

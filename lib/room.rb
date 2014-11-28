@@ -27,7 +27,7 @@ class Room
 	end
 
 	def enter
-		puts @name.cyan
+		puts @name.bold.cyan
 		hash = {}
 		unless @visited
 			puts @description

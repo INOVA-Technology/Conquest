@@ -149,4 +149,10 @@ end
 
 class Ship < Item
 	
+	def initialize(options = {})
+		super
+		@speed = options[:speed]
+		@hp = options[:hp] # Hit Points or Health Points.
+	end
+	
 end

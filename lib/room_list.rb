@@ -55,7 +55,10 @@ module RoomList
 		Food.new(name: "Peach", prefix: "a", desc: "A delicious peach", on_eat: { health: 5} , cost: 5),
 		Food.new(name: "Ice", desc: "Just some ice", on_eat: { health: 1} , cost: 2),
 		Key.new(name: "Key", prefix: "a", desc: "idk", unlocks_room: :armory, alt_names: ["armory key"]),
-		Ship.new(name: "The Holy Ship", prefix: "", desc: "They don't call it Holy for nuttin'. It's a great starter ship", cost: 1000)
+		Ship.new(name: "The Holy Ship", prefix: "", desc: "They don't call it Holy for nuttin'. It's a great starter ship", 
+			speed: 20,
+			hp: 100,
+			cost: 1000)
 	])
 
 
@@ -114,7 +117,7 @@ module RoomList
 			stock: [ITEMS["The Holy Ship"]],
 			health: 200,
 			damage: 40..50,
-			on_death: { xp: 50, gold: 4000 },
+			on_death: { xp: 50, gold: 4000, items: ObjectManager.new([ITEMS["The Holy Ship"]]) },
 			alt_names: ["Cornelius"]),
 		])
 
@@ -195,7 +198,7 @@ module RoomList
 			Room.new(name: "Cove", desc: "(add this). Go west. Just do it. Or east (remove that)",
 			people: [PEOPLE["paula"]]),
 		more_cove_1:
-			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south"),
+			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south. There is also a beach to the east."),
 		beach:
 			Room.new(name: "Beach", desc: "Oh! Lookie there! Its a beach!",
 				people: [PEOPLE["Ship Salesman"]]),
