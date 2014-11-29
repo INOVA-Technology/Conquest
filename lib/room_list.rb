@@ -117,8 +117,8 @@ module RoomList
 			stock: [ITEMS["The Holy Ship"]],
 			health: 200,
 			damage: 40..50,
-			on_death: { xp: 50, gold: 4000, items: ObjectManager.new([ITEMS["The Holy Ship"]]) },
-			alt_names: ["Cornelius"]),
+			on_death: { xp: 50, gold: 4000 },
+			alt_names: ["Cornelius", "salesman"])
 		])
 
 	ROOMS = {
@@ -195,10 +195,10 @@ module RoomList
 		cove: 
 			Room.new(name: "Cove behind waterfall", desc: "The lake is southwest, and theres more cove east."),
 		more_cove: 
-			Room.new(name: "Cove", desc: "(add this). Go west. Just do it. Or east (remove that)",
+			Room.new(name: "Cove", desc: "You can return west or continue on eastward.",
 			people: [PEOPLE["paula"]]),
 		more_cove_1:
-			Room.new(name: "3 way intersection in cove", desc: "You can go west, north, and south. There is also a beach to the east."),
+			Room.new(name: "4 way intersection in cove", desc: "You can go west, north, and south. There is also a beach to the east."),
 		beach:
 			Room.new(name: "Beach", desc: "Oh! Lookie there! Its a beach!",
 				people: [PEOPLE["Ship Salesman"]]),
