@@ -135,7 +135,7 @@ class Player
 
 		puts "Weapons available for upgrade:"
 		
-		get_items[:weapons].values.each do |item|
+		get_items[:weapons].each do |item|
 			puts item.name.downcase
 			puts "  Upgrades: +#{item.upgrade} damage"
 		end

@@ -182,7 +182,7 @@ module RoomList
 		forest_by_village:
 			Room.new(name: "Large forest", desc: "Geez more forest. The village is north, and there is a valley east"),
 		valley:
-			Room.new(name: "Valley", desc: "It's a beautiful valley, with some gigantic mountains east, with some\nsnow on the tops. There is a forest to the west",
+			Room.new(name: "Valley", desc: "It's a beautiful valley, with some gigantic mountains to the east, with some\nsnow on the tops. There is a forest to the west",
 			people: [PEOPLE["orc"]]),
 		mountains:
 			Room.new(name: "Mountains", desc: "There are many tall mountains with snow on the tops. It looks like some one\nis up there. You can go back west, and east to the lake.\nYou hear something in the distance.",

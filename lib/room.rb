@@ -73,7 +73,7 @@ class Room
 	end
 
 	def look
-		puts @name.cyan
+		puts @name.bold.cyan
 		puts @description
 		list_items
 	end
